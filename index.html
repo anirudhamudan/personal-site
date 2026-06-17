@@ -3,7 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
   <title>Anirudh Amudan</title>
+  <script>
+    (function() {
+      var saved = localStorage.getItem('theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
   <meta name="description" content="Product Manager & Builder. Based in Bengaluru." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://anirudhamudan.com" />
@@ -34,6 +44,17 @@
       --pad-x:       2rem;
     }
 
+    /* ─── Dark mode tokens ───────────────────────────────────── */
+    [data-theme="dark"] {
+      --bg:         #161614;
+      --text:       #E8E4DF;
+      --text-muted: #999490;
+      --text-faint: #555250;
+      --border:     #272522;
+      --divider:    #3A3733;
+      --accent:     #4DB37A;
+    }
+
     /* ─── Reset ──────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { font-size: 16px; -webkit-font-smoothing: antialiased; }
@@ -45,6 +66,11 @@
       font-weight: 400;
       line-height: 1.65;
       min-height: 100vh;
+    }
+
+    body.theme-ready,
+    body.theme-ready * {
+      transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease !important;
     }
 
     /* ─── Header ─────────────────────────────────────────────── */
@@ -114,7 +140,7 @@
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #444444;
+      color: var(--text-muted);
       margin-bottom: 1.5rem;
     }
 
@@ -384,7 +410,7 @@
 
     .quote-attr {
       font-size: 11px;
-      color: #777777;
+      color: var(--text-faint);
       letter-spacing: 0.1em;
       text-transform: uppercase;
       text-align: left;
@@ -480,7 +506,7 @@
       :root { --pad-x: 1.25rem; }
       .col-year { width: 48px; }
       .work-company-desc { display: none; }
-      .work-mobile-desc { display: block; font-size: 13px; font-style: italic; color: #888888; margin-bottom: 0.75rem; }
+      .work-mobile-desc { display: block; font-size: 13px; font-style: italic; color: var(--text-faint); margin-bottom: 0.75rem; }
       .year-full { display: none; }
       .year-short { display: inline; }
     }
@@ -492,6 +518,44 @@
     @media (prefers-reduced-motion: reduce) {
       .quote-body { transition: none; }
     }
+
+    /* ─── Dark mode overrides ────────────────────────────────── */
+    [data-theme="dark"] footer {
+      background-image: radial-gradient(circle, #2D2A27 1px, transparent 1px);
+    }
+
+    [data-theme="dark"] .work-row:hover {
+      background: rgba(255,255,255,0.04);
+    }
+
+    /* ─── Theme toggle ───────────────────────────────────────── */
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      background: var(--border);
+      border: none;
+      border-radius: 20px;
+      padding: 3px;
+      gap: 2px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .theme-opt {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      color: var(--text-faint);
+    }
+
+    .theme-opt.active {
+      background: var(--bg);
+      color: var(--text);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    }
   </style>
 </head>
 <body>
@@ -501,6 +565,14 @@
     <div class="header-inner">
       <a class="header-name" id="header-name" href="/">Anirudh Amudan</a>
       <nav class="header-nav">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <span class="theme-opt" data-mode="light">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          </span>
+          <span class="theme-opt" data-mode="dark">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </span>
+        </button>
       </nav>
     </div>
   </header>
@@ -740,6 +812,59 @@
       if (!reducedMotion) {
         resetTimer();
       }
+    })();
+
+    // ── Theme toggle ──────────────────────────────────────────
+    (() => {
+      const btn  = document.getElementById('theme-toggle');
+      const root = document.documentElement;
+
+      const getTheme = () => root.getAttribute('data-theme') || 'light';
+
+      const updateToggle = (theme) => {
+        btn.querySelectorAll('.theme-opt').forEach(opt => {
+          opt.classList.toggle('active', opt.dataset.mode === theme);
+        });
+      };
+
+      const playSound = (toDark) => {
+        try {
+          const ctx  = new (window.AudioContext || window.webkitAudioContext)();
+          const osc  = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(toDark ? 880 : 440, ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(toDark ? 440 : 880, ctx.currentTime + 0.12);
+          gain.gain.setValueAtTime(0.07, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18);
+          osc.start(ctx.currentTime);
+          osc.stop(ctx.currentTime + 0.18);
+        } catch(e) {}
+      };
+
+      const setTheme = (theme, sound = false) => {
+        root.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        updateToggle(theme);
+        if (sound) playSound(theme === 'dark');
+      };
+
+      updateToggle(getTheme());
+
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        if (!localStorage.getItem('theme')) setTheme(e.matches ? 'dark' : 'light');
+      });
+
+      btn.addEventListener('click', () => {
+        document.body.classList.add('theme-ready');
+        setTheme(getTheme() === 'dark' ? 'light' : 'dark', true);
+      });
+
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        document.body.classList.add('theme-ready');
+      }));
     })();
 
     // ── Experience accordion (single open at a time) ──────────
