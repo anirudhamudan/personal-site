@@ -4,32 +4,32 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Anirudh Amudan</title>
+  <meta name="description" content="Growth PM at Leap Scholar. I work on how students find us and take their first step toward studying abroad." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://anirudhamudan.com" />
+  <meta property="og:title" content="Anirudh Amudan" />
+  <meta property="og:description" content="Growth PM at Leap Scholar. I work on how students find us and take their first step toward studying abroad." />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Anirudh Amudan" />
+  <meta name="twitter:description" content="Growth PM at Leap Scholar. I work on how students find us and take their first step toward studying abroad." />
   <link rel="icon" type="image/jpeg" href="Profile%20Picture.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
 
   <style>
     /* ─── Tokens ─────────────────────────────────────────────── */
     :root {
-      --bg:          #FAFAFA;
-      --text:        #1A1A1A;
-      --text-muted:  #6B6B6B;
-      --text-faint:  #ABABAB;
-      --border:      #E8E8E8;
-      --accent:      #C0472A;
-      --font:        'Inter', system-ui, sans-serif;
-      --max-w:       720px;
+      --bg:          #FAF8F5;
+      --text:        #1C1C1C;
+      --text-muted:  #444444;
+      --text-faint:  #AAAAAA;
+      --border:      #E6E2DC;
+      --divider:     #B8B2AB;
+      --accent:      #2A7C5C;
+      --font:        'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --max-w:       680px;
       --pad-x:       2rem;
-    }
-
-    body.dark {
-      --bg:          #0F0F0F;
-      --text:        #EFEFEF;
-      --text-muted:  #A0A0A0;
-      --text-faint:  #555555;
-      --border:      #262626;
-      --accent:      #D4604A;
     }
 
     /* ─── Reset ──────────────────────────────────────────────── */
@@ -43,7 +43,6 @@
       font-weight: 400;
       line-height: 1.65;
       min-height: 100vh;
-      transition: background 0.2s ease, color 0.2s ease;
     }
 
     /* ─── Header ─────────────────────────────────────────────── */
@@ -53,7 +52,6 @@
       z-index: 100;
       background: var(--bg);
       border-bottom: 0.5px solid var(--border);
-      transition: background 0.2s ease;
     }
 
     .header-inner {
@@ -74,36 +72,25 @@
       text-decoration: none;
     }
 
-    .mode-toggle {
+    .header-nav {
       display: flex;
       align-items: center;
-      border: 0.5px solid var(--border);
-      border-radius: 4px;
-      overflow: hidden;
+      gap: 1.75rem;
     }
 
-    .mode-btn {
-      font-family: var(--font);
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.3rem 0.75rem;
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: var(--text-faint);
-      transition: background 0.15s ease, color 0.15s ease;
+    .header-nav a {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 0 0.15rem;
     }
 
-    .mode-btn + .mode-btn {
-      border-left: 0.5px solid var(--border);
-    }
-
-    .mode-btn.active {
-      background: var(--text);
-      color: var(--bg);
-    }
+    .header-nav a:hover { color: var(--text); }
 
     /* ─── Layout ─────────────────────────────────────────────── */
     .container {
@@ -112,40 +99,33 @@
       padding: 0 var(--pad-x);
     }
 
-    section {
-      padding: 2.75rem 0;
-    }
+    section { padding: 2rem 0 1.5rem; }
 
     .divider {
       border: none;
-      border-top: 0.5px solid var(--border);
+      border-top: 0.5px solid var(--divider);
     }
 
     /* ─── Section labels ─────────────────────────────────────── */
     .label {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.14em;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--text-faint);
+      color: #444444;
       margin-bottom: 1.5rem;
     }
 
     /* ─── Hero ───────────────────────────────────────────────── */
-    .hero {
-      padding: 3.5rem 0 2.75rem;
-    }
+    .hero { padding: 3.75rem 0 2.75rem; }
 
     .hero-photo {
-      width: 96px;
-      height: 96px;
+      width: 88px;
+      height: 88px;
       border-radius: 50%;
       background: var(--border);
       overflow: hidden;
       margin-bottom: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .hero-photo img {
@@ -154,49 +134,30 @@
       object-fit: cover;
     }
 
-    .hero-photo-placeholder {
-      font-size: 10px;
-      color: var(--text-faint);
-      letter-spacing: 0.05em;
-    }
-
     .hero-heading {
-      font-size: clamp(1.6rem, 3vw, 2rem);
+      font-size: clamp(1.6rem, 3.5vw, 2rem);
       font-weight: 600;
       color: var(--text);
-      line-height: 1.2;
-      letter-spacing: -0.025em;
-      margin-bottom: 0.6rem;
-    }
-
-    .hero-heading .amp {
-      color: var(--accent);
-      font-weight: 500;
-    }
-
-    .hero-subheading {
-      font-size: clamp(1.05rem, 2.5vw, 1.3rem);
-      font-weight: 500;
-      color: var(--text);
-      line-height: 1.35;
-      letter-spacing: -0.01em;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
       margin-bottom: 1.5rem;
+    }
+
+    .hero-heading .highlight {
+      color: var(--accent);
     }
 
     .hero-bio {
       display: flex;
       flex-direction: column;
-      gap: 0.85rem;
+      gap: 1.25rem;
+      margin-bottom: 0.75rem;
     }
 
     .hero-bio p {
-      font-size: 15px;
-      color: #444444;
-      line-height: 1.85;
-    }
-
-    body.dark .hero-bio p {
-      color: #BBBBBB;
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.75;
     }
 
     .hero-bio a {
@@ -205,15 +166,19 @@
       text-underline-offset: 3px;
       text-decoration-color: var(--border);
       transition: text-decoration-color 0.15s ease;
+      padding: 0.25rem 0;
     }
 
-    .hero-bio a:hover {
-      text-decoration-color: var(--text-muted);
+    .hero-bio a:hover { text-decoration-color: var(--text-muted); }
+
+    .hero-bio a.contact-link {
+      color: var(--accent);
+      text-decoration-color: transparent;
     }
+    .hero-bio a.contact-link:hover { text-decoration-color: var(--accent); }
 
     .hero-cta {
-      display: inline-block;
-      font-size: 15px;
+      font-size: 14px;
       color: var(--text);
       text-decoration: underline;
       text-underline-offset: 3px;
@@ -221,158 +186,164 @@
       transition: text-decoration-color 0.15s ease;
     }
 
-    .hero-cta:hover {
-      text-decoration-color: var(--text-muted);
-    }
-
-    .inline-co {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      vertical-align: middle;
-      white-space: nowrap;
-    }
-
-    .inline-co .brace {
-      color: var(--text-faint);
-      font-weight: 300;
-    }
-
-    .inline-co-logo {
-      width: 17px;
-      height: 17px;
-      object-fit: contain;
-      border-radius: 3px;
-    }
-
-    .inline-co-name {
-      font-weight: 500;
-      color: var(--text);
-    }
+    .hero-cta:hover { text-decoration-color: var(--text-muted); }
 
     /* ─── Work table ─────────────────────────────────────────── */
-    .work-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
+    .work-table { width: calc(100% + 1rem); border-collapse: collapse; margin: 0 -0.5rem; table-layout: fixed; }
+    .work-table td { padding: 1rem 0; vertical-align: middle; font-size: 14px; }
+    .work-table td:first-child { padding-left: 0.5rem; }
+    .work-table td:last-child { padding-right: 0.5rem; }
+    .col-logo { width: 44px; }
+    .col-role { width: 110px; }
+    .col-year { width: 105px; }
+    .col-chevron { width: 36px; }
 
-    .work-table tr {
-      border-bottom: 0.5px solid var(--border);
-    }
+    .work-row { border-bottom: 0.5px solid var(--border); cursor: pointer; transition: background 0.15s ease; }
+    .work-row:hover { background: rgba(0,0,0,0.03); }
+    .work-row.expanded { border-bottom: none; }
 
-    .work-table tr:last-child { border-bottom: none; }
-
-    .work-table td {
-      padding: 0.95rem 0;
-      vertical-align: top;
+    .work-detail { display: none; border-bottom: 0.5px solid var(--border); }
+    .work-detail.open { display: table-row; }
+    .work-detail-td { padding: 0 !important; }
+    .work-detail-content {
+      padding: 0.15rem 0.5rem 1.1rem 44px;
       font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.75;
+      opacity: 0;
+      transition: opacity 0.2s ease;
     }
+    .work-detail.open .work-detail-content { opacity: 1; }
 
-    .work-logo-cell {
-      width: 36px;
-      padding-right: 0.25rem;
+    .work-chevron-cell { text-align: right; }
+    .work-chevron {
+      display: inline-block;
+      color: var(--text);
+      transition: transform 0.2s ease;
+      vertical-align: middle;
     }
+    .work-row.expanded .work-chevron { transform: rotate(180deg); }
+    .work-row:hover .work-chevron { color: var(--text); }
+
+    .work-logo-cell { width: 36px; padding-right: 0.5rem; }
 
     .work-logo {
-      width: 26px;
-      height: 26px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       background: var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 9px;
-      font-weight: 600;
-      color: var(--text-muted);
-      letter-spacing: 0;
       overflow: hidden;
       flex-shrink: 0;
     }
 
-    .work-logo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    .work-logo img { width: 100%; height: 100%; object-fit: cover; }
 
-    .work-company {
-      font-weight: 500;
-      color: var(--text);
-      padding-right: 1.5rem;
-    }
-
-    .work-company-name {
-      display: block;
-    }
-
+    .work-company { font-weight: 500; color: var(--text); padding-right: 1.5rem; }
+    .work-company-name { display: block; }
     .work-company-desc {
       display: block;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 400;
-      color: var(--text-faint);
-      margin-top: 3px;
-      line-height: 1.4;
-    }
-
-    .work-role {
       color: var(--text-muted);
-      padding-right: 1.5rem;
+      margin-top: 2px;
     }
 
-    .work-year {
+    .work-role { color: var(--text-muted); padding-right: 1.5rem; font-size: 13px; }
+    .work-year { color: var(--text-faint); text-align: right; white-space: nowrap; font-size: 13px; font-variant-numeric: tabular-nums; }
+    .year-short { display: none; }
+
+    /* ─── Projects (Mukund-style) ────────────────────────────── */
+    .projects-list { list-style: none; }
+
+    .project-item {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.85rem 0;
+      border-bottom: 0.5px solid var(--border);
+      text-decoration: none;
+      color: var(--text);
+      transition: opacity 0.15s ease;
+    }
+
+    .project-item:last-child { border-bottom: none; }
+    .project-item:hover { opacity: 0.65; }
+
+    .project-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: var(--border);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      overflow: hidden;
+    }
+
+    .project-icon img { width: 100%; height: 100%; object-fit: cover; }
+
+    .project-text { flex: 1; }
+
+    .project-name {
+      font-size: 14px;
+      font-weight: 500;
+      display: block;
+    }
+
+    .project-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: block;
+      margin-top: 2px;
+    }
+
+    .project-arrow {
+      font-size: 14px;
       color: var(--text-faint);
-      text-align: right;
-      white-space: nowrap;
-      font-variant-numeric: tabular-nums;
+      flex-shrink: 0;
     }
 
     /* ─── Writing ────────────────────────────────────────────── */
-    .writing-list {
-      list-style: none;
-    }
-
-    .writing-list li {
-      border-bottom: 0.5px solid var(--border);
-    }
-
+    .writing-list { list-style: none; }
+    .writing-list li { border-bottom: 0.5px solid var(--border); }
     .writing-list li:last-child { border-bottom: none; }
 
     .writing-link {
       display: flex;
-      align-items: baseline;
+      align-items: center;
       gap: 0.65rem;
       padding: 0.85rem 0;
       text-decoration: none;
       color: var(--text);
       font-size: 14px;
-      transition: color 0.15s ease;
+      transition: opacity 0.15s ease;
     }
 
-    .writing-link:hover {
-      color: var(--text-muted);
-    }
-
-    .writing-arrow {
-      color: var(--text-faint);
-      font-size: 12px;
-      flex-shrink: 0;
-    }
+    .writing-link:hover { opacity: 0.65; }
 
     .writing-title { flex: 1; }
 
     .writing-date {
-      font-size: 12px;
-      color: var(--text-faint);
+      font-size: 13px;
+      color: var(--text-muted);
       white-space: nowrap;
-      margin-left: auto;
       font-variant-numeric: tabular-nums;
+    }
+
+    .writing-arrow {
+      font-size: 14px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      margin-left: 0.5rem;
     }
 
     .writing-more {
       margin-top: 1.1rem;
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
+      gap: 0.4rem;
       font-size: 13px;
       color: var(--text-muted);
       text-decoration: none;
@@ -381,133 +352,105 @@
 
     .writing-more:hover { color: var(--text); }
 
+    .writing-more .substack-icon { flex-shrink: 0; }
+
     /* ─── Quotes ─────────────────────────────────────────────── */
-    .quotes-wrap {
-      max-width: 480px;
-      margin: 0 auto;
-    }
+    .quotes-wrap { max-width: 100%; }
 
     .quotes-stage {
-      border: 0.5px solid var(--border);
-      border-radius: 8px;
-      background: #F5F5F5;
-      padding: 2.5rem 3rem;
-      text-align: center;
-      position: relative;
+      border: none;
+      border-radius: 0;
+      background: transparent;
+      padding: 0;
+      text-align: left;
+      position: static;
     }
 
-    body.dark .quotes-stage {
-      background: #161616;
-    }
+    .quote-mark-open, .quote-mark-close { display: none; }
 
-    .quote-mark-open {
-      font-family: 'Georgia', serif;
-      font-size: 3.5rem;
-      line-height: 0.8;
-      color: var(--accent);
-      opacity: 0.55;
-      position: absolute;
-      top: 0.6rem;
-      left: 1.25rem;
-      pointer-events: none;
-      user-select: none;
-    }
-
-    .quote-mark-close {
-      font-family: 'Georgia', serif;
-      font-size: 3.5rem;
-      line-height: 0.8;
-      color: var(--accent);
-      opacity: 0.55;
-      position: absolute;
-      bottom: 0.6rem;
-      right: 1.25rem;
-      pointer-events: none;
-      user-select: none;
-    }
-
-    .quote-body {
-      transition: opacity 0.4s ease;
-    }
-
-    .quote-body.fading {
-      opacity: 0;
-    }
+    .quote-body { transition: opacity 0.4s ease; min-height: 5.5rem; }
+    .quote-body.fading { opacity: 0; }
 
     .quote-text {
       font-family: 'Georgia', serif;
       font-style: italic;
-      font-size: 15.5px;
+      font-size: 17px;
       color: var(--text);
-      line-height: 1.75;
-      margin-bottom: 0.85rem;
+      line-height: 1.7;
+      margin-bottom: 0.6rem;
     }
 
     .quote-attr {
       font-size: 11px;
-      font-family: var(--font);
-      color: var(--text-faint);
-      letter-spacing: 0.08em;
+      color: #777777;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
+      text-align: left;
     }
+
+    .quotes-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    .quotes-header .label { margin-bottom: 0; }
 
     .quotes-controls {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      margin-top: 0.85rem;
+      gap: 0.1rem;
+      margin-right: -0.55rem;
     }
 
     .quotes-arrow {
       background: none;
       border: none;
-      font-size: 16px;
-      color: var(--text-faint);
+      font-size: 15px;
+      color: var(--text-muted);
       cursor: pointer;
-      padding: 0.25rem 0.1rem;
+      padding: 0.25rem 1rem;
+      min-width: 44px;
+      border-radius: 4px;
       transition: color 0.15s ease;
       line-height: 1;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .quotes-arrow:hover { color: var(--text-muted); }
+    .quotes-arrow:hover { color: var(--text); }
 
-    .quotes-progress-track {
-      flex: 1;
-      margin: 0 0.85rem;
-      height: 1.5px;
-      background: var(--border);
-      border-radius: 2px;
-      overflow: hidden;
-      cursor: pointer;
-    }
-
-    .quotes-progress-bar {
-      height: 100%;
-      width: 0%;
-      background: var(--text-faint);
-      border-radius: 2px;
-      transition: width linear;
-    }
-
-    /* ─── Footer ─────────────────────────────────────────────── */
+    /* ─── Footer — Sabesh-inspired dotted + Bengaluru ────────── */
     footer {
+      margin-top: 1rem;
       border-top: 0.5px solid var(--border);
-      padding: 2rem 0 2.5rem;
+      background-image: radial-gradient(circle, #D4D0CB 1px, transparent 1px);
+      background-size: 20px 20px;
+      background-color: var(--bg);
+      padding: 3rem 0 2.5rem;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 1rem;
+      gap: 0.75rem;
       text-align: center;
     }
 
-    .footer-location {
-      font-size: 13px;
+    .footer-made {
+      font-size: 14px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
       color: var(--text-faint);
     }
+
+    .footer-heart { color: var(--accent); }
 
     .footer-links {
       display: flex;
       gap: 1.75rem;
+      margin-top: 0.25rem;
     }
 
     .footer-links a {
@@ -517,6 +460,10 @@
       text-underline-offset: 3px;
       text-decoration-color: var(--border);
       transition: color 0.15s ease, text-decoration-color 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 0 0.5rem;
     }
 
     .footer-links a:hover {
@@ -525,9 +472,23 @@
     }
 
     /* ─── Responsive ─────────────────────────────────────────── */
+    .work-mobile-desc { display: none; }
+
     @media (max-width: 520px) {
       :root { --pad-x: 1.25rem; }
-      .work-role { display: none; }
+      .col-year { width: 48px; }
+      .work-company-desc { display: none; }
+      .work-mobile-desc { display: block; font-size: 13px; font-style: italic; color: #888888; margin-bottom: 0.75rem; }
+      .year-full { display: none; }
+      .year-short { display: inline; }
+    }
+
+    @media (min-width: 521px) {
+      .hero-photo { width: 140px; height: 140px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .quote-body { transition: none; }
     }
   </style>
 </head>
@@ -536,11 +497,9 @@
   <!-- ── Header ── -->
   <header>
     <div class="header-inner">
-      <span class="header-name" id="header-name">Anirudh Amudan</span>
-      <div class="mode-toggle" role="group" aria-label="Colour mode">
-        <button class="mode-btn" id="btn-light">Light</button>
-        <button class="mode-btn" id="btn-dark">Dark</button>
-      </div>
+      <a class="header-name" id="header-name" href="/">Anirudh Amudan</a>
+      <nav class="header-nav">
+      </nav>
     </div>
   </header>
 
@@ -549,31 +508,36 @@
     <!-- ── Hero ── -->
     <section class="hero">
       <div class="hero-photo">
-        <img src="Profile Picture.jpg" alt="Anirudh Amudan" />
+        <img src="Profile Picture.jpg" alt="Anirudh Amudan" width="88" height="88" />
       </div>
 
-      <h1 class="hero-heading">Product Manager <span class="amp">&</span> Builder.</h1>
-      <p class="hero-subheading">Curious about people, products, and patterns.</p>
+      <h1 class="hero-heading">Product Manager &amp; <span class="highlight">Builder.</span></h1>
 
       <div class="hero-bio">
-        <p>Growth PM at <a href="https://leapscholar.com" target="_blank" rel="noopener">Leap Scholar</a>, running growth experiments on acquisition and activation.</p>
-        <p>On the side, I tinker with AI and build small things. Writing is how I think out loud.</p>
-        <p>Some of the nicest conversations I've had started from a random hello on the internet.</p>
-        <a class="hero-cta" href="https://x.com/anirudhamudan" target="_blank" rel="noopener">Say hi →</a>
+        <p>I'm a Growth PM at <a href="https://leapscholar.com" target="_blank" rel="noopener">Leap Scholar</a>, where I work on how students find us and take their first step toward studying abroad.</p>
+        <p>On the side, I build with AI, mostly things I wish existed. I write too, less about work, more about relationships, everyday life, and things my mind keeps coming back to.</p>
+        <p>Some of the nicest conversations I've had started with a random hello on the internet. Send one on <a class="contact-link" href="https://x.com/anirudhamudan" target="_blank" rel="noopener">Twitter (X)</a>, <a class="contact-link" href="https://www.linkedin.com/in/anirudhamudan/" target="_blank" rel="noopener">LinkedIn</a>, or by <a class="contact-link" href="mailto:anirudhan412@gmail.com">email</a>.</p>
       </div>
     </section>
 
     <hr class="divider" />
 
-    <!-- ── Work ── -->
+    <!-- ── Experience ── -->
     <section>
       <p class="label">Experience</p>
       <table class="work-table">
+        <colgroup>
+          <col class="col-logo">
+          <col>
+          <col class="col-role">
+          <col class="col-year">
+          <col class="col-chevron">
+        </colgroup>
         <tbody>
-          <tr>
+          <tr class="work-row">
             <td class="work-logo-cell">
               <div class="work-logo">
-                <img src="Logos/Leap Scholar Logo.png" alt="Leap Scholar" />
+                <img src="Logos/Leap Scholar Logo.png" alt="Leap Scholar" width="28" height="28" loading="lazy" />
               </div>
             </td>
             <td class="work-company">
@@ -581,12 +545,21 @@
               <span class="work-company-desc">Study abroad platform for Indian students</span>
             </td>
             <td class="work-role">Growth PM</td>
-            <td class="work-year">2025 – now</td>
+            <td class="work-year"><span class="year-full">2025 – now</span><span class="year-short">now</span></td>
+            <td class="work-chevron-cell"><svg class="work-chevron" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><polyline points="2,3 7,8 12,3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
           </tr>
-          <tr>
+          <tr class="work-detail">
+            <td colspan="5" class="work-detail-td">
+              <div class="work-detail-content">
+                <p class="work-mobile-desc">Study abroad platform for Indian students</p>
+                <p>Leap is where I learned what systematic experimentation at consumer scale actually looks like. Most of my work sits at the very start of a student's journey: building onboarding flows, running funnel experiments, and starting to explore how product can replace touchpoints that used to need a human.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="work-row">
             <td class="work-logo-cell">
               <div class="work-logo">
-                <img src="Logos/Fibr AI Logo.jpeg" alt="Fibr AI" />
+                <img src="Logos/Fibr AI Logo.jpeg" alt="Fibr AI" width="28" height="28" loading="lazy" />
               </div>
             </td>
             <td class="work-company">
@@ -594,7 +567,16 @@
               <span class="work-company-desc">AI-powered website personalisation for marketers</span>
             </td>
             <td class="work-role">Associate PM</td>
-            <td class="work-year">2024 – 2025</td>
+            <td class="work-year"><span class="year-full">2024 – 2025</span><span class="year-short">2025</span></td>
+            <td class="work-chevron-cell"><svg class="work-chevron" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><polyline points="2,3 7,8 12,3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+          </tr>
+          <tr class="work-detail">
+            <td colspan="5" class="work-detail-td">
+              <div class="work-detail-content">
+                <p class="work-mobile-desc">AI-powered website personalisation for marketers</p>
+                <p>Fibr built agentic AI tools for marketers: automated website personalisation, CRO experimentation, AI-generated test strategies. It was my first real exposure to AI-native product work, and where I learned what pre-PMF feels like from the inside.</p>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -607,43 +589,47 @@
       <p class="label">Writing</p>
       <ul class="writing-list">
         <li>
-          <a class="writing-link" href="https://anirudhamudan.substack.com" target="_blank" rel="noopener">
-            <span class="writing-arrow">→</span>
+          <a class="writing-link" href="https://anirudhamudan.substack.com/p/lessons-from-2025" target="_blank" rel="noopener">
             <span class="writing-title">Lessons from 2025</span>
             <span class="writing-date">Jan 2026</span>
+            <span class="writing-arrow">↗</span>
           </a>
         </li>
         <li>
-          <a class="writing-link" href="https://anirudhamudan.substack.com" target="_blank" rel="noopener">
-            <span class="writing-arrow">→</span>
+          <a class="writing-link" href="https://anirudhamudan.substack.com/p/a-shared-definition-of-ambition" target="_blank" rel="noopener">
             <span class="writing-title">A Shared Definition of Ambition</span>
             <span class="writing-date">Nov 2025</span>
+            <span class="writing-arrow">↗</span>
           </a>
         </li>
         <li>
-          <a class="writing-link" href="https://anirudhamudan.substack.com" target="_blank" rel="noopener">
-            <span class="writing-arrow">→</span>
+          <a class="writing-link" href="https://anirudhamudan.substack.com/p/india-and-status-games" target="_blank" rel="noopener">
             <span class="writing-title">India and Status Games</span>
             <span class="writing-date">Apr 2025</span>
+            <span class="writing-arrow">↗</span>
           </a>
         </li>
         <li>
-          <a class="writing-link" href="https://anirudhamudan.substack.com" target="_blank" rel="noopener">
-            <span class="writing-arrow">→</span>
+          <a class="writing-link" href="https://anirudhamudan.substack.com/p/does-size-really-matter-startups" target="_blank" rel="noopener">
             <span class="writing-title">Does size really matter? (Startups vs Corporates)</span>
             <span class="writing-date">Mar 2024</span>
+            <span class="writing-arrow">↗</span>
           </a>
         </li>
         <li>
-          <a class="writing-link" href="https://anirudhamudan.substack.com" target="_blank" rel="noopener">
-            <span class="writing-arrow">→</span>
+          <a class="writing-link" href="https://anirudhamudan.substack.com/p/its-hard-to-swipe-left-on-social" target="_blank" rel="noopener">
             <span class="writing-title">It's hard to swipe left on social media</span>
             <span class="writing-date">Jan 2024</span>
+            <span class="writing-arrow">↗</span>
           </a>
         </li>
       </ul>
       <a class="writing-more" href="https://anirudhamudan.substack.com" target="_blank" rel="noopener">
-        All posts on Substack →
+        Read more on
+        <svg class="substack-icon" width="14" height="14" viewBox="0 0 24 24" fill="#FF6719" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/>
+        </svg>
+        Substack ↗
       </a>
     </section>
 
@@ -651,22 +637,19 @@
 
     <!-- ── Quotes ── -->
     <section>
-      <p class="label">Lines I keep coming back to</p>
+      <div class="quotes-header">
+        <p class="label">Lines I keep coming back to</p>
+        <div class="quotes-controls">
+          <button class="quotes-arrow" id="quotes-prev" aria-label="Previous quote">‹</button>
+          <button class="quotes-arrow" id="quotes-next" aria-label="Next quote">›</button>
+        </div>
+      </div>
       <div class="quotes-wrap">
         <div class="quotes-stage">
-          <span class="quote-mark-open" aria-hidden="true">&ldquo;</span>
-          <span class="quote-mark-close" aria-hidden="true">&rdquo;</span>
           <div class="quote-body" id="quote-body">
             <p class="quote-text" id="quote-text">"Do I deserve this?" "Am I worthy of this?" So irrelevant. Do you want it?</p>
             <p class="quote-attr" id="quote-attr">bulldyke-rider</p>
           </div>
-        </div>
-        <div class="quotes-controls">
-          <button class="quotes-arrow" id="quotes-prev" aria-label="Previous quote">←</button>
-          <div class="quotes-progress-track" id="quotes-track">
-            <div class="quotes-progress-bar" id="quotes-bar"></div>
-          </div>
-          <button class="quotes-arrow" id="quotes-next" aria-label="Next quote">→</button>
         </div>
       </div>
     </section>
@@ -674,37 +657,16 @@
   </div>
 
   <!-- ── Footer ── -->
-  <div class="container">
-    <footer>
-      <span class="footer-location">Bangalore, India</span>
-      <nav class="footer-links">
-        <a href="https://anirudhamudan.substack.com" target="_blank" rel="noopener">Writing</a>
-        <a href="https://x.com/anirudhamudan" target="_blank" rel="noopener">Twitter (X)</a>
-        <a href="https://www.linkedin.com/in/anirudhamudan/" target="_blank" rel="noopener">LinkedIn</a>
-      </nav>
-    </footer>
-  </div>
+  <footer>
+    <span class="footer-made">Made with <span class="footer-heart">♥</span> in Bengaluru</span>
+    <nav class="footer-links">
+      <a href="https://x.com/anirudhamudan" target="_blank" rel="noopener">Twitter (X)</a>
+      <a href="https://www.linkedin.com/in/anirudhamudan/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:anirudhan412@gmail.com">Email</a>
+    </nav>
+  </footer>
 
   <script>
-    const btnLight = document.getElementById('btn-light');
-    const btnDark  = document.getElementById('btn-dark');
-    const body     = document.body;
-
-    function setMode(dark) {
-      body.classList.toggle('dark', dark);
-      btnLight.classList.toggle('active', !dark);
-      btnDark.classList.toggle('active',  dark);
-      localStorage.setItem('mode', dark ? 'dark' : 'light');
-    }
-
-    // Init: respect saved pref, then system pref
-    const saved = localStorage.getItem('mode');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    setMode(saved ? saved === 'dark' : prefersDark);
-
-    btnLight.addEventListener('click', () => setMode(false));
-    btnDark.addEventListener('click',  () => setMode(true));
-
     // ── Name scramble ─────────────────────────────────────────
     const nameEl = document.getElementById('header-name');
     const nameOriginal = nameEl.textContent;
@@ -731,6 +693,7 @@
         }
       }, 35);
     });
+
     // ── Quote rotator ─────────────────────────────────────────
     (() => {
       const INTERVAL = 9000;
@@ -749,8 +712,6 @@
       const body  = document.getElementById('quote-body');
       const text  = document.getElementById('quote-text');
       const attr  = document.getElementById('quote-attr');
-      const bar   = document.getElementById('quotes-bar');
-      const track = document.getElementById('quotes-track');
       let current = 0;
       let timer;
 
@@ -762,16 +723,6 @@
           attr.textContent = quotes[current].attr;
           body.classList.remove('fading');
         }, FADE);
-        startProgress();
-      }
-
-      function startProgress() {
-        bar.style.transition = 'none';
-        bar.style.width = '0%';
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-          bar.style.transition = `width ${INTERVAL}ms linear`;
-          bar.style.width = '100%';
-        }));
       }
 
       function resetTimer() {
@@ -782,14 +733,27 @@
       document.getElementById('quotes-prev').addEventListener('click', () => { showQuote(current - 1); resetTimer(); });
       document.getElementById('quotes-next').addEventListener('click', () => { showQuote(current + 1); resetTimer(); });
 
-      track.addEventListener('click', (e) => {
-        showQuote(Math.round((e.offsetX / track.offsetWidth) * (quotes.length - 1)));
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reducedMotion) {
         resetTimer();
-      });
-
-      startProgress();
-      resetTimer();
+      }
     })();
+
+    // ── Experience accordion (single open at a time) ──────────
+    document.querySelectorAll('.work-row').forEach(row => {
+      row.addEventListener('click', () => {
+        const detail = row.nextElementSibling;
+        const isOpen = detail.classList.contains('open');
+        document.querySelectorAll('.work-row').forEach(r => {
+          r.classList.remove('expanded');
+          r.nextElementSibling.classList.remove('open');
+        });
+        if (!isOpen) {
+          row.classList.add('expanded');
+          detail.classList.add('open');
+        }
+      });
+    });
   </script>
 
 </body>
