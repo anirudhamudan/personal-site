@@ -69,7 +69,7 @@
     }
 
     body.theme-ready,
-    body.theme-ready *:not(.quote-body) {
+    body.theme-ready *:not(.quote-body):not(.peek) {
       transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease !important;
     }
 
@@ -122,6 +122,13 @@
     }
 
     .header-nav a:hover { color: var(--text); }
+    .header-nav a.active { color: var(--text); }
+
+    .header-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
 
     /* ─── Layout ─────────────────────────────────────────────── */
     .container {
@@ -130,7 +137,7 @@
       padding: 0 var(--pad-x);
     }
 
-    section { padding: 2rem 0 1.5rem; }
+    section { padding: 2rem 0 1.5rem; scroll-margin-top: 60px; }
 
     .divider {
       border: none;
@@ -285,58 +292,178 @@
     .work-year { color: var(--text-faint); text-align: right; white-space: nowrap; font-size: 13px; font-variant-numeric: tabular-nums; }
     .year-short { display: none; }
 
-    /* ─── Projects (Mukund-style) ────────────────────────────── */
-    .projects-list { list-style: none; }
+    /* ─── Projects ───────────────────────────────────────────── */
+    .project-row:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+    .project-row .work-chevron { transform: rotate(-90deg); }
+    .project-row:hover .work-chevron { transform: rotate(-90deg) translateY(2px); }
+    .work-logo--app { border-radius: 7px; background: transparent; }
 
-    .project-item {
-      display: flex;
-      align-items: center;
-      gap: 0.85rem;
-      padding: 0.85rem 0;
-      border-bottom: 0.5px solid var(--border);
-      text-decoration: none;
+    /* ─── Project peek (modal) ───────────────────────────────── */
+    html:has(.peek[open]) { overflow: hidden; }
+
+    .peek {
+      width: min(720px, calc(100vw - 2rem));
+      max-width: none;
+      max-height: min(86vh, 860px);
+      margin: auto;
+      padding: 0;
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      background: var(--bg);
       color: var(--text);
-      transition: opacity 0.15s ease;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.06);
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(12px) scale(0.985);
+      transition: opacity 0.2s ease, transform 0.2s ease;
     }
 
-    .project-item:last-child { border-bottom: none; }
-    .project-item:hover { opacity: 0.65; }
+    .peek.visible { opacity: 1; transform: none; }
+    .peek:focus { outline: none; }
 
-    .project-icon {
-      width: 34px;
-      height: 34px;
-      border-radius: 8px;
-      background: var(--border);
-      flex-shrink: 0;
+    .peek::backdrop {
+      background: rgba(20,18,16,0.38);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .peek.visible::backdrop { opacity: 1; }
+
+    .peek-scroll {
+      max-height: inherit;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+
+    .peek-bar {
+      position: sticky;
+      top: 0;
+      z-index: 1;
       display: flex;
+      justify-content: flex-end;
+      padding: 0.5rem 0.5rem 0;
+      background: linear-gradient(var(--bg) 60%, transparent);
+    }
+
+    .peek-close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
-      overflow: hidden;
+      transition: color 0.15s ease, background 0.15s ease;
     }
 
-    .project-icon img { width: 100%; height: 100%; object-fit: cover; }
+    .peek-close:hover { color: var(--text); background: rgba(0,0,0,0.04); }
 
-    .project-text { flex: 1; }
+    .peek-body { padding: 0 2.5rem 2.5rem; }
 
-    .project-name {
+    .peek-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      margin-bottom: 1.1rem;
+      display: block;
+    }
+
+    .peek-title {
+      font-size: 1.6rem;
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
+    }
+
+    .peek-tagline {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .peek-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 1.5rem;
+      font-size: 13px;
+      color: var(--text-faint);
+      padding: 0.85rem 0;
+      border-top: 0.5px solid var(--border);
+      border-bottom: 0.5px solid var(--border);
+      margin-bottom: 1.5rem;
+    }
+
+    .peek-meta span { color: var(--text-muted); }
+
+    .peek-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .peek-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      min-height: 40px;
+      padding: 0 1rem;
+      border-radius: 8px;
       font-size: 14px;
       font-weight: 500;
-      display: block;
+      text-decoration: none;
+      color: var(--text);
+      border: 0.5px solid var(--divider);
+      transition: background 0.15s ease, border-color 0.15s ease;
     }
 
-    .project-desc {
+    .peek-btn:hover { background: rgba(0,0,0,0.04); }
+
+    .peek-btn--primary {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+    }
+
+    .peek-btn--primary:hover { background: var(--text); opacity: 0.85; }
+
+    .peek-media {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      border: 0.5px solid var(--border);
+      background: var(--border);
+      margin-bottom: 2rem;
+    }
+
+    .peek-section h3 {
       font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
       color: var(--text-muted);
-      display: block;
-      margin-top: 2px;
+      margin: 1.75rem 0 0.6rem;
     }
 
-    .project-arrow {
-      font-size: 14px;
-      color: var(--text-faint);
-      flex-shrink: 0;
+    .peek-section p,
+    .peek-section li {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.75;
     }
+
+    .peek-section p + p { margin-top: 0.85rem; }
+
+    .peek-section ul { padding-left: 1.1rem; }
+    .peek-section li + li { margin-top: 0.3rem; }
+    .peek-section strong { color: var(--text); font-weight: 500; }
 
     /* ─── Writing ────────────────────────────────────────────── */
     .writing-list { list-style: none; }
@@ -515,6 +642,22 @@
       .work-mobile-desc { display: block; font-size: 13px; font-style: italic; color: var(--text-faint); margin-bottom: 0.75rem; }
       .year-full { display: none; }
       .year-short { display: inline; }
+
+      .header-name { display: none; }
+      .header-inner { justify-content: flex-end; }
+      .header-nav { width: 100%; justify-content: space-between; gap: 1rem; }
+      .header-links { gap: 1.1rem; }
+
+      .peek {
+        width: 100vw;
+        max-height: 92vh;
+        margin: auto 0 0;
+        border-radius: 14px 14px 0 0;
+        border-bottom: none;
+        transform: translateY(24px);
+      }
+      .peek-body { padding: 0 1.25rem 2.5rem; }
+      .peek-title { font-size: 1.4rem; }
     }
 
     @media (min-width: 521px) {
@@ -523,6 +666,7 @@
 
     @media (prefers-reduced-motion: reduce) {
       .quote-body { transition: none; }
+      .peek, .peek::backdrop { transition: none; }
     }
 
     /* ─── Dark mode overrides ────────────────────────────────── */
@@ -530,9 +674,14 @@
       background-image: radial-gradient(circle, #2D2A27 1px, transparent 1px);
     }
 
-    [data-theme="dark"] .work-row:hover {
+    [data-theme="dark"] .work-row:hover,
+    [data-theme="dark"] .peek-close:hover,
+    [data-theme="dark"] .peek-btn:not(.peek-btn--primary):hover {
       background: rgba(255,255,255,0.04);
     }
+
+    [data-theme="dark"] .peek { box-shadow: 0 24px 64px rgba(0,0,0,0.6); }
+    [data-theme="dark"] .peek::backdrop { background: rgba(0,0,0,0.6); }
 
     /* ─── Theme toggle ───────────────────────────────────────── */
     .theme-toggle {
@@ -571,6 +720,11 @@
     <div class="header-inner">
       <a class="header-name" id="header-name" href="/">Anirudh Amudan</a>
       <nav class="header-nav">
+        <div class="header-links">
+          <a href="#experience">Experience</a>
+          <a href="#projects">Projects</a>
+          <a href="#writing">Writing</a>
+        </div>
         <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
           <span class="theme-opt" data-mode="light">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
@@ -595,7 +749,7 @@
 
       <div class="hero-bio">
         <p>I'm a Growth PM at <a href="https://leapscholar.com" target="_blank" rel="noopener">Leap Scholar</a>, where I work on how students find us and take their first step toward studying abroad.</p>
-        <p>On the side, I build with AI, mostly things I wish existed.</p>
+        <p>On the side, I build with AI, mostly <a href="#projects">things I wish existed</a>.</p>
         <p>I write too, less about work, more about everyday life, things I notice, and thoughts I can't seem to let go of.</p>
         <p>Some of the nicest conversations I've had started with a random hello on the internet. Send one on <a class="contact-link" href="https://x.com/anirudhamudan" target="_blank" rel="noopener">Twitter (X)</a>, <a class="contact-link" href="https://www.linkedin.com/in/anirudhamudan/" target="_blank" rel="noopener">LinkedIn</a>, or by <a class="contact-link" href="mailto:anirudhan412@gmail.com">email</a>.</p>
       </div>
@@ -604,7 +758,7 @@
     <hr class="divider" />
 
     <!-- ── Experience ── -->
-    <section>
+    <section id="experience">
       <p class="label">Experience</p>
       <table class="work-table">
         <colgroup>
@@ -665,8 +819,54 @@
 
     <hr class="divider" />
 
+    <!-- ── Projects ── -->
+    <section id="projects">
+      <p class="label">Projects</p>
+      <table class="work-table">
+        <colgroup>
+          <col class="col-logo">
+          <col>
+          <col class="col-role">
+          <col class="col-year">
+          <col class="col-chevron">
+        </colgroup>
+        <tbody>
+          <tr class="work-row project-row" data-project="headroom" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Headroom: Claude usage limits in your Mac menu bar">
+            <td class="work-logo-cell">
+              <div class="work-logo work-logo--app">
+                <img src="Projects/Headroom Icon.png" alt="" width="28" height="28" loading="lazy" />
+              </div>
+            </td>
+            <td class="work-company">
+              <span class="work-company-name">Headroom</span>
+              <span class="work-company-desc">Claude usage limits in your Mac menu bar</span>
+            </td>
+            <td class="work-role">macOS app</td>
+            <td class="work-year"><span class="year-full">2026</span><span class="year-short">2026</span></td>
+            <td class="work-chevron-cell"><svg class="work-chevron" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><polyline points="2,3 7,8 12,3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+          </tr>
+          <tr class="work-row project-row" data-project="deskfm" tabindex="0" role="button" aria-haspopup="dialog" aria-label="DeskFM: Focus music, one click from the menu bar">
+            <td class="work-logo-cell">
+              <div class="work-logo work-logo--app">
+                <img src="Projects/DeskFM Icon.png" alt="" width="28" height="28" loading="lazy" />
+              </div>
+            </td>
+            <td class="work-company">
+              <span class="work-company-name">DeskFM</span>
+              <span class="work-company-desc">Focus music, one click from the menu bar</span>
+            </td>
+            <td class="work-role">macOS app</td>
+            <td class="work-year"><span class="year-full">2026</span><span class="year-short">2026</span></td>
+            <td class="work-chevron-cell"><svg class="work-chevron" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><polyline points="2,3 7,8 12,3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <hr class="divider" />
+
     <!-- ── Writing ── -->
-    <section>
+    <section id="writing">
       <p class="label">Writing</p>
       <ul class="writing-list">
         <li>
@@ -736,6 +936,105 @@
     </section>
 
   </div>
+
+  <!-- ── Project peeks ── -->
+  <dialog class="peek" id="headroom" aria-labelledby="headroom-title">
+    <div class="peek-scroll">
+      <div class="peek-bar">
+        <button class="peek-close" type="button" aria-label="Close">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="peek-body">
+        <img class="peek-icon" src="Projects/Headroom Icon.png" alt="" width="56" height="56" />
+        <h2 class="peek-title" id="headroom-title">Headroom</h2>
+        <p class="peek-tagline">Claude usage limits in your Mac menu bar.</p>
+
+        <div class="peek-meta">
+          <div>Platform <span>macOS 13+</span></div>
+          <div>Built <span>Oct 2026</span></div>
+          <div>Stack <span>Swift</span></div>
+        </div>
+
+        <div class="peek-actions">
+          <a class="peek-btn peek-btn--primary" href="https://github.com/anirudhamudan/headroom/releases/latest" target="_blank" rel="noopener">Download for Mac ↗</a>
+          <a class="peek-btn" href="https://github.com/anirudhamudan/headroom" target="_blank" rel="noopener">View on GitHub ↗</a>
+        </div>
+
+        <img class="peek-media" src="Projects/Headroom Screenshot.jpg" alt="Headroom showing 82% session usage in the menu bar, with the usage panel open" width="1400" height="788" loading="lazy" />
+
+        <div class="peek-section">
+          <h3>Why I built it</h3>
+          <p>I use Claude for most of my work, and the only way to see how much of my limit was left was to go and look for it. Usually I found out by running out, in the middle of something.</p>
+          <p>I wanted the number to just be there, the way battery percentage is.</p>
+
+          <h3>What it does</h3>
+          <ul>
+            <li>Shows your current 5-hour session usage in the menu bar, e.g. <strong>48%</strong>.</li>
+            <li>Click it to see every limit, how much is used, and when each one resets.</li>
+            <li>A small dot appears when a limit is getting close: yellow when it's near, red when it's used up.</li>
+          </ul>
+
+          <h3>Decisions I made</h3>
+          <ul>
+            <li><strong>A dot, not a notification.</strong> It should be glanceable and never interrupt you.</li>
+            <li><strong>Built for people who don't live in Terminal.</strong> If Claude Code isn't set up, Headroom walks you through it instead of failing silently. After that, one click means you never need Terminal again.</li>
+            <li><strong>Risky things are opt-in.</strong> Automatic sign-in renewal writes back to Claude Code's credentials, so it's off until you turn it on.</li>
+            <li><strong>Nothing leaves your Mac except calls to Anthropic.</strong> No analytics, no other servers.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="peek" id="deskfm" aria-labelledby="deskfm-title">
+    <div class="peek-scroll">
+      <div class="peek-bar">
+        <button class="peek-close" type="button" aria-label="Close">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="peek-body">
+        <img class="peek-icon" src="Projects/DeskFM Icon.png" alt="" width="56" height="56" />
+        <h2 class="peek-title" id="deskfm-title">DeskFM</h2>
+        <p class="peek-tagline">A small lamp in your menu bar that starts your focus music in one click.</p>
+
+        <div class="peek-meta">
+          <div>Platform <span>macOS 14+</span></div>
+          <div>Built <span>Oct 2026</span></div>
+          <div>Stack <span>Swift</span></div>
+        </div>
+
+        <div class="peek-actions">
+          <a class="peek-btn peek-btn--primary" href="https://github.com/anirudhamudan/deskfm/releases/latest" target="_blank" rel="noopener">Download for Mac ↗</a>
+          <a class="peek-btn" href="https://github.com/anirudhamudan/deskfm" target="_blank" rel="noopener">View on GitHub ↗</a>
+        </div>
+
+        <video class="peek-media" src="Projects/DeskFM Demo.mp4" poster="Projects/DeskFM Poster.jpg" width="1568" height="882" muted loop playsinline preload="none" aria-label="Clicking the lamp in the menu bar, then Start Deep Focus: the paused song switches to a focus track and starts playing"></video>
+
+        <div class="peek-section">
+          <h3>Why I built it</h3>
+          <p>I listen to the same lo-fi playlist every time I sit down to work. But if Spotify had been paused for a while, the Now Playing widget on my Mac would disappear, and the play key would open Apple Music instead. I'd end up opening Spotify and searching for the playlist just to press play.</p>
+          <p>So I made a small lamp that lives in the menu bar and never goes away, with one button that starts my focus music, whatever was playing before.</p>
+
+          <h3>What it does</h3>
+          <ul>
+            <li><strong>Start Deep Focus:</strong> one click starts your go-to playlist, even if Spotify is closed.</li>
+            <li>Current track, artwork and a progress bar you can click to seek.</li>
+            <li>Play/pause, previous, next, shuffle, and launch at login.</li>
+          </ul>
+
+          <h3>Decisions I made</h3>
+          <ul>
+            <li><strong>One job, done well.</strong> It isn't trying to replace Spotify. It removes the five steps between sitting down and hearing music.</li>
+            <li><strong>Always visible.</strong> The whole problem was a control that disappears, so the lamp never does.</li>
+            <li><strong>No account, no sign-in.</strong> It talks to the Spotify app on your Mac directly. Nothing goes to the internet except album artwork.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </dialog>
 
   <!-- ── Footer ── -->
   <footer>
@@ -874,11 +1173,11 @@
     })();
 
     // ── Experience accordion (single open at a time) ──────────
-    document.querySelectorAll('.work-row').forEach(row => {
+    document.querySelectorAll('.work-row:not(.project-row)').forEach(row => {
       row.addEventListener('click', () => {
         const detail = row.nextElementSibling;
         const isOpen = detail.classList.contains('open');
-        document.querySelectorAll('.work-row').forEach(r => {
+        document.querySelectorAll('.work-row:not(.project-row)').forEach(r => {
           r.classList.remove('expanded');
           r.nextElementSibling.classList.remove('open');
         });
@@ -888,6 +1187,83 @@
         }
       });
     });
+
+    // ── Project peeks (URL hash = open project, so links and back work) ──
+    (() => {
+      const peeks = new Map([...document.querySelectorAll('.peek')].map(d => [d.id, d]));
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let lastRow = null;
+
+      const show = (id) => {
+        const dialog = peeks.get(id);
+        if (!dialog || dialog.open) return;
+        peeks.forEach(d => d.open && hide(d));
+        dialog.showModal();
+        dialog.querySelector('.peek-scroll').scrollTop = 0;
+        requestAnimationFrame(() => dialog.classList.add('visible'));
+        const video = dialog.querySelector('video');
+        if (video && !reducedMotion) video.play().catch(() => {});
+        if (video && reducedMotion) video.controls = true;
+      };
+
+      const hide = (dialog) => {
+        dialog.classList.remove('visible');
+        dialog.querySelector('video')?.pause();
+        setTimeout(() => {
+          dialog.close();
+          lastRow?.focus();
+        }, reducedMotion ? 0 : 200);
+      };
+
+      const requestClose = () => {
+        if (history.state?.peek) history.back();
+        else history.replaceState(null, '', location.pathname + location.search);
+        syncToHash();
+      };
+
+      const syncToHash = () => {
+        const id = location.hash.slice(1);
+        if (peeks.has(id)) show(id);
+        else peeks.forEach(d => d.open && hide(d));
+      };
+
+      document.querySelectorAll('.project-row').forEach(row => {
+        const open = () => {
+          lastRow = row;
+          history.pushState({ peek: true }, '', '#' + row.dataset.project);
+          show(row.dataset.project);
+        };
+        row.addEventListener('click', open);
+        row.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+        });
+      });
+
+      peeks.forEach(dialog => {
+        dialog.querySelector('.peek-close').addEventListener('click', requestClose);
+        dialog.addEventListener('cancel', e => { e.preventDefault(); requestClose(); });
+        // Clicks on the backdrop land on the <dialog> itself
+        dialog.addEventListener('click', e => { if (e.target === dialog) requestClose(); });
+      });
+
+      window.addEventListener('popstate', syncToHash);
+      syncToHash();
+    })();
+
+    // ── Header nav: highlight the section in view ─────────────
+    (() => {
+      const links = [...document.querySelectorAll('.header-links a')];
+      const sections = links.map(a => document.querySelector(a.getAttribute('href')));
+      const update = () => {
+        const y = window.scrollY + window.innerHeight * 0.35;
+        let current = null;
+        sections.forEach((s, i) => { if (s.offsetTop <= y) current = i; });
+        if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 2) current = sections.length - 1;
+        links.forEach((a, i) => a.classList.toggle('active', i === current));
+      };
+      window.addEventListener('scroll', update, { passive: true });
+      update();
+    })();
   </script>
 
 </body>
