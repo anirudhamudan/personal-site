@@ -96,10 +96,12 @@
     .nav-cta:hover { opacity: 0.85; }
     .nav-cta:focus-visible { border-radius: 999px; }
 
-    .theme-toggle { display: flex; align-items: center; background: var(--border); border: none; border-radius: 20px; padding: 3px; gap: 2px; cursor: pointer; flex-shrink: 0; }
-    .theme-toggle:focus-visible { border-radius: 20px; }
-    .theme-opt { display: flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; color: var(--faint); }
-    .theme-opt.active { background: var(--bg); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+    .theme-toggle { width: 34px; height: 34px; margin-left: -0.75rem; display: flex; align-items: center; justify-content: center; border: none; border-radius: 50%; background: none; color: var(--muted); cursor: pointer; flex-shrink: 0; transition: color .15s, background .15s; }
+    .theme-toggle:hover { color: var(--text); background: var(--hover); }
+    .theme-toggle:focus-visible { border-radius: 50%; }
+    .i-sun { display: none; }
+    [data-theme="dark"] .i-sun { display: block; }
+    [data-theme="dark"] .i-moon { display: none; }
 
     /* ─── Sections ───────────────────────────────────────────── */
     section { padding: 3rem 0; border-top: 0.5px solid var(--border); scroll-margin-top: 60px; }
@@ -297,7 +299,6 @@
       :root { --pad-x: 1.25rem; }
       .header-links { display: none; }
       .header-right { gap: 0.75rem; }
-      .f-right { width: 100%; justify-content: space-between; }
       .nav-cta { height: 34px; padding: 0 0.85rem; font-size: 13px; }
 
       section { padding: 2.5rem 0; }
@@ -373,10 +374,14 @@
       <div class="header-right">
         <nav class="header-links" aria-label="Sections">
           <a href="#experience">Experience</a>
-          <a href="#projects">Side projects</a>
+          <a href="#projects">Projects</a>
           <a href="#writing">Writing</a>
         </nav>
         <a class="nav-cta" href="mailto:anirudhan412@gmail.com?subject=Work%20with%20you&amp;body=Hi%20Anirudh%2C%0A%0AI%20found%20you%20through%20anirudhamudan.com.%0A%0A%5BWhat%20I%20have%20in%20mind%5D">Work with me</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode">
+          <svg class="i-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="i-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
       </div>
     </div>
   </header>
@@ -579,14 +584,6 @@
       <span>Made with <span class="heart">♥</span> in Bengaluru</span>
       <div class="f-right">
         <span class="f-links"><a href="https://x.com/anirudhamudan" target="_blank" rel="noopener">Twitter</a><a href="https://www.linkedin.com/in/anirudhamudan/" target="_blank" rel="noopener">LinkedIn</a><a href="mailto:anirudhan412@gmail.com">Email</a></span>
-        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
-          <span class="theme-opt" data-mode="light">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-          </span>
-          <span class="theme-opt" data-mode="dark">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          </span>
-        </button>
       </div>
     </div>
     <!-- Trichy ↔ Bengaluru illustration goes here, with a dusk/night version for dark mode -->
@@ -702,9 +699,7 @@
       const btn  = document.getElementById('theme-toggle');
       const root = document.documentElement;
       const getTheme = () => root.getAttribute('data-theme') || 'light';
-      const updateToggle = theme => btn.querySelectorAll('.theme-opt').forEach(opt => {
-        opt.classList.toggle('active', opt.dataset.mode === theme);
-      });
+      const updateToggle = theme => btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
 
       const playSound = toDark => {
         try {
