@@ -14,702 +14,351 @@
       }
     })();
   </script>
-  <meta name="description" content="Product Manager & Builder. Based in Bengaluru." />
+  <meta name="description" content="Product manager & builder, based in Bengaluru." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://anirudhamudan.com" />
   <meta property="og:title" content="Hey, I'm Anirudh" />
-  <meta property="og:description" content="Product Manager & Builder. Based in Bengaluru." />
+  <meta property="og:description" content="Product manager & builder, based in Bengaluru." />
   <meta property="og:image" content="https://anirudhamudan.com/og-image.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://anirudhamudan.com/og-image.png" />
   <meta name="twitter:title" content="Hey, I'm Anirudh" />
-  <meta name="twitter:description" content="Product Manager & Builder. Based in Bengaluru." />
+  <meta name="twitter:description" content="Product manager & builder, based in Bengaluru." />
   <link rel="icon" type="image/jpeg" href="Profile%20Picture.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
 
   <style>
     /* ─── Tokens ─────────────────────────────────────────────── */
     :root {
       --bg:          #FAF8F5;
+      --surface:     #FFFFFF;
       --text:        #1C1C1C;
-      --text-muted:  #444444;
-      --text-faint:  #AAAAAA;
+      --body:        #383838;
+      --muted:       #555555;
+      --faint:       #6F6A64;
       --border:      #E6E2DC;
-      --divider:     #B8B2AB;
+      --divider:     #CFC9C1;
       --accent:      #2A7C5C;
+      --accent-soft: #EAF3EE;
+      --header-bg:   rgba(250,248,245,0.9);
+      --hover:       rgba(0,0,0,0.025);
+      --lift:        0 12px 30px rgba(0,0,0,0.07);
+      --x-brand:     #000000;
+      --x-tile:      #1C1C1C;
+      --substack-tile: #FFF1E8;
+      --radius:      14px;
+      --card-pad:    1.25rem;
       --font:        'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      --max-w:       680px;
+      --max-w:       720px;
       --pad-x:       2rem;
     }
 
     /* ─── Dark mode tokens ───────────────────────────────────── */
     [data-theme="dark"] {
-      --bg:         #161614;
-      --text:       #E8E4DF;
-      --text-muted: #999490;
-      --text-faint: #555250;
-      --border:     #272522;
-      --divider:    #3A3733;
-      --accent:     #4DB37A;
+      --bg:          #161614;
+      --surface:     #1E1D1B;
+      --text:        #E8E4DF;
+      --body:        #CFCAC4;
+      --muted:       #A8A29C;
+      --faint:       #8A847D;
+      --border:      #2A2825;
+      --divider:     #3A3733;
+      --accent:      #4DB37A;
+      --accent-soft: rgba(77,179,122,0.12);
+      --header-bg:   rgba(22,22,20,0.88);
+      --hover:       rgba(255,255,255,0.04);
+      --lift:        0 12px 30px rgba(0,0,0,0.45);
+      --x-brand:     #E8E4DF;
+      --x-tile:      #000000;
+      --substack-tile: rgba(255,103,25,0.14);
     }
 
     /* ─── Reset ──────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { font-size: 16px; -webkit-font-smoothing: antialiased; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font);
-      font-weight: 400;
-      line-height: 1.65;
-      min-height: 100vh;
-    }
-
-    body.theme-ready,
-    body.theme-ready *:not(.quote-body):not(.peek) {
-      transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease !important;
-    }
+    body { background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.65; min-height: 100vh; }
+    body.theme-ready { transition: background 0.25s ease, color 0.25s ease; }
+    a { color: inherit; }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+    .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--pad-x); }
 
     /* ─── Header ─────────────────────────────────────────────── */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: var(--bg);
-      border-bottom: 0.5px solid var(--border);
-    }
+    header { position: sticky; top: 0; z-index: 100; background: var(--header-bg); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-bottom: 0.5px solid var(--border); }
+    header .wrap { display: flex; justify-content: space-between; align-items: center; height: 60px; gap: 1rem; }
+    .h-name { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; text-decoration: none; white-space: nowrap; }
+    .header-right { display: flex; align-items: center; gap: 1.25rem; }
+    .header-links { display: flex; gap: 1.75rem; font-size: 14px; }
+    .header-links a { text-decoration: none; color: var(--muted); transition: color 0.15s ease; }
+    .header-links a:hover, .header-links a.active { color: var(--text); }
+    .nav-cta { height: 36px; display: inline-flex; align-items: center; padding: 0 1rem; border-radius: 999px; background: var(--text); color: var(--bg); font-size: 14px; font-weight: 500; text-decoration: none; white-space: nowrap; transition: opacity .15s; }
+    .nav-cta:hover { opacity: 0.85; }
+    .nav-cta:focus-visible { border-radius: 999px; }
 
-    .header-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0.85rem var(--pad-x);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+    .theme-toggle { display: flex; align-items: center; background: var(--border); border: none; border-radius: 20px; padding: 3px; gap: 2px; cursor: pointer; flex-shrink: 0; }
+    .theme-toggle:focus-visible { border-radius: 20px; }
+    .theme-opt { display: flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; color: var(--faint); }
+    .theme-opt.active { background: var(--bg); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
 
-    .header-name {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text);
-      text-decoration: none;
-      min-height: 44px;
-      display: inline-flex;
-      align-items: center;
-    }
+    /* ─── Sections ───────────────────────────────────────────── */
+    section { padding: 3rem 0; border-top: 0.5px solid var(--border); scroll-margin-top: 60px; }
+    .h2 { font-size: 26px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 1.5rem; }
+    .h3 { display: flex; align-items: center; gap: 0.55rem; font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
+    .h3 svg { color: var(--accent); flex-shrink: 0; }
+    .h3-sub { font-size: 15px; color: var(--muted); margin: 0.2rem 0 1.25rem; }
+    .sub { font-size: 15px; color: var(--muted); margin: -1.1rem 0 1.5rem; }
+    .sublabel { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); margin-bottom: 0.75rem; }
 
-    .header-nav {
-      display: flex;
-      align-items: center;
-      gap: 1.75rem;
-    }
+    /* ─── Hero: who I am, in ten seconds ─────────────────────── */
+    .hero { border-top: none; padding: 4.5rem 0 2.75rem; }
+    .hero-top { display: flex; align-items: center; gap: 1.75rem; margin-bottom: 2.25rem; }
+    .photo { width: 116px; height: 116px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: var(--border); }
+    .photo img, .closing-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; display: block; }
+    h1 { font-size: 56px; font-weight: 600; letter-spacing: -0.045em; line-height: 1; margin-bottom: 0.6rem; }
+    .tagline { font-size: 19px; font-weight: 500; color: var(--muted); }
+    .bio p { font-size: 18px; color: var(--body); line-height: 1.7; }
+    .bio p + p { margin-top: 1.1rem; }
+    .bio a { color: var(--text); font-weight: 500; text-decoration-color: var(--accent); text-decoration-thickness: 1.5px; text-underline-offset: 4px; }
+    .pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
+    .pills a { display: inline-flex; align-items: center; gap: 0.5rem; height: 38px; padding: 0 1rem 0 0.85rem; border: 0.5px solid var(--border); border-radius: 999px; font-size: 14px; font-weight: 500; text-decoration: none; background: var(--surface); transition: border-color .15s; }
+    .pills a:hover { border-color: var(--divider); }
+    .pills a:focus-visible { border-radius: 999px; }
+    .pills .x svg { color: var(--x-brand); }
+    .pills .li svg { color: #0A66C2; }
+    .pills .em svg { color: var(--accent); }
 
-    .header-nav a {
-      font-size: 13px;
-      font-weight: 400;
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.15s ease;
-      display: inline-flex;
-      align-items: center;
-      min-height: 44px;
-      padding: 0 0.15rem;
-    }
+    /* ─── Experience: role + company facts, story behind the row ─ */
+    .company { scroll-margin-top: 80px; }
+    .company + .company { border-top: 0.5px solid var(--border); margin-top: 1.75rem; padding-top: 1.75rem; }
+    .co-head { display: flex; gap: 1.1rem; margin: -0.75rem; padding: 0.75rem; border-radius: var(--radius); cursor: pointer; transition: background .15s; }
+    .co-head:hover { background: var(--hover); }
+    .co-head:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .logo { width: 56px; height: 56px; border-radius: 13px; background: #fff; border: 0.5px solid var(--border); padding: 9px; flex-shrink: 0; }
+    .logo img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .co-main { flex: 1; min-width: 0; }
+    .co-top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+    .co-role { font-size: 21px; font-weight: 600; letter-spacing: -0.015em; }
+    .co-right { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; }
+    .co-year { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .chev-btn { width: 30px; height: 30px; border-radius: 50%; border: 0.5px solid var(--border); background: var(--surface); color: var(--muted); display: flex; align-items: center; justify-content: center; transition: transform .25s ease, color .15s, border-color .15s; }
+    .co-head:hover .chev-btn { color: var(--text); border-color: var(--divider); }
+    .company.open .chev-btn { transform: rotate(180deg); color: var(--text); }
+    .facts { display: flex; flex-wrap: wrap; align-items: center; margin-top: 0.15rem; font-size: 15px; color: var(--muted); }
+    .facts > span + span::before, .tags > span + span::before { content: '·'; margin: 0 0.5rem; color: var(--faint); }
+    .tags { display: inline-flex; flex-wrap: wrap; }
+    .co-name { font-weight: 600; color: var(--text); }
+    .m-year { display: none; }
+    .headline { font-size: 16px; color: var(--text); line-height: 1.55; margin-top: 0.7rem; }
 
-    .header-nav a:hover { color: var(--text); }
-    .header-nav a.active { color: var(--text); }
+    .co-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .3s ease; }
+    .company.open .co-body { grid-template-rows: 1fr; }
+    .co-body > div { overflow: hidden; }
+    .co-inner { padding: 1.75rem 0 0 calc(56px + 1.1rem); }
+    .co-about { font-size: 14px; color: var(--faint); line-height: 1.55; margin-bottom: 1.25rem; }
+    .story { margin-bottom: 1.75rem; }
+    .story p { font-size: 17px; color: var(--body); line-height: 1.75; }
+    .story p + p { margin-top: 1rem; }
+    .reflection { position: relative; padding: 0.2rem 0 0 2.4rem; margin-bottom: 1.75rem; }
+    .reflection::before { content: '“'; position: absolute; left: 0; top: -0.6rem; font-size: 56px; line-height: 1; color: var(--accent); font-family: Georgia, serif; }
+    .reflection p { font-size: 19px; line-height: 1.6; color: var(--text); letter-spacing: -0.005em; }
+    .reflection .draft { font-size: 14px; color: var(--faint); margin-top: 0.5rem; }
+    .hls { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .hl { display: inline-flex; align-items: baseline; gap: 0.4rem; padding: 0.4rem 0.75rem; border-radius: 10px; background: var(--surface); border: 0.5px solid var(--border); font-size: 13px; color: var(--muted); }
+    .hl b { font-size: 15px; font-weight: 600; color: var(--accent); }
+    .more-btn { display: inline-flex; align-items: center; gap: 0.35rem; margin-top: 1.5rem; padding: 0.25rem 0; background: none; border: none; font: inherit; font-size: 14px; font-weight: 500; color: var(--muted); cursor: pointer; }
+    .more-btn:hover { color: var(--text); }
 
-    .header-links {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-    }
+    /* ─── Side projects ──────────────────────────────────────── */
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+    .card { display: block; background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius); overflow: hidden; text-align: left; font: inherit; color: inherit; padding: 0; cursor: pointer; transition: transform .2s, box-shadow .2s; }
+    .card:hover { transform: translateY(-2px); box-shadow: var(--lift); }
+    .card:focus-visible { border-radius: var(--radius); }
+    .media { display: block; aspect-ratio: 16/10; overflow: hidden; border-bottom: 0.5px solid var(--border); background: var(--border); }
+    .media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .card-body { display: flex; gap: 0.85rem; padding: var(--card-pad); }
+    .card-icon { width: 42px; height: 42px; border-radius: 10px; flex-shrink: 0; }
+    .card-name { font-size: 17px; font-weight: 600; display: block; }
+    .card-desc { font-size: 15px; color: var(--muted); line-height: 1.5; display: block; margin-top: 2px; }
+    .card-more { display: inline-block; margin-top: 0.7rem; font-size: 14px; font-weight: 500; color: var(--accent); }
 
-    /* ─── Layout ─────────────────────────────────────────────── */
-    .container {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 var(--pad-x);
-    }
-
-    section { padding: 2rem 0 1.5rem; scroll-margin-top: 60px; }
-
-    .divider {
-      border: none;
-      border-top: 0.5px solid var(--divider);
-    }
-
-    /* ─── Section labels ─────────────────────────────────────── */
-    .label {
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 1.5rem;
-    }
-
-    /* ─── Hero ───────────────────────────────────────────────── */
-    .hero { padding: 3.75rem 0 2.75rem; }
-
-    .hero-photo {
-      width: 88px;
-      height: 88px;
-      border-radius: 50%;
-      background: var(--border);
-      overflow: hidden;
-      margin-bottom: 2rem;
-    }
-
-    .hero-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .hero-heading {
-      font-size: clamp(1.6rem, 3.5vw, 2rem);
-      font-weight: 600;
-      color: var(--text);
-      line-height: 1.15;
-      letter-spacing: -0.02em;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-heading .highlight {
-      color: var(--accent);
-    }
-
-    .hero-bio {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .hero-bio p {
-      font-size: 16px;
-      color: var(--text-muted);
-      line-height: 1.75;
-    }
-
-    .hero-bio a {
-      color: var(--text);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      text-decoration-color: var(--border);
-      transition: text-decoration-color 0.15s ease;
-      padding: 0.25rem 0;
-    }
-
-    .hero-bio a:hover { text-decoration-color: var(--text-muted); }
-
-    .hero-bio a.contact-link {
-      color: var(--accent);
-      text-decoration-color: transparent;
-    }
-    .hero-bio a.contact-link:hover { text-decoration-color: var(--accent); }
-
-    .hero-cta {
-      font-size: 14px;
-      color: var(--text);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      text-decoration-color: var(--border);
-      transition: text-decoration-color 0.15s ease;
-    }
-
-    .hero-cta:hover { text-decoration-color: var(--text-muted); }
-
-    /* ─── Work table ─────────────────────────────────────────── */
-    .work-table { width: calc(100% + 1rem); border-collapse: collapse; margin: 0 -0.5rem; table-layout: fixed; }
-    .work-table td { padding: 1rem 0; vertical-align: middle; font-size: 14px; }
-    .work-table td:first-child { padding-left: 0.5rem; }
-    .work-table td:last-child { padding-right: 0.5rem; }
-    .col-logo { width: 44px; }
-    .col-role { width: 110px; }
-    .col-year { width: 105px; }
-    .col-chevron { width: 36px; }
-
-    .work-row { border-bottom: 0.5px solid var(--border); cursor: pointer; transition: background 0.15s ease; }
-    .work-row:hover { background: rgba(0,0,0,0.03); }
-    .work-row.expanded { border-bottom: none; }
-
-    .work-detail { display: none; border-bottom: 0.5px solid var(--border); }
-    .work-detail.open { display: table-row; }
-    .work-detail-td { padding: 0 !important; }
-    .work-detail-content {
-      padding: 0.15rem 0.5rem 1.1rem 44px;
-      font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.75;
-      opacity: 0;
-      transition: opacity 0.2s ease;
-    }
-    .work-detail.open .work-detail-content { opacity: 1; }
-
-    .work-chevron-cell { text-align: right; }
-    .work-chevron {
-      display: inline-block;
-      color: var(--text);
-      transition: transform 0.2s ease;
-      vertical-align: middle;
-    }
-    .work-row.expanded .work-chevron { transform: rotate(180deg); }
-    .work-row:hover .work-chevron { color: var(--text); }
-
-    .work-logo-cell { width: 36px; padding-right: 0.5rem; }
-
-    .work-logo {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: var(--border);
-      overflow: hidden;
-      flex-shrink: 0;
-    }
-
-    .work-logo img { width: 100%; height: 100%; object-fit: cover; }
-    .work-logo--white { background: white; padding: 4px; }
-    .work-logo--white img { object-fit: contain; }
-
-    .work-company { font-weight: 500; color: var(--text); padding-right: 1.5rem; }
-    .work-company-name { display: block; }
-    .work-company-desc {
-      display: block;
-      font-size: 13px;
-      font-weight: 400;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-
-    .work-role { color: var(--text-muted); padding-right: 1.5rem; font-size: 13px; }
-    .work-year { color: var(--text-faint); text-align: right; white-space: nowrap; font-size: 13px; font-variant-numeric: tabular-nums; }
-    .year-short { display: none; }
-
-    /* ─── Projects ───────────────────────────────────────────── */
-    .project-row:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
-    .project-row .work-chevron { transform: rotate(-90deg); }
-    .project-row:hover .work-chevron { transform: rotate(-90deg) translateY(2px); }
-    .work-logo--app { border-radius: 7px; background: transparent; }
-
-    /* ─── Project peek (modal) ───────────────────────────────── */
+    /* ─── Project popup: cover first, like a Notion page ─────── */
     html:has(.peek[open]) { overflow: hidden; }
-
-    .peek {
-      width: min(720px, calc(100vw - 2rem));
-      max-width: none;
-      max-height: min(86vh, 860px);
-      margin: auto;
-      padding: 0;
-      border: 0.5px solid var(--border);
-      border-radius: 12px;
-      background: var(--bg);
-      color: var(--text);
-      box-shadow: 0 24px 64px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.06);
-      overflow: hidden;
-      opacity: 0;
-      transform: translateY(12px) scale(0.985);
-      transition: opacity 0.2s ease, transform 0.2s ease;
-    }
-
+    .peek { width: min(760px, calc(100vw - 2rem)); max-width: none; max-height: 88vh; margin: auto; padding: 0; border: none; border-radius: 18px; background: var(--bg); color: var(--text); box-shadow: 0 30px 80px rgba(0,0,0,0.25); overflow: hidden; opacity: 0; transform: translateY(12px) scale(0.985); transition: opacity .2s ease, transform .2s ease; }
     .peek.visible { opacity: 1; transform: none; }
     .peek:focus { outline: none; }
-
-    .peek::backdrop {
-      background: rgba(20,18,16,0.38);
-      opacity: 0;
-      transition: opacity 0.2s ease;
-    }
-
+    .peek::backdrop { background: rgba(28,26,24,0.45); backdrop-filter: blur(3px); opacity: 0; transition: opacity .2s ease; }
     .peek.visible::backdrop { opacity: 1; }
+    [data-theme="dark"] .peek { box-shadow: 0 30px 80px rgba(0,0,0,0.6); border: 0.5px solid var(--border); }
+    [data-theme="dark"] .peek::backdrop { background: rgba(0,0,0,0.6); }
+    .peek-scroll { max-height: 88vh; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+    .peek-close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 36px; height: 36px; border-radius: 50%; border: none; background: var(--surface); box-shadow: 0 2px 8px rgba(0,0,0,0.15); color: var(--text); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .peek-close:focus-visible { border-radius: 50%; }
+    .peek-cover { aspect-ratio: 16/8; background: var(--border); overflow: hidden; }
+    .peek-cover img, .peek-cover video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .peek-body { padding: 0 2.75rem 2.75rem; }
+    .peek-icon { width: 72px; height: 72px; border-radius: 16px; margin-top: -36px; position: relative; box-shadow: 0 6px 18px rgba(0,0,0,0.15); background: #fff; display: block; }
+    .peek-title { font-size: 34px; font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; margin: 1rem 0 0.35rem; }
+    .peek-tag { font-size: 18px; color: var(--muted); }
+    .peek-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 1.5rem 0 2rem; padding: 1rem 0; border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); }
+    .peek-meta { display: flex; gap: 1.5rem; font-size: 13px; color: var(--faint); }
+    .peek-meta b { display: block; font-size: 14px; font-weight: 500; color: var(--text); }
+    .peek-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .pbtn { display: inline-flex; align-items: center; height: 40px; padding: 0 1rem; border-radius: 999px; font-size: 14px; font-weight: 500; text-decoration: none; border: 0.5px solid var(--divider); background: var(--surface); white-space: nowrap; }
+    .pbtn.primary { background: var(--text); color: var(--bg); border-color: var(--text); }
+    .pbtn:focus-visible { border-radius: 999px; }
+    .peek-h { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); margin-bottom: 0.6rem; }
+    .peek-story { margin-bottom: 2.25rem; }
+    .peek-story p { font-size: 17px; line-height: 1.7; color: var(--body); }
+    .peek-story p + p { margin-top: 0.8rem; }
+    .peek-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .peek ul { list-style: none; }
+    .peek li { font-size: 15px; color: var(--muted); line-height: 1.6; padding: 0.55rem 0; border-bottom: 0.5px solid var(--border); }
+    .peek li:last-child { border-bottom: none; }
+    .peek li b { color: var(--text); font-weight: 600; display: block; }
 
-    .peek-scroll {
-      max-height: inherit;
-      overflow-y: auto;
-      overscroll-behavior: contain;
-      scrollbar-width: thin;
-      scrollbar-color: var(--border) transparent;
-    }
+    /* ─── Writing: one list, latest post leads, two exits ────── */
+    .post { display: flex; align-items: baseline; gap: 1rem; padding: 1rem 0; border-bottom: 0.5px solid var(--border); text-decoration: none; font-size: 17px; }
+    .post .t { flex: 1; }
+    .post .date { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .post .arr { color: var(--faint); transition: transform .15s; }
+    .post:hover .t { text-decoration: underline; text-decoration-color: var(--divider); text-underline-offset: 4px; }
+    .post:hover .arr { transform: translate(2px,-2px); color: var(--text); }
+    .post.lead { display: block; padding: 0 0 1.5rem; }
+    .lead-eyebrow { font-size: 13px; font-weight: 600; color: var(--accent); }
+    .lead-t { display: block; font-size: 24px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.25; margin: 0.25rem 0 0.4rem; }
+    .lead-d { display: block; font-size: 16px; color: var(--muted); }
+    .lead-go { display: inline-block; margin-top: 0.6rem; font-size: 14px; font-weight: 500; }
+    .exits { display: flex; gap: 0.6rem; margin-top: 1.75rem; }
+    .exit { flex: 1; display: flex; align-items: center; gap: 0.8rem; padding: 0.85rem 1rem; border: 0.5px solid var(--border); border-radius: var(--radius); text-decoration: none; transition: border-color .15s, background .15s; }
+    .exit:hover { border-color: var(--divider); background: var(--surface); }
+    .exit:focus-visible { border-radius: var(--radius); }
+    .exit-icon { width: 34px; height: 34px; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .exit-icon.substack { background: var(--substack-tile); }
+    .exit-icon.x { background: var(--x-tile); color: #fff; }
+    .exit b { display: block; font-size: 15px; font-weight: 600; }
+    .exit span { font-size: 13px; color: var(--muted); }
 
-    .peek-bar {
-      position: sticky;
-      top: 0;
-      z-index: 1;
-      display: flex;
-      justify-content: flex-end;
-      padding: 0.5rem 0.5rem 0;
-      background: linear-gradient(var(--bg) 60%, transparent);
-    }
+    /* ─── Off the clock: music, then lines ───────────────────── */
+    .part + .part { margin-top: 3rem; }
+    .music { display: flex; align-items: center; gap: 2rem; }
+    .stack { display: flex; padding: 8px 0; flex-shrink: 0; }
+    .disc { position: relative; width: 96px; height: 96px; border-radius: 50%; overflow: hidden; border: 4px solid var(--bg); box-shadow: 0 5px 14px rgba(0,0,0,0.12); transition: transform .25s ease, margin .25s ease; display: block; }
+    .disc + .disc { margin-left: -28px; }
+    .disc img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .disc:nth-child(1) { z-index: 4; } .disc:nth-child(2) { z-index: 3; } .disc:nth-child(3) { z-index: 2; } .disc:nth-child(4) { z-index: 1; }
+    .disc.active { transform: translateY(-8px) scale(1.06); z-index: 5; }
+    .stack:hover .disc + .disc { margin-left: -16px; }
+    .disc:focus-visible { border-radius: 50%; }
+    .np-name { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
+    .np-line { font-size: 15px; color: var(--muted); line-height: 1.5; margin-top: 0.15rem; }
+    .np-go { display: inline-block; margin-top: 0.5rem; font-size: 14px; font-weight: 500; text-decoration-color: var(--divider); text-underline-offset: 3px; }
 
-    .peek-close {
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      cursor: pointer;
-      width: 44px;
-      height: 44px;
-      border-radius: 8px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: color 0.15s ease, background 0.15s ease;
-    }
+    .quote-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+    .arrows { display: flex; gap: 0.4rem; flex-shrink: 0; }
+    .arrows button { width: 34px; height: 34px; border-radius: 50%; border: 0.5px solid var(--border); background: var(--surface); color: var(--muted); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: color .15s, border-color .15s; }
+    .arrows button:hover { color: var(--text); border-color: var(--divider); }
+    .arrows button:focus-visible { border-radius: 50%; }
+    blockquote { font-family: Georgia, serif; font-style: italic; font-size: 20px; line-height: 1.55; max-width: 38ch; min-height: 6.5rem; transition: opacity .35s ease; }
+    blockquote.fading { opacity: 0; }
+    cite { display: block; margin-top: 0.7rem; font-family: var(--font); font-style: normal; font-size: 13px; color: var(--muted); }
+    cite::before { content: '— '; }
 
-    .peek-close:hover { color: var(--text); background: rgba(0,0,0,0.04); }
+    /* ─── Say hello ──────────────────────────────────────────── */
+    .closing { background: var(--surface); border: 0.5px solid var(--border); border-radius: 20px; padding: 2rem; }
+    .closing-top { display: flex; gap: 1.25rem; align-items: center; margin-bottom: 1.25rem; }
+    .closing-photo { width: 64px; height: 64px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+    .closing-t { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
+    .closing-s { font-size: 14px; color: var(--muted); margin-top: 0.15rem; }
+    .wave { display: inline-block; transform-origin: 70% 70%; }
+    .closing.seen .wave { animation: wave 2.4s ease-in-out 0.3s 2; }
+    @keyframes wave { 0%,60%,100% { transform: rotate(0); } 10%,30% { transform: rotate(14deg); } 20%,40% { transform: rotate(-8deg); } }
+    .closing p { font-size: 17px; color: var(--muted); line-height: 1.65; max-width: 52ch; }
+    .closing p strong { color: var(--text); font-weight: 500; }
+    .closing-actions { display: flex; align-items: center; gap: 0.6rem; margin-top: 1.5rem; flex-wrap: wrap; }
+    .btn { height: 44px; display: inline-flex; align-items: center; gap: 0.45rem; padding: 0 1.2rem; border-radius: 999px; background: var(--text); color: var(--bg); font-size: 15px; font-weight: 500; text-decoration: none; }
+    .btn.ghost { background: transparent; color: var(--text); border: 0.5px solid var(--divider); }
+    .btn:focus-visible { border-radius: 999px; }
+    .now { display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; margin-top: 1.75rem; padding-top: 1.25rem; border-top: 0.5px dashed var(--border); font-size: 13px; color: var(--faint); }
+    .now b { color: var(--text); font-weight: 500; }
+    .now i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); margin-right: 0.4rem; box-shadow: 0 0 0 3px var(--accent-soft); }
 
-    .peek-body { padding: 0 2.5rem 2.5rem; }
+    /* ─── Footer ─────────────────────────────────────────────── */
+    footer { border-top: 0.5px solid var(--border); margin-top: 1rem; }
+    footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding-top: 2rem; padding-bottom: 2rem; font-size: 14px; color: var(--muted); }
+    footer .heart { color: var(--accent); }
+    .f-links { display: flex; gap: 1.25rem; }
+    .f-links a { text-decoration: none; }
+    .f-links a:hover { color: var(--text); }
 
-    .peek-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 12px;
-      margin-bottom: 1.1rem;
-      display: block;
-    }
-
-    .peek-title {
-      font-size: 1.6rem;
-      font-weight: 600;
-      line-height: 1.15;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.4rem;
-    }
-
-    .peek-tagline {
-      font-size: 16px;
-      color: var(--text-muted);
-      margin-bottom: 1.25rem;
-    }
-
-    .peek-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem 1.5rem;
-      font-size: 13px;
-      color: var(--text-faint);
-      padding: 0.85rem 0;
-      border-top: 0.5px solid var(--border);
-      border-bottom: 0.5px solid var(--border);
-      margin-bottom: 1.5rem;
-    }
-
-    .peek-meta span { color: var(--text-muted); }
-
-    .peek-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-bottom: 1.75rem;
-    }
-
-    .peek-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      min-height: 40px;
-      padding: 0 1rem;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 500;
-      text-decoration: none;
-      color: var(--text);
-      border: 0.5px solid var(--divider);
-      transition: background 0.15s ease, border-color 0.15s ease;
-    }
-
-    .peek-btn:hover { background: rgba(0,0,0,0.04); }
-
-    .peek-btn--primary {
-      background: var(--text);
-      color: var(--bg);
-      border-color: var(--text);
-    }
-
-    .peek-btn--primary:hover { background: var(--text); opacity: 0.85; }
-
-    .peek-media {
-      display: block;
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-      border: 0.5px solid var(--border);
-      background: var(--border);
-      margin-bottom: 2rem;
-    }
-
-    .peek-section h3 {
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin: 1.75rem 0 0.6rem;
-    }
-
-    .peek-section p,
-    .peek-section li {
-      font-size: 15px;
-      color: var(--text-muted);
-      line-height: 1.75;
-    }
-
-    .peek-section p + p { margin-top: 0.85rem; }
-
-    .peek-section ul { padding-left: 1.1rem; }
-    .peek-section li + li { margin-top: 0.3rem; }
-    .peek-section strong { color: var(--text); font-weight: 500; }
-
-    /* ─── Writing ────────────────────────────────────────────── */
-    .writing-list { list-style: none; }
-    .writing-list li { border-bottom: 0.5px solid var(--border); }
-    .writing-list li:last-child { border-bottom: none; }
-
-    .writing-link {
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-      padding: 0.85rem 0;
-      text-decoration: none;
-      color: var(--text);
-      font-size: 14px;
-      transition: opacity 0.15s ease;
-    }
-
-    .writing-link:hover { opacity: 0.65; }
-
-    .writing-title { flex: 1; }
-
-    .writing-date {
-      font-size: 13px;
-      color: var(--text-muted);
-      white-space: nowrap;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .writing-arrow {
-      font-size: 14px;
-      color: var(--text-muted);
-      flex-shrink: 0;
-      margin-left: 0.5rem;
-    }
-
-    .writing-more {
-      margin-top: 1.1rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 13px;
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.15s ease;
-      min-height: 44px;
-    }
-
-    .writing-more:hover { color: var(--text); }
-
-    .writing-more .substack-icon { flex-shrink: 0; }
-
-    /* ─── Quotes ─────────────────────────────────────────────── */
-    .quotes-wrap { max-width: 100%; }
-
-    .quotes-stage {
-      border: none;
-      border-radius: 0;
-      background: transparent;
-      padding: 0;
-      text-align: left;
-      position: static;
-    }
-
-    .quote-mark-open, .quote-mark-close { display: none; }
-
-    .quote-body { transition: opacity 0.4s ease; min-height: 5.5rem; }
-    .quote-body.fading { opacity: 0; }
-
-    .quote-text {
-      font-family: 'Georgia', serif;
-      font-style: italic;
-      font-size: 17px;
-      color: var(--text);
-      line-height: 1.7;
-      margin-bottom: 0.6rem;
-    }
-
-    .quote-attr {
-      font-size: 11px;
-      color: var(--text-faint);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-align: left;
-    }
-
-    .quotes-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1.5rem;
-    }
-
-    .quotes-header .label { margin-bottom: 0; }
-
-    .quotes-controls {
-      display: flex;
-      align-items: center;
-      gap: 0.1rem;
-      margin-right: -0.55rem;
-    }
-
-    .quotes-arrow {
-      background: none;
-      border: none;
-      font-size: 15px;
-      color: var(--text-muted);
-      cursor: pointer;
-      padding: 0.25rem 1rem;
-      min-width: 44px;
-      border-radius: 4px;
-      transition: color 0.15s ease;
-      line-height: 1;
-      min-height: 44px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .quotes-arrow:hover { color: var(--text); }
-
-    /* ─── Footer — Sabesh-inspired dotted + Bengaluru ────────── */
-    footer {
-      margin-top: 1rem;
-      border-top: 0.5px solid var(--border);
-      background-image: radial-gradient(circle, #D4D0CB 1px, transparent 1px);
-      background-size: 20px 20px;
-      background-color: var(--bg);
-      padding: 3rem 0 2.5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.75rem;
-      text-align: center;
-    }
-
-    .footer-made {
-      font-size: 14px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-faint);
-    }
-
-    .footer-heart { color: var(--accent); }
-
-    .footer-links {
-      display: flex;
-      gap: 1.75rem;
-      margin-top: 0.25rem;
-    }
-
-    .footer-links a {
-      font-size: 13px;
-      color: var(--text-muted);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      text-decoration-color: var(--border);
-      transition: color 0.15s ease, text-decoration-color 0.15s ease;
-      display: inline-flex;
-      align-items: center;
-      min-height: 44px;
-      padding: 0 0.5rem;
-    }
-
-    .footer-links a:hover {
-      color: var(--text);
-      text-decoration-color: var(--text-muted);
-    }
-
-    /* ─── Responsive ─────────────────────────────────────────── */
-    .work-mobile-desc { display: none; }
-
-    @media (max-width: 520px) {
+    /* ─── Phones ─────────────────────────────────────────────── */
+    @media (max-width: 640px) {
       :root { --pad-x: 1.25rem; }
-      .col-year { width: 48px; }
-      .work-company-desc { display: none; }
-      .work-mobile-desc { display: block; font-size: 13px; font-style: italic; color: var(--text-faint); margin-bottom: 0.75rem; }
-      .year-full { display: none; }
-      .year-short { display: inline; }
+      .header-links { display: none; }
+      .header-right { gap: 0.75rem; }
+      .nav-cta { height: 34px; padding: 0 0.85rem; font-size: 13px; }
 
-      .header-name { display: none; }
-      .header-inner { justify-content: flex-end; }
-      .header-nav { width: 100%; justify-content: space-between; gap: 1rem; }
-      .header-links { gap: 1.1rem; }
+      section { padding: 2.5rem 0; }
+      .h2 { font-size: 23px; }
+      .hero { padding: 2.5rem 0 2.25rem; }
+      .hero-top { flex-direction: column; align-items: flex-start; gap: 1.25rem; margin-bottom: 1.75rem; }
+      .photo { width: 92px; height: 92px; }
+      h1 { font-size: 40px; }
+      .tagline { font-size: 17px; }
+      .bio p { font-size: 17px; }
 
-      .peek {
-        width: 100vw;
-        max-height: 92vh;
-        margin: auto 0 0;
-        border-radius: 14px 14px 0 0;
-        border-bottom: none;
-        transform: translateY(24px);
-      }
-      .peek-body { padding: 0 1.25rem 2.5rem; }
-      .peek-title { font-size: 1.4rem; }
+      .co-head { gap: 0.85rem; }
+      .logo { width: 44px; height: 44px; border-radius: 11px; padding: 7px; }
+      .co-role { font-size: 18px; }
+      .co-year { display: none; }
+      .m-year { display: inline; }
+      .facts .tags { width: 100%; gap: 0.35rem; margin-top: 0.4rem; }
+      .facts .tags::before, .tags > span + span::before { content: none; }
+      .tags > span { font-size: 12.5px; padding: 0.1rem 0.55rem; border: 0.5px solid var(--border); border-radius: 999px; background: var(--surface); }
+      .h3 { font-size: 17px; }
+      .arrows button { width: 32px; height: 32px; }
+      .facts { font-size: 14px; }
+      .headline { font-size: 15px; }
+      .co-inner { padding-left: 0; }
+      .story p { font-size: 16px; }
+      .reflection p { font-size: 17px; }
+
+      .grid { grid-template-columns: 1fr; }
+      .exits { flex-direction: column; }
+      .post { font-size: 16px; }
+      .lead-t { font-size: 21px; }
+
+      .music { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .disc { width: 80px; height: 80px; }
+      .disc + .disc { margin-left: -22px; }
+      .stack:hover .disc + .disc { margin-left: -22px; }
+      blockquote { font-size: 18px; min-height: 8rem; }
+
+      .closing { padding: 1.35rem; }
+      .closing-t { font-size: 21px; }
+      .closing p { font-size: 16px; }
+
+      .peek { width: 100vw; max-height: 92vh; margin: auto 0 0; border-radius: 16px 16px 0 0; transform: translateY(24px); }
+      .peek-scroll { max-height: 92vh; }
+      .peek-body { padding: 0 1.25rem 2.25rem; }
+      .peek-icon { width: 60px; height: 60px; margin-top: -30px; border-radius: 14px; }
+      .peek-title { font-size: 27px; }
+      .peek-tag { font-size: 16px; }
+      .peek-row { flex-direction: column; align-items: flex-start; }
+      .peek-cols { grid-template-columns: 1fr; gap: 1.5rem; }
+      .peek-story p { font-size: 16px; }
+
+      footer .wrap { flex-direction: column-reverse; align-items: flex-start; }
     }
 
-    @media (min-width: 521px) {
-      .hero-photo { width: 140px; height: 140px; }
+    @media (max-width: 380px) {
+      .h-name { font-size: 14px; }
+      .nav-cta { padding: 0 0.7rem; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .quote-body { transition: none; }
-      .peek, .peek::backdrop { transition: none; }
-    }
-
-    /* ─── Dark mode overrides ────────────────────────────────── */
-    [data-theme="dark"] footer {
-      background-image: radial-gradient(circle, #2D2A27 1px, transparent 1px);
-    }
-
-    [data-theme="dark"] .work-row:hover,
-    [data-theme="dark"] .peek-close:hover,
-    [data-theme="dark"] .peek-btn:not(.peek-btn--primary):hover {
-      background: rgba(255,255,255,0.04);
-    }
-
-    [data-theme="dark"] .peek { box-shadow: 0 24px 64px rgba(0,0,0,0.6); }
-    [data-theme="dark"] .peek::backdrop { background: rgba(0,0,0,0.6); }
-
-    /* ─── Theme toggle ───────────────────────────────────────── */
-    .theme-toggle {
-      display: flex;
-      align-items: center;
-      background: var(--border);
-      border: none;
-      border-radius: 20px;
-      padding: 3px;
-      gap: 2px;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-
-    .theme-opt {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      color: var(--text-faint);
-    }
-
-    .theme-opt.active {
-      background: var(--bg);
-      color: var(--text);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+      .co-body, .chev-btn, .disc, .card, .post .arr, blockquote, .peek, .peek::backdrop { transition: none; }
+      .closing.seen .wave { animation: none; }
     }
   </style>
 </head>
@@ -717,14 +366,15 @@
 
   <!-- ── Header ── -->
   <header>
-    <div class="header-inner">
-      <a class="header-name" id="header-name" href="/">Anirudh Amudan</a>
-      <nav class="header-nav">
-        <div class="header-links">
+    <div class="wrap">
+      <a class="h-name" id="header-name" href="/">Anirudh Amudan</a>
+      <div class="header-right">
+        <nav class="header-links" aria-label="Sections">
           <a href="#experience">Experience</a>
-          <a href="#projects">Projects</a>
+          <a href="#projects">Side projects</a>
           <a href="#writing">Writing</a>
-        </div>
+        </nav>
+        <a class="nav-cta" href="mailto:anirudhan412@gmail.com?subject=Work%20with%20you&amp;body=Hi%20Anirudh%2C%0A%0AI%20found%20you%20through%20anirudhamudan.com.%0A%0A%5BWhat%20I%20have%20in%20mind%5D">Work with me</a>
         <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
           <span class="theme-opt" data-mode="light">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
@@ -733,406 +383,326 @@
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
           </span>
         </button>
-      </nav>
+      </div>
     </div>
   </header>
 
-  <div class="container">
+  <main class="wrap">
 
     <!-- ── Hero ── -->
     <section class="hero">
-      <div class="hero-photo">
-        <img src="Profile Picture.jpg" alt="Anirudh Amudan" width="88" height="88" />
+      <div class="hero-top">
+        <div class="photo"><img fetchpriority="high" src="Profile%20Photo.jpg" alt="Anirudh Amudan" width="116" height="116" /></div>
+        <div>
+          <h1>Anirudh Amudan</h1>
+          <p class="tagline">Product manager &amp; builder, based in Bengaluru.</p>
+        </div>
       </div>
-
-      <h1 class="hero-heading">Product Manager &amp; <span class="highlight">Builder.</span></h1>
-
-      <div class="hero-bio">
-        <p>I'm a Growth PM at <a href="https://leapscholar.com" target="_blank" rel="noopener">Leap Scholar</a>, where I work on how students find us and take their first step toward studying abroad.</p>
+      <div class="bio">
+        <p>I'm a product manager at <a href="https://leapscholar.com" target="_blank" rel="noopener">Leap Scholar</a>, a company known for helping students study abroad. Right now I'm building a new business inside it, from zero: helping people move abroad for work.</p>
         <p>On the side, I build with AI, mostly <a href="#projects">things I wish existed</a>.</p>
-        <p>I write too, less about work, more about everyday life, things I notice, and thoughts I can't seem to let go of.</p>
-        <p>Some of the nicest conversations I've had started with a random hello on the internet. Send one on <a class="contact-link" href="https://x.com/anirudhamudan" target="_blank" rel="noopener">Twitter (X)</a>, <a class="contact-link" href="https://www.linkedin.com/in/anirudhamudan/" target="_blank" rel="noopener">LinkedIn</a>, or by <a class="contact-link" href="mailto:anirudhan412@gmail.com">email</a>.</p>
+        <p>I <a href="#writing">write</a> too, less about work, more about everyday life, things I notice, and thoughts I can't seem to let go of.</p>
+      </div>
+      <div class="pills">
+        <a class="x" href="https://x.com/anirudhamudan" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>Twitter</a>
+        <a class="li" href="https://www.linkedin.com/in/anirudhamudan/" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>LinkedIn</a>
+        <a class="em" href="mailto:anirudhan412@gmail.com"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email</a>
       </div>
     </section>
-
-    <hr class="divider" />
 
     <!-- ── Experience ── -->
     <section id="experience">
-      <p class="label">Experience</p>
-      <table class="work-table">
-        <colgroup>
-          <col class="col-logo">
-          <col>
-          <col class="col-role">
-          <col class="col-year">
-          <col class="col-chevron">
-        </colgroup>
-        <tbody>
-          <tr class="work-row">
-            <td class="work-logo-cell">
-              <div class="work-logo work-logo--white">
-                <img src="Logos/Leap Scholar Logo.png" alt="Leap Scholar" width="28" height="28" loading="lazy" />
-              </div>
-            </td>
-            <td class="work-company">
-              <span class="work-company-name">Leap Scholar</span>
-              <span class="work-company-desc">Study abroad platform for Indian students</span>
-            </td>
-            <td class="work-role">Growth PM</td>
-            <td class="work-year"><span class="year-full">2025 – now</span><span class="year-short">now</span></td>
-            <td class="work-chevron-cell"><svg class="work-chevron" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><polyline points="2,3 7,8 12,3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
-          </tr>
-          <tr class="work-detail">
-            <td colspan="5" class="work-detail-td">
-              <div class="work-detail-content">
-                <p class="work-mobile-desc">Study abroad platform for Indian students</p>
-                <p>Leap is where I learned what systematic experimentation at consumer scale actually looks like. Most of my work sits at the very start of a student's journey: building onboarding flows, running funnel experiments, and starting to explore how product can replace touchpoints that used to need a human.</p>
-              </div>
-            </td>
-          </tr>
-          <tr class="work-row">
-            <td class="work-logo-cell">
-              <div class="work-logo work-logo--white">
-                <img src="Logos/Fibr AI Logo.jpg" alt="Fibr AI" width="28" height="28" loading="lazy" />
-              </div>
-            </td>
-            <td class="work-company">
-              <span class="work-company-name">Fibr AI</span>
-              <span class="work-company-desc">AI-powered website personalisation for marketers</span>
-            </td>
-            <td class="work-role">Associate PM</td>
-            <td class="work-year"><span class="year-full">2024 – 2025</span><span class="year-short">2025</span></td>
-            <td class="work-chevron-cell"><svg class="work-chevron" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><polyline points="2,3 7,8 12,3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
-          </tr>
-          <tr class="work-detail">
-            <td colspan="5" class="work-detail-td">
-              <div class="work-detail-content">
-                <p class="work-mobile-desc">AI-powered website personalisation for marketers</p>
-                <p>Fibr built agentic AI tools for marketers: automated website personalisation, CRO experimentation, AI-generated test strategies. It was my first real exposure to AI-native product work, and where I learned what pre-PMF feels like from the inside.</p>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+      <h2 class="h2">Experience</h2>
 
-    <hr class="divider" />
-
-    <!-- ── Projects ── -->
-    <section id="projects">
-      <p class="label">Projects</p>
-      <table class="work-table">
-        <colgroup>
-          <col class="col-logo">
-          <col>
-          <col class="col-role">
-          <col class="col-year">
-          <col class="col-chevron">
-        </colgroup>
-        <tbody>
-          <tr class="work-row project-row" data-project="headroom" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Headroom: Claude usage limits in your Mac menu bar">
-            <td class="work-logo-cell">
-              <div class="work-logo work-logo--app">
-                <img src="Projects/Headroom Icon.png" alt="" width="28" height="28" loading="lazy" />
+      <div class="company" id="co-leap">
+        <div class="co-head" role="button" tabindex="0" aria-expanded="false" aria-controls="body-leap">
+          <div class="logo"><img loading="lazy" src="Logos/Leap%20Scholar%20Logo.png" alt="" /></div>
+          <div class="co-main">
+            <div class="co-top"><span class="co-role">Product Manager</span><span class="co-right"><span class="co-year">Aug 2025 – now</span><span class="chev-btn" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></span></div>
+            <div class="facts"><span class="co-name">Leap Scholar</span><span class="m-year">Aug 2025 – now</span><span class="tags"><span>Series E</span><span>Consumer</span><span>Backed by Peak XV</span></span></div>
+            <p class="headline">Building a new careers-abroad business from zero, and owning the product end to end. Before that, I worked on how students go from first visit to talking to a counsellor.</p>
+          </div>
+        </div>
+        <div class="co-body" id="body-leap">
+          <div>
+            <div class="co-inner">
+              <p class="co-about">One of India's largest study-abroad platforms. Series E, backed by Peak XV and Harvard Management Company.</p>
+              <div class="story">
+                <p>A recruiter called about a consumer growth role that needed someone AI-native. I'd been wanting consumer for a while: at Fibr, a B2B experiment could take months to tell you anything. In consumer, you know in days.</p>
+                <p>Five rounds later, the last one was with Arnav, Leap's founder, whose tweets I'd been quietly reading for a while. It turned into an hour and a half over a Saturday lunch. He asked about everything, from my childhood to why I'd made each choice since. I asked how he runs a company and still makes time for his health and family.</p>
+                <p>I expected a Series E company to move slower than the 20-person startup I'd come from. It didn't. With enough clarity, scale makes you faster, not slower. I worked on the platform that every student passes through, around 40,000 a month, and learned what experimentation really means at consumer scale: fast, but systematic, thinking through everything that could go right or wrong before you ship. Letting students book their own counselling session, instead of waiting for a sales call, lifted conversion 1.8×. Giving them a university shortlist in 60 seconds cut what we paid per booked call by about 12%.</p>
+                <p>Now I'm building something from nothing: a careers-abroad business inside Leap, where I own the product end to end. I've gone from using ChatGPT to draft PRDs to designing, prototyping and raising front-end PRs myself, on an AI setup I built in Cursor.</p>
+                <p>Working closely with Arnav has been the best part. Watching someone operate at the top of their game, and still look after their health and family, changed what I think is possible. It's also made me independent, and taught me to judge my work by what it does for the business, not just the metric I own.</p>
               </div>
-            </td>
-            <td class="work-company">
-              <span class="work-company-name">Headroom</span>
-              <span class="work-company-desc">Claude usage limits in your Mac menu bar</span>
-            </td>
-            <td class="work-role">macOS app</td>
-            <td class="work-year"><span class="year-full">2026</span><span class="year-short">2026</span></td>
-            <td class="work-chevron-cell"><svg class="work-chevron" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><polyline points="2,3 7,8 12,3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
-          </tr>
-          <tr class="work-row project-row" data-project="deskfm" tabindex="0" role="button" aria-haspopup="dialog" aria-label="DeskFM: Focus music, one click from the menu bar">
-            <td class="work-logo-cell">
-              <div class="work-logo work-logo--app">
-                <img src="Projects/DeskFM Icon.png" alt="" width="28" height="28" loading="lazy" />
-              </div>
-            </td>
-            <td class="work-company">
-              <span class="work-company-name">DeskFM</span>
-              <span class="work-company-desc">Focus music, one click from the menu bar</span>
-            </td>
-            <td class="work-role">macOS app</td>
-            <td class="work-year"><span class="year-full">2026</span><span class="year-short">2026</span></td>
-            <td class="work-chevron-cell"><svg class="work-chevron" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><polyline points="2,3 7,8 12,3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <hr class="divider" />
-
-    <!-- ── Writing ── -->
-    <section id="writing">
-      <p class="label">Writing</p>
-      <ul class="writing-list">
-        <li>
-          <a class="writing-link" href="https://anirudhamudan.substack.com/p/lessons-from-2025" target="_blank" rel="noopener">
-            <span class="writing-title">Lessons from 2025</span>
-            <span class="writing-date">Jan 2026</span>
-            <span class="writing-arrow">↗</span>
-          </a>
-        </li>
-        <li>
-          <a class="writing-link" href="https://anirudhamudan.substack.com/p/a-shared-definition-of-ambition" target="_blank" rel="noopener">
-            <span class="writing-title">A Shared Definition of Ambition</span>
-            <span class="writing-date">Nov 2025</span>
-            <span class="writing-arrow">↗</span>
-          </a>
-        </li>
-        <li>
-          <a class="writing-link" href="https://anirudhamudan.substack.com/p/india-and-status-games" target="_blank" rel="noopener">
-            <span class="writing-title">India and Status Games</span>
-            <span class="writing-date">Apr 2025</span>
-            <span class="writing-arrow">↗</span>
-          </a>
-        </li>
-        <li>
-          <a class="writing-link" href="https://anirudhamudan.substack.com/p/does-size-really-matter-startups" target="_blank" rel="noopener">
-            <span class="writing-title">Does size really matter? (Startups vs Corporates)</span>
-            <span class="writing-date">Mar 2024</span>
-            <span class="writing-arrow">↗</span>
-          </a>
-        </li>
-        <li>
-          <a class="writing-link" href="https://anirudhamudan.substack.com/p/its-hard-to-swipe-left-on-social" target="_blank" rel="noopener">
-            <span class="writing-title">It's hard to swipe left on social media</span>
-            <span class="writing-date">Jan 2024</span>
-            <span class="writing-arrow">↗</span>
-          </a>
-        </li>
-      </ul>
-      <a class="writing-more" href="https://anirudhamudan.substack.com" target="_blank" rel="noopener">
-        Read more on
-        <svg class="substack-icon" width="14" height="14" viewBox="0 0 24 24" fill="#FF6719" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/>
-        </svg>
-        Substack ↗
-      </a>
-    </section>
-
-    <hr class="divider" />
-
-    <!-- ── Quotes ── -->
-    <section>
-      <div class="quotes-header">
-        <p class="label">Lines I keep coming back to</p>
-        <div class="quotes-controls">
-          <button class="quotes-arrow" id="quotes-prev" aria-label="Previous quote">‹</button>
-          <button class="quotes-arrow" id="quotes-next" aria-label="Next quote">›</button>
+              <div class="reflection"><p>The level I need to work at keeps changing: pixels one week, the business case the next. Knowing which one the moment needs has become most of the job.</p></div>
+              <p class="sublabel">Highlights</p>
+              <div class="hls"><span class="hl"><b>1.8×</b>conversion into counselling</span><span class="hl"><b>~12%</b>lower cost per booked call</span><span class="hl"><b>~25%</b>less editor time per essay</span><span class="hl"><b>~40K</b>students a month</span></div>
+              <button class="more-btn bottom"><span>Show less</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform:rotate(180deg)"><path d="m6 9 6 6 6-6"/></svg></button>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="quotes-wrap">
-        <div class="quotes-stage">
-          <div class="quote-body" id="quote-body">
-            <p class="quote-text" id="quote-text">"Do I deserve this?" "Am I worthy of this?" So irrelevant. Do you want it?</p>
-            <p class="quote-attr" id="quote-attr">bulldyke-rider</p>
+
+      <div class="company" id="co-fibr">
+        <div class="co-head" role="button" tabindex="0" aria-expanded="false" aria-controls="body-fibr">
+          <div class="logo"><img loading="lazy" src="Logos/Fibr%20AI%20Logo.jpg" alt="" /></div>
+          <div class="co-main">
+            <div class="co-top"><span class="co-role">Associate Product Manager</span><span class="co-right"><span class="co-year">Jun 2024 – Jul 2025</span><span class="chev-btn" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></span></div>
+            <div class="facts"><span class="co-name">Fibr AI</span><span class="m-year">Jun 2024 – Jul 2025</span><span class="tags"><span>Seed stage</span><span>B2B SaaS</span><span>AI</span></span></div>
+            <p class="headline">Built AI agents that help marketers personalise their websites and decide what to test next.</p>
+          </div>
+        </div>
+        <div class="co-body" id="body-fibr">
+          <div>
+            <div class="co-inner">
+              <p class="co-about">An agentic AI platform for website personalisation and conversion optimisation (CRO), built for marketing teams.</p>
+              <div class="story">
+                <p>[How I got here: how you found Fibr, and why a 20-person AI startup as a first job.]</p>
+                <p>My first product job, at a startup still looking for product-market fit. I owned the Search Ads Agent, which rewrites a landing page to match the intent behind each ad, and it lifted conversions 21% for a major broadband provider. I also built a hypothesis engine that turns GA4 data into AI-generated test ideas, which tripled how many demos turned into proof-of-concept trials.</p>
+                <p>[What surprised you, one thing that didn't work, and what you'd tell someone joining a pre-PMF startup.]</p>
+              </div>
+              <div class="reflection"><p>My first real look at what pre-PMF feels like from the inside: shipping fast, not knowing yet if it matters, and learning to tell the difference.</p><p class="draft">[Draft. Rewrite in your words.]</p></div>
+              <p class="sublabel">Highlights</p>
+              <div class="hls"><span class="hl"><b>+21%</b>conversions, Search Ads Agent</span><span class="hl"><b>3×</b>demo-to-PoC conversion</span></div>
+              <button class="more-btn bottom"><span>Show less</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform:rotate(180deg)"><path d="m6 9 6 6 6-6"/></svg></button>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-  </div>
-
-  <!-- ── Project peeks ── -->
-  <dialog class="peek" id="headroom" aria-labelledby="headroom-title">
-    <div class="peek-scroll">
-      <div class="peek-bar">
-        <button class="peek-close" type="button" aria-label="Close">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+    <!-- ── Side projects ── -->
+    <section id="projects">
+      <h2 class="h2">Side projects</h2>
+      <p class="sub">Small tools I built because I wanted them to exist.</p>
+      <div class="grid">
+        <button class="card" data-project="headroom" aria-haspopup="dialog">
+          <span class="media"><img loading="lazy" src="Projects/Headroom%20Screenshot.jpg" alt="" /></span>
+          <span class="card-body">
+            <img class="card-icon" loading="lazy" src="Projects/Headroom%20Icon.png" alt="" />
+            <span><span class="card-name">Headroom</span><span class="card-desc">Claude usage limits in your Mac menu bar</span><span class="card-more">Read the story →</span></span>
+          </span>
+        </button>
+        <button class="card" data-project="deskfm" aria-haspopup="dialog">
+          <span class="media"><img loading="lazy" src="Projects/DeskFM%20Poster.jpg" alt="" /></span>
+          <span class="card-body">
+            <img class="card-icon" loading="lazy" src="Projects/DeskFM%20Icon.png" alt="" />
+            <span><span class="card-name">DeskFM</span><span class="card-desc">Focus music, one click from the menu bar</span><span class="card-more">Read the story →</span></span>
+          </span>
         </button>
       </div>
+    </section>
+
+    <!-- ── Writing ── -->
+    <section id="writing">
+      <h2 class="h2">Writing</h2>
+      <a class="post lead" href="https://anirudhamudan.substack.com/p/lessons-from-2025" target="_blank" rel="noopener">
+        <span class="lead-eyebrow">Latest · Jan 2026</span>
+        <span class="lead-t">Lessons from 2025</span>
+        <span class="lead-d">[One-line summary of the post, in your words]</span>
+        <span class="lead-go">Read the post →</span>
+      </a>
+      <a class="post" href="https://anirudhamudan.substack.com/p/a-shared-definition-of-ambition" target="_blank" rel="noopener"><span class="t">A Shared Definition of Ambition</span><span class="date">Nov 2025</span><span class="arr">↗</span></a>
+      <a class="post" href="https://anirudhamudan.substack.com/p/india-and-status-games" target="_blank" rel="noopener"><span class="t">India and Status Games</span><span class="date">Apr 2025</span><span class="arr">↗</span></a>
+      <a class="post" href="https://anirudhamudan.substack.com/p/does-size-really-matter-startups" target="_blank" rel="noopener"><span class="t">Does size really matter? (Startups vs Corporates)</span><span class="date">Mar 2024</span><span class="arr">↗</span></a>
+      <a class="post" href="https://anirudhamudan.substack.com/p/its-hard-to-swipe-left-on-social" target="_blank" rel="noopener"><span class="t">It's hard to swipe left on social media</span><span class="date">Jan 2024</span><span class="arr">↗</span></a>
+      <div class="exits">
+        <a class="exit" href="https://anirudhamudan.substack.com" target="_blank" rel="noopener">
+          <span class="exit-icon substack"><svg width="15" height="15" viewBox="0 0 24 24" fill="#FF6719" aria-hidden="true"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg></span>
+          <span><b>All posts on Substack</b><span>Long-form, every few months</span></span>
+        </a>
+        <a class="exit" href="https://x.com/anirudhamudan" target="_blank" rel="noopener">
+          <span class="exit-icon x"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></span>
+          <span><b>Daily thinking on Twitter</b><span>Half-formed ideas and product takes</span></span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ── Off the clock ── -->
+    <section id="personal">
+      <h2 class="h2">Off the clock</h2>
+
+      <div class="part">
+        <h3 class="h3"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>What I listen to</h3>
+        <p class="h3-sub">Mostly Tamil. My playlists on Spotify.</p>
+        <div class="music">
+          <div class="stack">
+            <a class="disc" href="https://open.spotify.com/playlist/5g6Ual1bWeC55SqrQo50f0" target="_blank" rel="noopener" data-name="Madras Aesthetics" data-line="Slow evenings. Not too slow, just easy to sit with."><img loading="lazy" src="Music/Madras%20Aesthetics.jpg" alt="Madras Aesthetics" /></a>
+            <a class="disc active" href="https://open.spotify.com/playlist/2OTzWdEFoAEsYGXxqqric6" target="_blank" rel="noopener" data-name="Theera Ulaa" data-line="Late-night Tamil for winding down, or a long drive alone. My favourite."><img loading="lazy" src="Music/Theera%20Ulaa.jpg" alt="Theera Ulaa" /></a>
+            <a class="disc" href="https://open.spotify.com/playlist/4MpzQ7rugr2ZgOAQKkIBZM" target="_blank" rel="noopener" data-name="tamil la vibe" data-line="Fast Tamil beats for dancing around with friends."><img loading="lazy" src="Music/Tamil%20La%20Vibe.jpg" alt="tamil la vibe" /></a>
+            <a class="disc" href="https://open.spotify.com/playlist/0GoHtISLH565JDl42LtpjK" target="_blank" rel="noopener" data-name="just vibe." data-line="My small collection of English songs."><img loading="lazy" src="Music/Just%20Vibe.jpg" alt="just vibe." /></a>
+          </div>
+          <div aria-live="polite">
+            <div class="np-name" id="np-name">Theera Ulaa</div>
+            <div class="np-line" id="np-line">Late-night Tamil for winding down, or a long drive alone. My favourite.</div>
+            <a class="np-go" id="np-go" href="https://open.spotify.com/playlist/2OTzWdEFoAEsYGXxqqric6" target="_blank" rel="noopener">Open in Spotify ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="part">
+        <div class="quote-top">
+          <div>
+            <h3 class="h3"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21c3 0 7-1 7-8V5H3v7h4c0 4-2 6-4 6zM14 21c3 0 7-1 7-8V5h-7v7h4c0 4-2 6-4 6z"/></svg>Lines I keep coming back to</h3>
+            <p class="h3-sub">Quotes that changed how I think. <span id="quote-count" style="white-space:nowrap">1 of 7</span>.</p>
+          </div>
+          <div class="arrows">
+            <button id="quotes-prev" aria-label="Previous quote"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+            <button id="quotes-next" aria-label="Next quote"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+          </div>
+        </div>
+        <blockquote id="quote"><span id="quote-text">"Do I deserve this?" "Am I worthy of this?" So irrelevant. Do you want it?</span><cite id="quote-attr">bulldyke-rider</cite></blockquote>
+      </div>
+    </section>
+
+    <!-- ── Say hello ── -->
+    <section>
+      <div class="closing">
+        <div class="closing-top">
+          <div class="closing-photo"><img loading="lazy" src="Profile%20Photo.jpg" alt="" /></div>
+          <div>
+            <div class="closing-t">Say hello <span class="wave" aria-hidden="true">👋</span></div>
+            <div class="closing-s">I read every note</div>
+          </div>
+        </div>
+        <p>Building something in growth or AI, hiring for product, or just want to swap notes? I'd like to hear about it. <strong>If you're in Bengaluru, the filter coffee is on me.</strong></p>
+        <div class="closing-actions">
+          <a class="btn" href="mailto:anirudhan412@gmail.com">Send a note ↗</a>
+          <a class="btn ghost" href="https://x.com/anirudhamudan" target="_blank" rel="noopener">DM on Twitter</a>
+        </div>
+        <div class="now">
+          <span><i></i>Now: <b>building a new business from zero</b></span>
+          <span>On repeat: <b>Theera Ulaa</b></span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="wrap">
+      <span>Made with <span class="heart">♥</span> in Bengaluru</span>
+      <span class="f-links"><a href="https://x.com/anirudhamudan" target="_blank" rel="noopener">Twitter</a><a href="https://www.linkedin.com/in/anirudhamudan/" target="_blank" rel="noopener">LinkedIn</a><a href="mailto:anirudhan412@gmail.com">Email</a></span>
+    </div>
+    <!-- Trichy ↔ Bengaluru illustration goes here, with a dusk/night version for dark mode -->
+  </footer>
+
+  <!-- ── Project popups (URL hash = open project, so links and back work) ── -->
+  <dialog class="peek" id="headroom" aria-labelledby="headroom-title">
+    <button class="peek-close" type="button" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
+    <div class="peek-scroll">
+      <div class="peek-cover"><img src="Projects/Headroom%20Screenshot.jpg" alt="Headroom showing 82% session usage in the menu bar, with the usage panel open" loading="lazy" /></div>
       <div class="peek-body">
-        <img class="peek-icon" src="Projects/Headroom Icon.png" alt="" width="56" height="56" />
+        <img class="peek-icon" src="Projects/Headroom%20Icon.png" alt="" loading="lazy" />
         <h2 class="peek-title" id="headroom-title">Headroom</h2>
-        <p class="peek-tagline">Claude usage limits in your Mac menu bar.</p>
-
-        <div class="peek-meta">
-          <div>Platform <span>macOS 13+</span></div>
-          <div>Built <span>Oct 2026</span></div>
-          <div>Stack <span>Swift</span></div>
+        <p class="peek-tag">Claude usage limits in your Mac menu bar.</p>
+        <div class="peek-row">
+          <div class="peek-meta"><span>Platform<b>macOS 13+</b></span><span>Built<b>Oct 2026</b></span><span>Stack<b>Swift</b></span></div>
+          <div class="peek-actions"><a class="pbtn primary" href="https://github.com/anirudhamudan/headroom/releases/latest" target="_blank" rel="noopener">Download ↗</a><a class="pbtn" href="https://github.com/anirudhamudan/headroom" target="_blank" rel="noopener">GitHub ↗</a></div>
         </div>
-
-        <div class="peek-actions">
-          <a class="peek-btn peek-btn--primary" href="https://github.com/anirudhamudan/headroom/releases/latest" target="_blank" rel="noopener">Download for Mac ↗</a>
-          <a class="peek-btn" href="https://github.com/anirudhamudan/headroom" target="_blank" rel="noopener">View on GitHub ↗</a>
-        </div>
-
-        <img class="peek-media" src="Projects/Headroom Screenshot.jpg" alt="Headroom showing 82% session usage in the menu bar, with the usage panel open" width="1400" height="788" loading="lazy" />
-
-        <div class="peek-section">
-          <h3>Why I built it</h3>
+        <div class="peek-story">
+          <p class="peek-h">Why I built it</p>
           <p>I use Claude for most of my work, and the only way to see how much of my limit was left was to go and look for it. Usually I found out by running out, in the middle of something.</p>
           <p>I wanted the number to just be there, the way battery percentage is.</p>
-
-          <h3>What it does</h3>
-          <ul>
-            <li>Shows your current 5-hour session usage in the menu bar, e.g. <strong>48%</strong>.</li>
-            <li>Click it to see every limit, how much is used, and when each one resets.</li>
-            <li>A small dot appears when a limit is getting close: yellow when it's near, red when it's used up.</li>
-          </ul>
-
-          <h3>Decisions I made</h3>
-          <ul>
-            <li><strong>A dot, not a notification.</strong> It should be glanceable and never interrupt you.</li>
-            <li><strong>Built for people who don't live in Terminal.</strong> If Claude Code isn't set up, Headroom walks you through it instead of failing silently. After that, one click means you never need Terminal again.</li>
-            <li><strong>Risky things are opt-in.</strong> Automatic sign-in renewal writes back to Claude Code's credentials, so it's off until you turn it on.</li>
-            <li><strong>Nothing leaves your Mac except calls to Anthropic.</strong> No analytics, no other servers.</li>
-          </ul>
         </div>
-
+        <div class="peek-cols">
+          <div>
+            <p class="peek-h">What it does</p>
+            <ul>
+              <li><b>Session usage at a glance</b>Your 5-hour usage sits in the menu bar, e.g. 48%.</li>
+              <li><b>Every limit, one click</b>How much is used and when each one resets.</li>
+              <li><b>A quiet warning</b>A small dot turns yellow when you're close, red when you're out.</li>
+            </ul>
+          </div>
+          <div>
+            <p class="peek-h">Decisions I made</p>
+            <ul>
+              <li><b>A dot, not a notification</b>Glanceable, never interrupting.</li>
+              <li><b>For people who don't live in Terminal</b>Setup walks you through it instead of failing silently.</li>
+              <li><b>Risky things are opt-in</b>Auto sign-in renewal is off until you turn it on.</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </dialog>
 
   <dialog class="peek" id="deskfm" aria-labelledby="deskfm-title">
+    <button class="peek-close" type="button" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
     <div class="peek-scroll">
-      <div class="peek-bar">
-        <button class="peek-close" type="button" aria-label="Close">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
-        </button>
-      </div>
+      <div class="peek-cover"><video src="Projects/DeskFM%20Demo.mp4" poster="Projects/DeskFM%20Poster.jpg" muted loop playsinline preload="none" aria-label="Clicking the lamp in the menu bar, then Start Deep Focus: the paused song switches to a focus track and starts playing"></video></div>
       <div class="peek-body">
-        <img class="peek-icon" src="Projects/DeskFM Icon.png" alt="" width="56" height="56" />
+        <img class="peek-icon" src="Projects/DeskFM%20Icon.png" alt="" loading="lazy" />
         <h2 class="peek-title" id="deskfm-title">DeskFM</h2>
-        <p class="peek-tagline">A small lamp in your menu bar that starts your focus music in one click.</p>
-
-        <div class="peek-meta">
-          <div>Platform <span>macOS 14+</span></div>
-          <div>Built <span>Oct 2026</span></div>
-          <div>Stack <span>Swift</span></div>
+        <p class="peek-tag">A small lamp in your menu bar that starts your focus music in one click.</p>
+        <div class="peek-row">
+          <div class="peek-meta"><span>Platform<b>macOS 14+</b></span><span>Built<b>Oct 2026</b></span><span>Stack<b>Swift</b></span></div>
+          <div class="peek-actions"><a class="pbtn primary" href="https://github.com/anirudhamudan/deskfm/releases/latest" target="_blank" rel="noopener">Download ↗</a><a class="pbtn" href="https://github.com/anirudhamudan/deskfm" target="_blank" rel="noopener">GitHub ↗</a></div>
         </div>
-
-        <div class="peek-actions">
-          <a class="peek-btn peek-btn--primary" href="https://github.com/anirudhamudan/deskfm/releases/latest" target="_blank" rel="noopener">Download for Mac ↗</a>
-          <a class="peek-btn" href="https://github.com/anirudhamudan/deskfm" target="_blank" rel="noopener">View on GitHub ↗</a>
+        <div class="peek-story">
+          <p class="peek-h">Why I built it</p>
+          <p>I listen to the same lo-fi playlist every time I sit down to work. But if Spotify had been paused for a while, the Now Playing widget would disappear and the play key would open Apple Music instead. I'd end up searching for the playlist just to press play.</p>
+          <p>So I made a small lamp that lives in the menu bar and never goes away, with one button that starts my focus music.</p>
         </div>
-
-        <video class="peek-media" src="Projects/DeskFM Demo.mp4" poster="Projects/DeskFM Poster.jpg" width="1568" height="882" muted loop playsinline preload="none" aria-label="Clicking the lamp in the menu bar, then Start Deep Focus: the paused song switches to a focus track and starts playing"></video>
-
-        <div class="peek-section">
-          <h3>Why I built it</h3>
-          <p>I listen to the same lo-fi playlist every time I sit down to work. But if Spotify had been paused for a while, the Now Playing widget on my Mac would disappear, and the play key would open Apple Music instead. I'd end up opening Spotify and searching for the playlist just to press play.</p>
-          <p>So I made a small lamp that lives in the menu bar and never goes away, with one button that starts my focus music, whatever was playing before.</p>
-
-          <h3>What it does</h3>
-          <ul>
-            <li><strong>Start Deep Focus:</strong> one click starts your go-to playlist, even if Spotify is closed.</li>
-            <li>Current track, artwork and a progress bar you can click to seek.</li>
-            <li>Play/pause, previous, next, shuffle, and launch at login.</li>
-          </ul>
-
-          <h3>Decisions I made</h3>
-          <ul>
-            <li><strong>One job, done well.</strong> It isn't trying to replace Spotify. It removes the five steps between sitting down and hearing music.</li>
-            <li><strong>Always visible.</strong> The whole problem was a control that disappears, so the lamp never does.</li>
-            <li><strong>No account, no sign-in.</strong> It talks to the Spotify app on your Mac directly. Nothing goes to the internet except album artwork.</li>
-          </ul>
+        <div class="peek-cols">
+          <div>
+            <p class="peek-h">What it does</p>
+            <ul>
+              <li><b>Start Deep Focus</b>One click starts your go-to playlist, even if Spotify is closed.</li>
+              <li><b>Now playing</b>Track, artwork and a progress bar you can click to seek.</li>
+              <li><b>The basics</b>Play/pause, skip, shuffle, launch at login.</li>
+            </ul>
+          </div>
+          <div>
+            <p class="peek-h">Decisions I made</p>
+            <ul>
+              <li><b>One job, done well</b>It removes the steps between sitting down and hearing music.</li>
+              <li><b>Always visible</b>The problem was a control that disappears, so the lamp never does.</li>
+              <li><b>No account, no sign-in</b>It talks to the Spotify app on your Mac directly.</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
   </dialog>
 
-  <!-- ── Footer ── -->
-  <footer>
-    <span class="footer-made">Made with <span class="footer-heart">♥</span> in Bengaluru</span>
-    <nav class="footer-links">
-      <a href="https://x.com/anirudhamudan" target="_blank" rel="noopener">Twitter (X)</a>
-      <a href="https://www.linkedin.com/in/anirudhamudan/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="mailto:anirudhan412@gmail.com">Email</a>
-    </nav>
-  </footer>
-
   <script>
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     // ── Name scramble ─────────────────────────────────────────
-    const nameEl = document.getElementById('header-name');
-    const nameOriginal = nameEl.textContent;
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    let scrambleInterval = null;
-
-    nameEl.addEventListener('mouseenter', () => {
-      if (scrambleInterval) return;
-      let iteration = 0;
-      scrambleInterval = setInterval(() => {
-        nameEl.textContent = nameOriginal
-          .split('')
-          .map((char, i) => {
-            if (char === ' ') return ' ';
-            if (i < iteration) return nameOriginal[i];
-            return chars[Math.floor(Math.random() * chars.length)];
-          })
-          .join('');
-        iteration += 0.6;
-        if (iteration >= nameOriginal.length) {
-          nameEl.textContent = nameOriginal;
-          clearInterval(scrambleInterval);
-          scrambleInterval = null;
-        }
-      }, 35);
-    });
-
-    // ── Quote rotator ─────────────────────────────────────────
     (() => {
-      const INTERVAL = 9000;
-      const FADE     = 400;
-
-      const quotes = [
-        { text: '"Do I deserve this?" "Am I worthy of this?" So irrelevant. Do you want it?', attr: 'bulldyke-rider' },
-        { text: "It's hard because it's unfamiliar not because you're incapable.", attr: 'Leila Hormozi' },
-        { text: "Entrepreneur's mind. Athlete's body. Artist's soul.", attr: 'James Clear' },
-        { text: 'The reason to win the game is so that you can be free of it.', attr: 'Naval Ravikant' },
-        { text: 'You can do anything, but you cannot do everything. Even more true with AI.', attr: 'Tara Viswanathan' },
-        { text: "Never quit something with great long term potential just because you can't deal with the stress of the moment.", attr: 'Rumi' },
-        { text: 'You are not your grand plans. You are your daily patterns.', attr: 'James Clear' },
-      ];
-
-      const body  = document.getElementById('quote-body');
-      const text  = document.getElementById('quote-text');
-      const attr  = document.getElementById('quote-attr');
-      let current = 0;
-      let timer;
-
-      function showQuote(n) {
-        current = (n + quotes.length) % quotes.length;
-        body.classList.add('fading');
-        setTimeout(() => {
-          text.textContent = quotes[current].text;
-          attr.textContent = quotes[current].attr;
-          body.classList.remove('fading');
-        }, FADE);
-      }
-
-      function resetTimer() {
-        clearInterval(timer);
-        timer = setInterval(() => showQuote(current + 1), INTERVAL);
-      }
-
-      document.getElementById('quotes-prev').addEventListener('click', () => { showQuote(current - 1); resetTimer(); });
-      document.getElementById('quotes-next').addEventListener('click', () => { showQuote(current + 1); resetTimer(); });
-
-      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (!reducedMotion) {
-        resetTimer();
-      }
+      const nameEl = document.getElementById('header-name');
+      const original = nameEl.textContent;
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+      let timer = null;
+      nameEl.addEventListener('mouseenter', () => {
+        if (timer || reducedMotion) return;
+        let iteration = 0;
+        timer = setInterval(() => {
+          nameEl.textContent = original.split('').map((c, i) =>
+            c === ' ' || i < iteration ? c : chars[Math.floor(Math.random() * chars.length)]
+          ).join('');
+          iteration += 0.6;
+          if (iteration >= original.length) {
+            nameEl.textContent = original;
+            clearInterval(timer);
+            timer = null;
+          }
+        }, 35);
+      });
     })();
 
     // ── Theme toggle ──────────────────────────────────────────
     (() => {
       const btn  = document.getElementById('theme-toggle');
       const root = document.documentElement;
-
       const getTheme = () => root.getAttribute('data-theme') || 'light';
+      const updateToggle = theme => btn.querySelectorAll('.theme-opt').forEach(opt => {
+        opt.classList.toggle('active', opt.dataset.mode === theme);
+      });
 
-      const updateToggle = (theme) => {
-        btn.querySelectorAll('.theme-opt').forEach(opt => {
-          opt.classList.toggle('active', opt.dataset.mode === theme);
-        });
-      };
-
-      const playSound = (toDark) => {
+      const playSound = toDark => {
         try {
           const ctx  = new (window.AudioContext || window.webkitAudioContext)();
           const osc  = ctx.createOscillator();
@@ -1146,55 +716,65 @@
           gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18);
           osc.start(ctx.currentTime);
           osc.stop(ctx.currentTime + 0.18);
-        } catch(e) {}
+        } catch (e) {}
       };
 
       const setTheme = (theme, sound = false) => {
-        root.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
+        if (theme === 'dark') root.setAttribute('data-theme', 'dark');
+        else root.removeAttribute('data-theme');
+        try { localStorage.setItem('theme', theme); } catch (e) {}
         updateToggle(theme);
         if (sound) playSound(theme === 'dark');
       };
 
       updateToggle(getTheme());
-
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-        if (!localStorage.getItem('theme')) setTheme(e.matches ? 'dark' : 'light');
+        let saved = null;
+        try { saved = localStorage.getItem('theme'); } catch (err) {}
+        if (!saved) setTheme(e.matches ? 'dark' : 'light');
       });
-
-      btn.addEventListener('click', () => {
-        document.body.classList.add('theme-ready');
-        setTheme(getTheme() === 'dark' ? 'light' : 'dark', true);
-      });
-
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        document.body.classList.add('theme-ready');
-      }));
+      btn.addEventListener('click', () => setTheme(getTheme() === 'dark' ? 'light' : 'dark', true));
+      requestAnimationFrame(() => requestAnimationFrame(() => document.body.classList.add('theme-ready')));
     })();
 
-    // ── Experience accordion (single open at a time) ──────────
-    document.querySelectorAll('.work-row:not(.project-row)').forEach(row => {
-      row.addEventListener('click', () => {
-        const detail = row.nextElementSibling;
-        const isOpen = detail.classList.contains('open');
-        document.querySelectorAll('.work-row:not(.project-row)').forEach(r => {
-          r.classList.remove('expanded');
-          r.nextElementSibling.classList.remove('open');
-        });
-        if (!isOpen) {
-          row.classList.add('expanded');
-          detail.classList.add('open');
-        }
+    // ── Header: highlight the section in view ─────────────────
+    (() => {
+      const links = [...document.querySelectorAll('.header-links a')];
+      const sections = links.map(a => document.querySelector(a.getAttribute('href')));
+      const update = () => {
+        const y = window.scrollY + window.innerHeight * 0.35;
+        let current = -1;
+        sections.forEach((s, i) => { if (s.offsetTop <= y) current = i; });
+        // Past Writing (Off the clock, Say hello) nothing is highlighted
+        const last = sections[sections.length - 1];
+        if (current === sections.length - 1 && y > last.offsetTop + last.offsetHeight) current = -1;
+        links.forEach((a, i) => a.classList.toggle('active', i === current));
+      };
+      window.addEventListener('scroll', update, { passive: true });
+      update();
+    })();
+
+    // ── Experience: the whole row toggles; "Show less" closes and returns to the row ──
+    document.querySelectorAll('.company').forEach(co => {
+      const head = co.querySelector('.co-head');
+      const toggle = () => head.setAttribute('aria-expanded', co.classList.toggle('open'));
+      head.addEventListener('click', toggle);
+      head.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+      });
+      co.querySelector('.more-btn.bottom').addEventListener('click', () => {
+        toggle();
+        co.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+        head.focus({ preventScroll: true });
       });
     });
 
-    // ── Project peeks (URL hash = open project, so links and back work) ──
+    // ── Project popups (URL hash = open project, so links and back work) ──
     (() => {
       const peeks = new Map([...document.querySelectorAll('.peek')].map(d => [d.id, d]));
-      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      let lastRow = null;
+      let lastCard = null;
 
-      const show = (id) => {
+      const show = id => {
         const dialog = peeks.get(id);
         if (!dialog || dialog.open) return;
         peeks.forEach(d => d.open && hide(d));
@@ -1206,19 +786,13 @@
         if (video && reducedMotion) video.controls = true;
       };
 
-      const hide = (dialog) => {
+      const hide = dialog => {
         dialog.classList.remove('visible');
         dialog.querySelector('video')?.pause();
         setTimeout(() => {
           dialog.close();
-          lastRow?.focus();
+          lastCard?.focus({ preventScroll: true });
         }, reducedMotion ? 0 : 200);
-      };
-
-      const requestClose = () => {
-        if (history.state?.peek) history.back();
-        else history.replaceState(null, '', location.pathname + location.search);
-        syncToHash();
       };
 
       const syncToHash = () => {
@@ -1227,15 +801,17 @@
         else peeks.forEach(d => d.open && hide(d));
       };
 
-      document.querySelectorAll('.project-row').forEach(row => {
-        const open = () => {
-          lastRow = row;
-          history.pushState({ peek: true }, '', '#' + row.dataset.project);
-          show(row.dataset.project);
-        };
-        row.addEventListener('click', open);
-        row.addEventListener('keydown', e => {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+      const requestClose = () => {
+        if (history.state?.peek) history.back();
+        else history.replaceState(null, '', location.pathname + location.search);
+        syncToHash();
+      };
+
+      document.querySelectorAll('[data-project]').forEach(card => {
+        card.addEventListener('click', () => {
+          lastCard = card;
+          history.pushState({ peek: true }, '', '#' + card.dataset.project);
+          show(card.dataset.project);
         });
       });
 
@@ -1250,19 +826,75 @@
       syncToHash();
     })();
 
-    // ── Header nav: highlight the section in view ─────────────
+    // ── Music: hover or first tap selects; tapping the selected cover opens Spotify ──
     (() => {
-      const links = [...document.querySelectorAll('.header-links a')];
-      const sections = links.map(a => document.querySelector(a.getAttribute('href')));
-      const update = () => {
-        const y = window.scrollY + window.innerHeight * 0.35;
-        let current = null;
-        sections.forEach((s, i) => { if (s.offsetTop <= y) current = i; });
-        if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 2) current = sections.length - 1;
-        links.forEach((a, i) => a.classList.toggle('active', i === current));
+      const discs = [...document.querySelectorAll('.disc')];
+      const name = document.getElementById('np-name');
+      const line = document.getElementById('np-line');
+      const go   = document.getElementById('np-go');
+      discs.forEach(d => {
+        const pick = () => {
+          discs.forEach(x => x.classList.toggle('active', x === d));
+          name.textContent = d.dataset.name;
+          line.textContent = d.dataset.line;
+          go.href = d.href;
+        };
+        d.addEventListener('mouseenter', pick);
+        d.addEventListener('focus', pick);
+        d.addEventListener('click', e => {
+          if (!d.classList.contains('active')) { e.preventDefault(); pick(); }
+        });
+      });
+    })();
+
+    // ── Quote rotator ─────────────────────────────────────────
+    (() => {
+      const INTERVAL = 9000;
+      const FADE     = 350;
+      const quotes = [
+        { text: '"Do I deserve this?" "Am I worthy of this?" So irrelevant. Do you want it?', attr: 'bulldyke-rider' },
+        { text: "It's hard because it's unfamiliar not because you're incapable.", attr: 'Leila Hormozi' },
+        { text: "Entrepreneur's mind. Athlete's body. Artist's soul.", attr: 'James Clear' },
+        { text: 'The reason to win the game is so that you can be free of it.', attr: 'Naval Ravikant' },
+        { text: 'You can do anything, but you cannot do everything. Even more true with AI.', attr: 'Tara Viswanathan' },
+        { text: "Never quit something with great long term potential just because you can't deal with the stress of the moment.", attr: 'Rumi' },
+        { text: 'You are not your grand plans. You are your daily patterns.', attr: 'James Clear' },
+      ];
+      const box   = document.getElementById('quote');
+      const text  = document.getElementById('quote-text');
+      const attr  = document.getElementById('quote-attr');
+      const count = document.getElementById('quote-count');
+      let current = 0;
+      let timer;
+
+      const showQuote = n => {
+        current = (n + quotes.length) % quotes.length;
+        box.classList.add('fading');
+        setTimeout(() => {
+          text.textContent  = quotes[current].text;
+          attr.textContent  = quotes[current].attr;
+          count.textContent = `${current + 1} of ${quotes.length}`;
+          box.classList.remove('fading');
+        }, reducedMotion ? 0 : FADE);
       };
-      window.addEventListener('scroll', update, { passive: true });
-      update();
+      const resetTimer = () => {
+        clearInterval(timer);
+        if (!reducedMotion) timer = setInterval(() => showQuote(current + 1), INTERVAL);
+      };
+
+      document.getElementById('quotes-prev').addEventListener('click', () => { showQuote(current - 1); resetTimer(); });
+      document.getElementById('quotes-next').addEventListener('click', () => { showQuote(current + 1); resetTimer(); });
+      resetTimer();
+    })();
+
+    // ── Say hello: wave once it scrolls into view ─────────────
+    (() => {
+      const closing = document.querySelector('.closing');
+      if (!('IntersectionObserver' in window)) return;
+      const io = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) { closing.classList.add('seen'); io.disconnect(); }
+      }, { threshold: 0.6 });
+      io.observe(closing);
     })();
   </script>
 
