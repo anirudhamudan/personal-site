@@ -349,6 +349,8 @@
     blockquote { position: relative; font-family: var(--display); font-size: 20px; font-weight: 400; line-height: 1.45; letter-spacing: -0.01em; max-width: 34ch; min-height: 5.5rem; transition: opacity .35s ease; }
     #quote-text::before { content: '“'; } #quote-text::after { content: '”'; }
     blockquote.fading { opacity: 0; }
+    blockquote { display: flex; flex-direction: column; }
+    blockquote cite { margin-top: auto; padding-top: 0.7rem; }
     cite { display: block; margin-top: 0.7rem; font-family: var(--font); font-style: normal; font-size: 13px; color: var(--muted); }
     cite::before { content: '— '; }
 
@@ -438,7 +440,9 @@
       .disc { width: 88px; height: 88px; }
       .disc + .disc { margin-left: -34px; }
         blockquote { font-size: 18px; min-height: 7rem; }
-      .quote-box { padding: 1.5rem 1.25rem 3.75rem; }
+      .quote-box { padding: 1.5rem 1.25rem 1.4rem; }
+      .quote-box cite { line-height: 32px; padding-right: 6.5rem; }
+      .quote-box .arrows { bottom: 1.4rem; }
 
       .closing { padding: 2rem 1.25rem 1.5rem; }
       .stamp { width: 66px; height: 82px; padding: 4px; bottom: 1.25rem; right: 1rem; }
@@ -460,7 +464,8 @@
       .peek-title { font-size: 27px; }
       .peek-tag { font-size: 16px; }
       .peek-row { flex-direction: column; align-items: flex-start; }
-      .m-item { grid-template-columns: 1fr; gap: 0.9rem; padding: 1.25rem 0; }
+      .merged { border-top: 0; display: flex; flex-direction: column; gap: 0.85rem; margin-top: 0.25rem; }
+      .m-item { grid-template-columns: 1fr; gap: 0.9rem; padding: 1.25rem 1.15rem; background: #fff; border: 0.5px solid var(--border); border-radius: 16px; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
       .m-nums { flex-direction: row; gap: 1.75rem; }
       .m-nums:empty { display: none; }
       .m-num b { font-size: 30px; }
