@@ -3,17 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="color-scheme" content="light dark" />
+  <meta name="color-scheme" content="light" />
   <title>Anirudh Amudan</title>
-  <script>
-    (function() {
-      var saved = localStorage.getItem('theme');
-      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (saved === 'dark' || (!saved && prefersDark)) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-      }
-    })();
-  </script>
   <meta name="description" content="Product manager & builder, based in Bengaluru." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://anirudhamudan.com" />
@@ -27,7 +18,9 @@
   <link rel="icon" type="image/jpeg" href="Profile%20Picture.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+  <link href="https://api.fontshare.com/v2/css?f[]=gambetta@400,500,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Corinthia&display=swap" rel="stylesheet" />
 
   <style>
     /* ─── Tokens ─────────────────────────────────────────────── */
@@ -40,18 +33,27 @@
       --faint:       #6F6A64;
       --border:      #E6E2DC;
       --divider:     #CFC9C1;
-      --accent:      #2A7C5C;
-      --accent-soft: #EAF3EE;
+      --accent:      #2A5C8C;
+      --accent-soft: #E7EEF6;
+      --air-red:     #C8553D;
       --header-bg:   rgba(250,248,245,0.9);
       --hover:       rgba(0,0,0,0.025);
       --lift:        0 12px 30px rgba(0,0,0,0.07);
       --x-brand:     #000000;
       --x-tile:      #1C1C1C;
       --substack-tile: #FFF1E8;
-      --radius:      14px;
+      --radius:      16px;
       --card-pad:    1.25rem;
-      --font:        'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      --max-w:       720px;
+      --font:        -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', 'Segoe UI', sans-serif;
+      --display:     'Gambetta', Georgia, -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+      --shade:       #F1EDE6;
+      --quote-bg:    #F4F1EB;
+      --stamp:       #EDE5D8;
+      --ink:         #22406A;
+      --hl:          #DDEEE3;
+      --chip-top: #FFFFFF; --chip-bot: #F1EDE7; --chip-border: #DED8CF; --chip-shine: rgba(255,255,255,0.9);
+      --key-top: #F2F6FB; --key-bot: #DDE7F2; --key-border: #C3D4E7;
+      --max-w:       800px;
       --pad-x:       2rem;
     }
 
@@ -65,19 +67,28 @@
       --faint:       #8A847D;
       --border:      #2A2825;
       --divider:     #3A3733;
-      --accent:      #4DB37A;
-      --accent-soft: rgba(77,179,122,0.12);
+      --accent:      #86AEDB;
+      --accent-soft: rgba(134,174,219,0.14);
+      --air-red:     #E07A5F;
       --header-bg:   rgba(22,22,20,0.88);
       --hover:       rgba(255,255,255,0.04);
       --lift:        0 12px 30px rgba(0,0,0,0.45);
       --x-brand:     #E8E4DF;
       --x-tile:      #000000;
       --substack-tile: rgba(255,103,25,0.14);
+      --shade:       #232220;
+      --quote-bg:    #1D1C1A;
+      --stamp:       #34312C;
+      --ink:         #9DB7DA;
+      --hl:          rgba(134,174,219,0.2);
+      --chip-top: #2A2926; --chip-bot: #201F1D; --chip-border: #3A3733; --chip-shine: rgba(255,255,255,0.06);
+      --key-top: rgba(134,174,219,0.2); --key-bot: rgba(134,174,219,0.08); --key-border: rgba(134,174,219,0.32);
     }
 
     /* ─── Reset ──────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+    html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
     body { background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.65; min-height: 100vh; }
     body.theme-ready { transition: background 0.25s ease, color 0.25s ease; }
     a { color: inherit; }
@@ -89,9 +100,12 @@
     header .wrap { display: flex; justify-content: space-between; align-items: center; height: 60px; gap: 1rem; }
     .h-name { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; text-decoration: none; white-space: nowrap; }
     .header-right { display: flex; align-items: center; gap: 2rem; }
-    .header-links { display: flex; gap: 1.75rem; font-size: 14px; }
-    .header-links a { text-decoration: none; color: var(--muted); transition: color 0.15s ease; }
-    .header-links a:hover, .header-links a.active { color: var(--text); }
+.rail { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); z-index: 90; display: flex; flex-direction: column; gap: 10px; padding: 10px; border-radius: 16px; border: 0.5px solid transparent; transition: background .2s, border-color .2s, box-shadow .2s; }
+    .rail a { display: flex; align-items: center; justify-content: flex-end; gap: 0.75rem; height: 28px; padding: 0 4px 0 10px; border-radius: 8px; text-decoration: none; color: var(--faint); font-size: 13.5px; }
+    .rail-label { white-space: nowrap; transition: color .15s; }
+    .rail a.active { color: var(--text); font-weight: 500; }
+    .rail a:hover { color: var(--text); }
+    @media (max-width: 1180px) { .rail { display: none; } }
     .nav-cta { height: 34px; display: inline-flex; align-items: center; padding: 0 0.95rem; border-radius: 999px; background: var(--text); color: var(--bg); font-size: 14px; font-weight: 500; text-decoration: none; white-space: nowrap; transition: opacity .15s; }
     .nav-cta:hover { opacity: 0.85; }
     .nav-cta:focus-visible { border-radius: 999px; }
@@ -105,9 +119,8 @@
 
     /* ─── Sections ───────────────────────────────────────────── */
     section { padding: 3rem 0; border-top: 0.5px solid var(--border); scroll-margin-top: 60px; }
-    .h2 { font-size: 26px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 1.5rem; }
-    .h3 { display: flex; align-items: center; gap: 0.55rem; font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
-    .h3 svg { color: var(--accent); flex-shrink: 0; }
+    .h2 { font-family: var(--display); font-size: 32px; font-weight: 500; letter-spacing: -0.015em; line-height: 1.2; margin-bottom: 1.5rem; }
+    .h3 { font-family: var(--display); font-size: 21px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.2; }
     .h3-sub { font-size: 15px; color: var(--muted); margin: 0.2rem 0 1.25rem; }
     .sub { font-size: 15px; color: var(--muted); margin: -1.1rem 0 1.5rem; }
     .sublabel { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); margin-bottom: 0.75rem; }
@@ -117,18 +130,23 @@
     .hero-top { display: flex; align-items: center; gap: 1.75rem; margin-bottom: 2.25rem; }
     .photo { width: 116px; height: 116px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: var(--border); }
     .photo img, .closing-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; display: block; }
-    h1 { font-size: 56px; font-weight: 600; letter-spacing: -0.045em; line-height: 1; margin-bottom: 0.6rem; }
+    h1 { font-family: var(--display); font-size: 62px; font-weight: 500; letter-spacing: -0.025em; line-height: 1; margin-bottom: 0.6rem; }
     .tagline { font-size: 19px; font-weight: 500; color: var(--muted); }
     .bio p { font-size: 18px; color: var(--body); line-height: 1.7; }
     .bio p + p { margin-top: 1.1rem; }
-    .bio a { color: var(--text); font-weight: 500; text-decoration-color: var(--accent); text-decoration-thickness: 1.5px; text-underline-offset: 4px; }
-    .pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
-    .pills a { display: inline-flex; align-items: center; gap: 0.5rem; height: 38px; padding: 0 1rem 0 0.85rem; border: 0.5px solid var(--border); border-radius: 999px; font-size: 14px; font-weight: 500; text-decoration: none; background: var(--surface); transition: border-color .15s; }
-    .pills a:hover { border-color: var(--divider); }
-    .pills a:focus-visible { border-radius: 999px; }
-    .pills .x svg { color: var(--x-brand); }
-    .pills .li svg { color: #0A66C2; }
-    .pills .em svg { color: var(--accent); }
+    .sweep { font-weight: 600; text-decoration: none; color: transparent; -webkit-background-clip: text; background-clip: text;
+      background-image: linear-gradient(to right, var(--accent) 50%, var(--text) 50%); background-size: 200% 100%; background-position: 100% 0;
+      position: relative; white-space: nowrap; transition: background-position .9s cubic-bezier(.45,0,.2,1); }
+    .sweep:hover, .sweep:focus-visible { background-position: 0 0; }
+    .sweep::after { content: ''; position: absolute; left: 0; right: 0; bottom: -3px; height: 1.5px; border-radius: 1px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform .9s cubic-bezier(.45,0,.2,1); }
+    .sweep:hover::after, .sweep:focus-visible::after { transform: scaleX(1); }
+    @media (prefers-reduced-motion: reduce) { .sweep, .sweep::after { transition: none; } }
+    @media (forced-colors: active) { .sweep { color: LinkText; background: none; } }
+    .socials { margin-top: 1.75rem; font-size: 16px; }
+    .socials .sweep { font-weight: 500; }
+    .socials span { margin: 0 0.6rem; color: var(--divider); }
+    .socials .pre { margin: 0 0.6rem 0 0; color: var(--muted); }
+    .socials .sweep::before { content: ''; position: absolute; left: 0; right: 0; bottom: -3px; height: 1px; background: var(--divider); }
 
     /* ─── Experience: role + company facts, story behind the row ─ */
     .company { scroll-margin-top: 80px; }
@@ -140,53 +158,102 @@
     .logo img { width: 100%; height: 100%; object-fit: contain; display: block; }
     .co-main { flex: 1; min-width: 0; }
     .co-top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
-    .co-role { font-size: 21px; font-weight: 600; letter-spacing: -0.015em; }
+    .co-role { font-family: var(--display); font-size: 24px; font-weight: 500; letter-spacing: -0.01em; }
     .co-right { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; }
     .co-year { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
     .chev-btn { width: 30px; height: 30px; border-radius: 50%; border: 0.5px solid var(--border); background: var(--surface); color: var(--muted); display: flex; align-items: center; justify-content: center; transition: transform .25s ease, color .15s, border-color .15s; }
     .co-head:hover .chev-btn { color: var(--text); border-color: var(--divider); }
     .company.open .chev-btn { transform: rotate(180deg); color: var(--text); }
     .facts { display: flex; flex-wrap: wrap; align-items: center; margin-top: 0.15rem; font-size: 15px; color: var(--muted); }
-    .facts > span + span::before, .tags > span + span::before { content: '·'; margin: 0 0.5rem; color: var(--faint); }
-    .tags { display: inline-flex; flex-wrap: wrap; }
-    .co-name { font-weight: 600; color: var(--text); }
+    .tags { display: inline-flex; flex-wrap: wrap; gap: 0.35rem; margin-left: 0.75rem; }
+    .tags > span { font-size: 12.5px; font-weight: 500; line-height: 1; padding: 0.42rem 0.65rem; border-radius: 999px; color: var(--body);
+      background: linear-gradient(180deg, var(--chip-top), var(--chip-bot)); border: 0.5px solid var(--chip-border);
+      box-shadow: inset 0 1px 0 var(--chip-shine), 0 1px 2px rgba(0,0,0,0.06); }
+    .vc-chip { display: inline-flex; align-items: center; gap: 0.35rem; }
+    .vc { display: block; width: auto; color: var(--text); }
+    .vc-pk { height: 11px; }
+    .vc-ac { height: 13px; margin-top: -1px; }
+    .tags > span.key { color: var(--accent); background: linear-gradient(180deg, var(--key-top), var(--key-bot)); border-color: var(--key-border); }
+    .co-name { font-size: 16px; font-weight: 600; color: var(--text); }
     .m-year { display: none; }
+    .facts { row-gap: 0.4rem; }
     .headline { font-size: 16px; color: var(--text); line-height: 1.55; margin-top: 0.7rem; }
 
     .co-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .3s ease; }
     .company.open .co-body { grid-template-rows: 1fr; }
     .co-body > div { overflow: hidden; }
-    .co-inner { padding: 1.75rem 0 0 calc(56px + 1.1rem); }
-    .co-about { font-size: 14px; color: var(--faint); line-height: 1.55; margin-bottom: 1.25rem; }
+    .co-inner { padding: 1.75rem 0 0; }
     .story { margin-bottom: 1.75rem; }
     .story p { font-size: 17px; color: var(--body); line-height: 1.75; }
     .story p + p { margin-top: 1rem; }
-    .reflection { position: relative; padding: 0.2rem 0 0 2.4rem; margin-bottom: 1.75rem; }
-    .reflection::before { content: '“'; position: absolute; left: 0; top: -0.6rem; font-size: 56px; line-height: 1; color: var(--accent); font-family: Georgia, serif; }
-    .reflection p { font-size: 19px; line-height: 1.6; color: var(--text); letter-spacing: -0.005em; }
+    .reflection { position: relative; overflow: hidden; background: var(--quote-bg); border: none; box-shadow: none; border-radius: 16px; padding: 2.75rem 7rem 2.75rem 2.25rem; margin-bottom: 2.25rem; }
+    .reflection::before { content: '”'; position: absolute; right: -0.5rem; top: -2.25rem; font-size: 240px; line-height: 1; color: var(--text); opacity: 0.035; font-family: var(--display); pointer-events: none; }
+    .reflection p { position: relative; }
+    .reflection p:first-child::before { content: '“'; }
+    .reflection p:first-child::after { content: '”'; }
+    .reflection p { font-family: var(--display); font-size: 22px; font-weight: 400; line-height: 1.45; color: var(--text); letter-spacing: -0.01em; }
     .reflection .draft { font-size: 14px; color: var(--faint); margin-top: 0.5rem; }
-    .hls { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .hl { display: inline-flex; align-items: baseline; gap: 0.4rem; padding: 0.4rem 0.75rem; border-radius: 10px; background: var(--surface); border: 0.5px solid var(--border); font-size: 13px; color: var(--muted); }
-    .hl b { font-size: 15px; font-weight: 600; color: var(--accent); }
+    .hls { display: grid; grid-template-columns: 1fr 1fr; }
+    .hl { display: flex; flex-direction: column; gap: 0.45rem; padding: 1.25rem 1.5rem; font-size: 14px; line-height: 1.4; color: var(--muted); }
+    .hl:nth-child(odd) { padding-left: 0; }
+    .hl:nth-child(even) { border-left: 0.5px solid var(--divider); }
+    .hl:nth-child(n+3) { border-top: 0.5px solid var(--divider); }
+    .hl:nth-child(-n+2) { padding-top: 0.25rem; }
+    .hl b { font-family: var(--display); font-size: 38px; font-weight: 500; line-height: 1; letter-spacing: -0.02em; color: var(--text); }
+    .sublabel + .hls { margin-bottom: 2.25rem; }
+    .work { margin-bottom: 2rem; border-top: 0.5px solid var(--border); }
+    .work-item { padding: 1.1rem 0; border-bottom: 0.5px solid var(--border); }
+    .work-t { font-family: var(--display); font-size: 19px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.3; color: var(--text); margin-bottom: 0.35rem; }
+    .work-item p:not(.work-t) { font-size: 16px; line-height: 1.65; color: var(--body); }
+    .merged { border-top: 0.5px solid var(--border); margin-bottom: 0; }
+    .m-item { display: grid; grid-template-columns: 170px 1fr; gap: 1.75rem; padding: 1.5rem 0; border-bottom: 0.5px solid var(--border); }
+    .m-nums { display: flex; flex-direction: column; gap: 0.9rem; }
+    .m-text p:not(.work-t) + p { margin-top: 0.75rem; }
+    .w-part { margin-top: 0.9rem; }
+    .w-label { display: block; font-family: var(--font); font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); margin-bottom: 0.2rem; }
+    .wk-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 0.75rem; }
+    .wk-bar .sublabel { margin-bottom: 0; }
+    .seg { display: inline-flex; padding: 3px; border-radius: 999px; background: var(--shade); border: 0.5px solid var(--border); }
+    .seg button { font: 500 13px/1 var(--font); color: var(--muted); background: none; border: 0; border-radius: 999px; padding: 7px 14px; cursor: pointer; transition: background .2s, color .2s, box-shadow .2s; }
+    .seg button[aria-pressed="true"] { background: #fff; color: var(--text); box-shadow: 0 1px 2px rgba(0,0,0,.08), 0 0 0 0.5px rgba(0,0,0,.06); }
+    .seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .tldr { font-size: 16px; line-height: 1.6; color: var(--body); margin-top: 0.4rem; }
+    .co-inner.tldr-mode .w-part, .co-inner.tldr-mode .m-num + .m-num { display: none; }
+    .co-inner:not(.tldr-mode) .tldr { display: none; }
+    .m-num b { display: block; font-family: var(--display); font-size: 36px; font-weight: 500; line-height: 1; letter-spacing: -0.02em; color: var(--text); }
+    .m-num span { display: block; font-size: 13px; line-height: 1.4; color: var(--muted); margin-top: 0.35rem; }
+    .m-text p:not(.work-t) { font-size: 16px; line-height: 1.65; color: var(--body); }
     .more-btn { display: inline-flex; align-items: center; gap: 0.35rem; margin-top: 1.5rem; padding: 0.25rem 0; background: none; border: none; font: inherit; font-size: 14px; font-weight: 500; color: var(--muted); cursor: pointer; }
     .more-btn:hover { color: var(--text); }
 
     /* ─── Side projects ──────────────────────────────────────── */
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
-    .card { display: block; background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius); overflow: hidden; text-align: left; font: inherit; color: inherit; padding: 0; cursor: pointer; transition: transform .2s, box-shadow .2s; }
-    .card:hover { transform: translateY(-2px); box-shadow: var(--lift); }
-    .card:focus-visible { border-radius: var(--radius); }
-    .media { display: block; aspect-ratio: 16/10; overflow: hidden; border-bottom: 0.5px solid var(--border); background: var(--border); }
-    .media img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .card-body { display: flex; gap: 0.85rem; padding: var(--card-pad); }
-    .card-icon { width: 42px; height: 42px; border-radius: 10px; flex-shrink: 0; }
-    .card-name { font-size: 17px; font-weight: 600; display: block; }
-    .card-desc { font-size: 15px; color: var(--muted); line-height: 1.5; display: block; margin-top: 2px; }
-    .card-more { display: inline-block; margin-top: 0.7rem; font-size: 14px; font-weight: 500; color: var(--accent); }
+    .card { --tint: var(--shade); display: block; background: var(--surface); border: 0.5px solid var(--border); border-radius: 24px; padding: 10px; text-align: left; font: inherit; color: inherit; cursor: pointer; transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s, border-color .2s; }
+    .card[data-project="headroom"] { --tint: #F3E6DC; }
+    .card[data-project="deskfm"]   { --tint: #E3EDE5; }
+    [data-theme="dark"] .card[data-project="headroom"] { --tint: #2E2620; }
+    [data-theme="dark"] .card[data-project="deskfm"]   { --tint: #1F2A23; }
+    .card:hover { transform: translateY(-3px) rotate(-0.4deg); box-shadow: 0 8px 20px rgba(0,0,0,0.05); border-color: var(--divider); }
+    .card:nth-child(2):hover { transform: translateY(-3px) rotate(0.4deg); }
+    .card:focus-visible { border-radius: 24px; }
+    .media { position: relative; display: block; aspect-ratio: 16/10; overflow: hidden; border-radius: 16px; background: var(--tint); }
+    .media .shot { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform .5s cubic-bezier(.2,.8,.2,1); }
+    .card:hover .media .shot { transform: scale(1.03); }
+    .media-fade { position: absolute; inset: auto 0 0 0; height: 52%; background: linear-gradient(transparent, rgba(0,0,0,0.52)); }
+    .media-title { position: absolute; left: 16px; bottom: 14px; display: flex; align-items: center; gap: 0.65rem; color: #fff; }
+    .card-body { display: block; padding: 1rem 0.65rem 0.5rem; }
+    .card-foot { display: flex; justify-content: flex-end; margin-top: 1rem; }
+    .card-icon { width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.25); }
+    .card-name { font-family: var(--display); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; color: #fff; }
+    .card-desc { font-size: 16px; color: var(--text); line-height: 1.5; display: block; }
+    .card-more { display: inline-flex; align-items: center; gap: 0.4rem; height: 38px; padding: 0 1rem; border-radius: 999px; border: 0.5px solid var(--divider); font-size: 14px; font-weight: 500; color: var(--text); transition: background .15s, border-color .15s; }
+    .card:hover .card-more { background: var(--hover); border-color: var(--muted); }
+    .card-more i { display: inline-block; font-style: normal; transition: transform .2s; }
+    .card:hover .card-more i { transform: translateX(3px); }
 
     /* ─── Project popup: cover first, like a Notion page ─────── */
     html:has(.peek[open]) { overflow: hidden; }
-    .peek { width: min(760px, calc(100vw - 2rem)); max-width: none; max-height: 88vh; margin: auto; padding: 0; border: none; border-radius: 18px; background: var(--bg); color: var(--text); box-shadow: 0 30px 80px rgba(0,0,0,0.25); overflow: hidden; opacity: 0; transform: translateY(12px) scale(0.985); transition: opacity .2s ease, transform .2s ease; }
+    .peek { width: min(760px, calc(100vw - 2rem)); max-width: none; max-height: 88vh; margin: auto; padding: 0; border: none; border-radius: 24px; background: var(--bg); color: var(--text); box-shadow: 0 30px 80px rgba(0,0,0,0.25); overflow: hidden; opacity: 0; transform: translateY(12px) scale(0.985); transition: opacity .2s ease, transform .2s ease; }
     .peek.visible { opacity: 1; transform: none; }
     .peek:focus { outline: none; }
     .peek::backdrop { background: rgba(28,26,24,0.45); backdrop-filter: blur(3px); opacity: 0; transition: opacity .2s ease; }
@@ -196,11 +263,11 @@
     .peek-scroll { max-height: 88vh; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
     .peek-close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 36px; height: 36px; border-radius: 50%; border: none; background: var(--surface); box-shadow: 0 2px 8px rgba(0,0,0,0.15); color: var(--text); cursor: pointer; display: flex; align-items: center; justify-content: center; }
     .peek-close:focus-visible { border-radius: 50%; }
-    .peek-cover { aspect-ratio: 16/8; background: var(--border); overflow: hidden; }
+    .peek-cover { aspect-ratio: 16/9; background: var(--border); overflow: hidden; }
     .peek-cover img, .peek-cover video { width: 100%; height: 100%; object-fit: cover; display: block; }
     .peek-body { padding: 0 2.75rem 2.75rem; }
     .peek-icon { width: 72px; height: 72px; border-radius: 16px; margin-top: -36px; position: relative; box-shadow: 0 6px 18px rgba(0,0,0,0.15); background: #fff; display: block; }
-    .peek-title { font-size: 34px; font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; margin: 1rem 0 0.35rem; }
+    .peek-title { font-family: var(--display); font-size: 36px; font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; margin: 1rem 0 0.35rem; }
     .peek-tag { font-size: 18px; color: var(--muted); }
     .peek-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 1.5rem 0 2rem; padding: 1rem 0; border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); }
     .peek-meta { display: flex; gap: 1.5rem; font-size: 13px; color: var(--faint); }
@@ -211,13 +278,18 @@
     .pbtn:focus-visible { border-radius: 999px; }
     .peek-h { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); margin-bottom: 0.6rem; }
     .peek-story { margin-bottom: 2.25rem; }
-    .peek-story p { font-size: 17px; line-height: 1.7; color: var(--body); }
-    .peek-story p + p { margin-top: 0.8rem; }
-    .peek-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-    .peek ul { list-style: none; }
-    .peek li { font-size: 15px; color: var(--muted); line-height: 1.6; padding: 0.55rem 0; border-bottom: 0.5px solid var(--border); }
-    .peek li:last-child { border-bottom: none; }
-    .peek li b { color: var(--text); font-weight: 600; display: block; }
+    .peek-story p:not(.peek-h) { font-size: 17px; line-height: 1.7; color: var(--body); }
+    .peek-story p:not(.peek-h) + p { margin-top: 0.8rem; }
+    .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 2.25rem; }
+    .tile { background: var(--surface); border: 0.5px solid var(--border); border-radius: 16px; padding: 1rem; }
+    .tile-ic { width: 32px; height: 32px; border-radius: 9px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; margin-bottom: 0.75rem; }
+    .tile b { display: block; font-size: 15px; font-weight: 600; }
+    .tile > span:last-child { display: block; margin-top: 0.2rem; font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+    .decs { border-bottom: 0.5px solid var(--border); }
+    .dec { display: grid; grid-template-columns: 1.75rem 1fr; column-gap: 0.75rem; align-items: baseline; padding: 1rem 0; border-top: 0.5px solid var(--border); }
+    .dec-n { font-family: var(--display); font-size: 24px; line-height: 1; color: var(--faint); }
+    .dec b { font-size: 16.5px; font-weight: 600; }
+    .dec p { grid-column: 2; margin-top: 0.25rem; font-size: 15px; color: var(--body); line-height: 1.55; }
 
     /* ─── Writing: one list, latest post leads, two exits ────── */
     .post { display: flex; align-items: baseline; gap: 1rem; padding: 1rem 0; border-bottom: 0.5px solid var(--border); text-decoration: none; font-size: 17px; }
@@ -227,13 +299,15 @@
     .post:hover .t { text-decoration: underline; text-decoration-color: var(--divider); text-underline-offset: 4px; }
     .post:hover .arr { transform: translate(2px,-2px); color: var(--text); }
     .post.lead { display: block; padding: 0 0 1.5rem; }
-    .lead-eyebrow { font-size: 13px; font-weight: 600; color: var(--accent); }
-    .lead-t { display: block; font-size: 24px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.25; margin: 0.25rem 0 0.4rem; }
+    .lead-eyebrow { display: block; font-size: 13px; font-weight: 600; line-height: 1.2; color: var(--accent); }
+    .lead-t { display: block; font-family: var(--display); font-size: 22px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.25; margin: 0.25rem 0 0.4rem; }
     .lead-d { display: block; font-size: 16px; color: var(--muted); }
     .lead-go { display: inline-block; margin-top: 0.6rem; font-size: 14px; font-weight: 500; }
     .exits { display: flex; gap: 0.6rem; margin-top: 1.75rem; }
-    .exit { flex: 1; display: flex; align-items: center; gap: 0.8rem; padding: 0.85rem 1rem; border: 0.5px solid var(--border); border-radius: var(--radius); text-decoration: none; transition: border-color .15s, background .15s; }
-    .exit:hover { border-color: var(--divider); background: var(--surface); }
+    .exit { flex: 1; display: flex; align-items: center; gap: 0.8rem; padding: 0.95rem 1.1rem; background: var(--surface); border: 0.5px solid var(--border); border-radius: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.04); text-decoration: none; transition: border-color .15s, transform .2s, box-shadow .2s; }
+    .exit:hover { border-color: var(--divider); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.05); }
+    .exit::after { content: '↗'; margin-left: auto; color: var(--faint); transition: color .15s, transform .15s; }
+    .exit:hover::after { color: var(--text); transform: translate(2px,-2px); }
     .exit:focus-visible { border-radius: var(--radius); }
     .exit-icon { width: 34px; height: 34px; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .exit-icon.substack { background: var(--substack-tile); }
@@ -244,13 +318,21 @@
     /* ─── Off the clock: music, then lines ───────────────────── */
     .part + .part { margin-top: 3rem; }
     .music { display: flex; align-items: center; gap: 2rem; }
-    .stack { display: flex; padding: 8px 0; flex-shrink: 0; }
-    .disc { position: relative; width: 96px; height: 96px; border-radius: 50%; overflow: hidden; border: 4px solid var(--bg); box-shadow: 0 5px 14px rgba(0,0,0,0.12); transition: transform .25s ease, margin .25s ease; display: block; }
-    .disc + .disc { margin-left: -28px; }
-    .disc img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .stack { display: flex; padding: 14px 0 6px; flex-shrink: 0; }
+    .disc { position: relative; width: 112px; height: 112px; border-radius: 50%; display: grid; place-items: center; flex-shrink: 0;
+      background:
+        conic-gradient(from 30deg, rgba(255,255,255,0) 0deg, rgba(255,255,255,0.14) 25deg, rgba(255,255,255,0) 60deg, rgba(255,255,255,0) 180deg, rgba(255,255,255,0.1) 205deg, rgba(255,255,255,0) 240deg),
+        repeating-radial-gradient(circle at 50% 50%, #161616 0 1.5px, #202020 1.5px 3px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.22), inset 0 0 0 1px rgba(255,255,255,0.05); transition: transform .3s ease, filter .3s ease; }
+    .disc + .disc { margin-left: -44px; }
+    .disc img { width: 44%; height: 44%; border-radius: 50%; object-fit: cover; display: block; box-shadow: 0 0 0 2px #0E0E0E; }
+    .disc::after { content: ''; position: absolute; width: 7px; height: 7px; border-radius: 50%; background: var(--bg); box-shadow: 0 0 0 1px rgba(0,0,0,0.3); }
+    .disc.active img { animation: spin 6s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
     .disc:nth-child(1) { z-index: 4; } .disc:nth-child(2) { z-index: 3; } .disc:nth-child(3) { z-index: 2; } .disc:nth-child(4) { z-index: 1; }
-    .disc.active { transform: translateY(-8px) scale(1.06); z-index: 5; }
-    .stack:hover .disc + .disc { margin-left: -16px; }
+    .disc.active { z-index: 5; transform: scale(1.06); }
+    .disc:not(.active) { filter: saturate(0.6) brightness(1.22) contrast(0.88); }
+    [data-theme="dark"] .disc:not(.active) { filter: saturate(0.6) brightness(0.85); }
     .disc:focus-visible { border-radius: 50%; }
     .np-name { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
     .np-line { font-size: 15px; color: var(--muted); line-height: 1.5; margin-top: 0.15rem; }
@@ -261,34 +343,53 @@
     .arrows button { width: 34px; height: 34px; border-radius: 50%; border: 0.5px solid var(--border); background: var(--surface); color: var(--muted); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: color .15s, border-color .15s; }
     .arrows button:hover { color: var(--text); border-color: var(--divider); }
     .arrows button:focus-visible { border-radius: 50%; }
-    blockquote { font-family: Georgia, serif; font-style: italic; font-size: 20px; line-height: 1.55; max-width: 38ch; min-height: 6.5rem; transition: opacity .35s ease; }
+    .quote-box { position: relative; overflow: hidden; background: var(--quote-bg); border-radius: 16px; padding: 1.75rem 2rem 1.5rem; margin-top: 0.25rem; }
+    .quote-box::before { content: '”'; position: absolute; right: -0.25rem; top: -1.75rem; font-size: 180px; line-height: 1; color: var(--text); opacity: 0.035; font-family: var(--display); pointer-events: none; }
+    .quote-box .arrows { position: absolute; right: 1.25rem; bottom: 1.25rem; }
+    blockquote { position: relative; font-family: var(--display); font-size: 20px; font-weight: 400; line-height: 1.45; letter-spacing: -0.01em; max-width: 34ch; min-height: 5.5rem; transition: opacity .35s ease; }
+    #quote-text::before { content: '“'; } #quote-text::after { content: '”'; }
     blockquote.fading { opacity: 0; }
     cite { display: block; margin-top: 0.7rem; font-family: var(--font); font-style: normal; font-size: 13px; color: var(--muted); }
     cite::before { content: '— '; }
 
     /* ─── Say hello ──────────────────────────────────────────── */
-    .closing { background: var(--surface); border: 0.5px solid var(--border); border-radius: 20px; padding: 2rem; }
-    .closing-top { display: flex; gap: 1.25rem; align-items: center; margin-bottom: 1.25rem; }
-    .closing-photo { width: 64px; height: 64px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
-    .closing-t { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
-    .closing-s { font-size: 14px; color: var(--muted); margin-top: 0.15rem; }
-    .wave { display: inline-block; transform-origin: 70% 70%; }
-    .closing.seen .wave { animation: wave 2.4s ease-in-out 0.3s 2; }
-    @keyframes wave { 0%,60%,100% { transform: rotate(0); } 10%,30% { transform: rotate(14deg); } 20%,40% { transform: rotate(-8deg); } }
-    .closing p { font-size: 17px; color: var(--muted); line-height: 1.65; max-width: 52ch; }
-    .closing p strong { color: var(--text); font-weight: 500; }
-    .closing-actions { display: flex; align-items: center; gap: 0.6rem; margin-top: 1.5rem; flex-wrap: wrap; }
+.closing { position: relative; overflow: hidden; background: var(--surface); border: 0.5px solid var(--border); border-radius: 16px; padding: 2.75rem 2.5rem 2.25rem; box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
+    .closing::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 10px; pointer-events: none;
+      background: repeating-linear-gradient(-45deg, #C8553D 0 14px, transparent 14px 22px, #2A5C8C 22px 36px, transparent 36px 44px); }
+    .stamp { position: absolute; bottom: 1.5rem; right: 2rem; width: 92px; height: 112px; padding: 6px; background: #F3EADA; transform: rotate(4deg);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, radial-gradient(circle at center, transparent 3px, #000 3.5px) -5px -5px / 10px 10px;
+              mask: linear-gradient(#000 0 0) content-box, radial-gradient(circle at center, transparent 3px, #000 3.5px) -5px -5px / 10px 10px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.18)); }
+    .stamp-in { position: relative; width: 100%; height: 100%; background: #FFFDF8; border: 1px solid #D9CFBF; padding: 4px 4px 0; display: flex; flex-direction: column; }
+    .stamp img { flex: 1; min-height: 0; width: 100%; object-fit: cover; object-position: 50% 35%; display: block; }
+    .stamp-band { display: flex; justify-content: space-between; align-items: center; height: 17px; padding: 0 1px; font-size: 6.5px; font-weight: 700; letter-spacing: 0.02em; color: #8C2F2F; line-height: 1; }
+    .stamp-band b { font-family: var(--display); font-size: 11px; font-weight: 600; letter-spacing: 0; color: #8C2F2F; }
+    .postmark { position: absolute; width: 84px; height: 84px; color: var(--muted); opacity: 0.55; pointer-events: none; }
+    .postmark svg { width: 100%; height: 100%; display: block; overflow: visible; }
+    .pm-blr { bottom: 2.4rem; right: 6.3rem; transform: rotate(-12deg); }
+    .pm-tri { bottom: 4.6rem; right: 10.2rem; transform: rotate(9deg); opacity: 0.4; }
+
+    .closing-t { font-family: var(--display); font-size: 32px; font-weight: 500; letter-spacing: -0.015em; line-height: 1.15; margin-bottom: 0.9rem; }
+    .closing p { font-size: 17px; color: var(--body); line-height: 1.65; }
+    .closing p + p { margin-top: 0.35rem; }
+    .closing .sign { display: inline-block; margin-top: 1.75rem; font-family: 'Corinthia', cursive; font-size: 48px; line-height: 1; color: var(--ink); -webkit-text-stroke: 0.3px var(--ink); letter-spacing: -0.01em; transform: rotate(-4deg); transform-origin: left bottom; filter: url(#ink); }
+    .sign span { display: inline-block; }
+    .sign span:nth-child(2), .sign span:nth-child(5) { opacity: 0.82; }
+    .closing-actions { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.25rem 0; margin-top: 1.5rem; padding-right: 11rem; }
+    .ink { font-family: var(--display); font-size: 19px; color: var(--text); text-decoration: underline; text-decoration-color: var(--air-red); text-decoration-thickness: 1.5px; text-underline-offset: 5px; transition: text-decoration-color .15s, color .15s; }
+    .ink:hover { color: var(--air-red); }
+    .or { font-size: 15px; color: var(--muted); margin: 0 0.5rem; }
     .btn { height: 44px; display: inline-flex; align-items: center; gap: 0.45rem; padding: 0 1.2rem; border-radius: 999px; background: var(--text); color: var(--bg); font-size: 15px; font-weight: 500; text-decoration: none; }
     .btn.ghost { background: transparent; color: var(--text); border: 0.5px solid var(--divider); }
     .btn:focus-visible { border-radius: 999px; }
-    .now { display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; margin-top: 1.75rem; padding-top: 1.25rem; border-top: 0.5px dashed var(--border); font-size: 13px; color: var(--faint); }
+    .now { display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; margin-top: 1.75rem; padding-top: 1.1rem; border-top: 0.5px dashed var(--divider); font-size: 13px; color: var(--faint); }
     .now b { color: var(--text); font-weight: 500; }
     .now i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); margin-right: 0.4rem; box-shadow: 0 0 0 3px var(--accent-soft); }
 
     /* ─── Footer ─────────────────────────────────────────────── */
     footer { border-top: 0.5px solid var(--border); margin-top: 1rem; }
     footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding-top: 2rem; padding-bottom: 2rem; font-size: 14px; color: var(--muted); }
-    footer .heart { color: var(--accent); }
+    footer .heart { color: var(--air-red); }
     .f-right { display: flex; align-items: center; gap: 1.5rem; }
     .f-links { display: flex; gap: 1.25rem; }
     .f-links a { text-decoration: none; }
@@ -297,7 +398,6 @@
     /* ─── Phones ─────────────────────────────────────────────── */
     @media (max-width: 640px) {
       :root { --pad-x: 1.25rem; }
-      .header-links { display: none; }
       .header-right { gap: 0.75rem; }
       .nav-cta { height: 34px; padding: 0 0.85rem; font-size: 13px; }
 
@@ -315,10 +415,13 @@
       .co-role { font-size: 18px; }
       .co-year { display: none; }
       .m-year { display: inline; }
-      .facts .tags { width: 100%; gap: 0.35rem; margin-top: 0.4rem; }
-      .facts .tags::before, .tags > span + span::before { content: none; }
-      .tags > span { font-size: 12.5px; padding: 0.1rem 0.55rem; border: 0.5px solid var(--border); border-radius: 999px; background: var(--surface); }
-      .h3 { font-size: 17px; }
+      .facts .tags { width: 100%; margin: 0.2rem 0 0; }
+      .m-year::before { content: '·'; margin: 0 0.4rem; color: var(--faint); }
+      .hl { padding: 1rem 1rem; }
+      .hl b { font-size: 30px; }
+      .reflection { padding: 2rem 3.5rem 2rem 1.35rem; }
+      .reflection::before { font-size: 160px; right: -0.25rem; top: -1.5rem; }
+      .h3 { font-size: 19px; }
       .arrows button { width: 32px; height: 32px; }
       .facts { font-size: 14px; }
       .headline { font-size: 15px; }
@@ -329,29 +432,46 @@
       .grid { grid-template-columns: 1fr; }
       .exits { flex-direction: column; }
       .post { font-size: 16px; }
-      .lead-t { font-size: 21px; }
+      .lead-t { font-size: 20px; }
 
       .music { flex-direction: column; align-items: flex-start; gap: 1rem; }
-      .disc { width: 80px; height: 80px; }
-      .disc + .disc { margin-left: -22px; }
-      .stack:hover .disc + .disc { margin-left: -22px; }
-      blockquote { font-size: 18px; min-height: 8rem; }
+      .disc { width: 88px; height: 88px; }
+      .disc + .disc { margin-left: -34px; }
+        blockquote { font-size: 18px; min-height: 7rem; }
+      .quote-box { padding: 1.5rem 1.25rem 3.75rem; }
 
-      .closing { padding: 1.35rem; }
-      .closing-t { font-size: 21px; }
+      .closing { padding: 2rem 1.25rem 1.5rem; }
+      .stamp { width: 66px; height: 82px; padding: 4px; bottom: 1.25rem; right: 1rem; }
+      .closing { padding-bottom: 7.5rem; }
+      .postmark { width: 60px; height: 60px; }
+      .pm-blr { bottom: 1.6rem; right: 4.9rem; }
+      .pm-tri { bottom: 2.6rem; right: 8.4rem; }
+      .stamp-band { height: 13px; font-size: 5px; }
+      .stamp-band b { font-size: 9px; }
+      .closing-t { font-size: 26px; }
+      .closing-actions { padding-right: 0; }
+      .ink { font-size: 18px; }
       .closing p { font-size: 16px; }
 
-      .peek { width: 100vw; max-height: 92vh; margin: auto 0 0; border-radius: 16px 16px 0 0; transform: translateY(24px); }
+      .peek { width: 100vw; max-height: 92vh; margin: auto 0 0; border-radius: 24px 24px 0 0; transform: translateY(24px); }
       .peek-scroll { max-height: 92vh; }
       .peek-body { padding: 0 1.25rem 2.25rem; }
       .peek-icon { width: 60px; height: 60px; margin-top: -30px; border-radius: 14px; }
       .peek-title { font-size: 27px; }
       .peek-tag { font-size: 16px; }
       .peek-row { flex-direction: column; align-items: flex-start; }
-      .peek-cols { grid-template-columns: 1fr; gap: 1.5rem; }
+      .m-item { grid-template-columns: 1fr; gap: 0.9rem; padding: 1.25rem 0; }
+      .m-nums { flex-direction: row; gap: 1.75rem; }
+      .m-nums:empty { display: none; }
+      .m-num b { font-size: 30px; }
+      .tiles { grid-template-columns: 1fr; gap: 0.5rem; }
+      .tile { display: grid; grid-template-columns: 32px 1fr; column-gap: 0.85rem; align-items: center; }
+      .tile-ic { grid-row: span 2; margin: 0; }
+      .tile > span:last-child { margin: 0; }
       .peek-story p { font-size: 16px; }
 
-      footer .wrap { flex-direction: column-reverse; align-items: flex-start; }
+      footer .wrap { justify-content: center; }
+      .f-right { display: none; }
     }
 
     @media (max-width: 380px) {
@@ -360,36 +480,37 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
+      .disc.active img { animation: none; }
       .co-body, .chev-btn, .disc, .card, .post .arr, blockquote, .peek, .peek::backdrop { transition: none; }
-      .closing.seen .wave { animation: none; }
     }
   </style>
 </head>
 <body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="ink"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.6"/></filter></svg>
 
   <!-- ── Header ── -->
   <header>
     <div class="wrap">
       <a class="h-name" id="header-name" href="/">Anirudh Amudan</a>
       <div class="header-right">
-        <nav class="header-links" aria-label="Sections">
-          <a href="#experience">Experience</a>
-          <a href="#projects">Projects</a>
-          <a href="#writing">Writing</a>
-        </nav>
         <a class="nav-cta" href="mailto:anirudhan412@gmail.com?subject=Work%20with%20you&amp;body=Hi%20Anirudh%2C%0A%0AI%20found%20you%20through%20anirudhamudan.com.%0A%0A%5BWhat%20I%20have%20in%20mind%5D">Work with me</a>
-        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode">
-          <svg class="i-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          <svg class="i-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-        </button>
       </div>
     </div>
   </header>
 
+  <nav class="rail" aria-label="Sections">
+    <a href="#about"><span class="rail-label">About</span></a>
+    <a href="#experience"><span class="rail-label">Experience</span></a>
+    <a href="#projects"><span class="rail-label">Side projects</span></a>
+    <a href="#writing"><span class="rail-label">Writing</span></a>
+    <a href="#personal"><span class="rail-label">Off the clock</span></a>
+    <a href="#hello"><span class="rail-label">Say hello</span></a>
+  </nav>
+
   <main class="wrap">
 
     <!-- ── Hero ── -->
-    <section class="hero">
+    <section class="hero" id="about">
       <div class="hero-top">
         <div class="photo"><img fetchpriority="high" src="Profile%20Photo.jpg" alt="Anirudh Amudan" width="116" height="116" /></div>
         <div>
@@ -398,15 +519,11 @@
         </div>
       </div>
       <div class="bio">
-        <p>I'm a product manager at <a href="https://leapscholar.com" target="_blank" rel="noopener">Leap Scholar</a>, a company known for helping students study abroad. Right now I'm building a new business inside it, from zero: helping people move abroad for work.</p>
-        <p>On the side, I build with AI, mostly <a href="#projects">things I wish existed</a>.</p>
-        <p>I <a href="#writing">write</a> too, less about work, more about everyday life, things I notice, and thoughts I can't seem to let go of.</p>
+        <p>I've built products at a seed-stage AI startup and at a Series E consumer company. At <a class="sweep" href="https://leapscholar.com" target="_blank" rel="noopener">Leap Scholar</a>, I owned the journey 40,000 students a month take from their first visit to booking a counsellor. Now I'm building a new business there, from zero.</p>
+        <p>On the side, I build with AI, mostly <a class="sweep" href="#projects">things I wish existed</a>.</p>
+        <p>I <a class="sweep" href="#writing">write</a> too, less about work, more about everyday life, things I notice, and thoughts I can't seem to let go of.</p>
       </div>
-      <div class="pills">
-        <a class="x" href="https://x.com/anirudhamudan" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>Twitter</a>
-        <a class="li" href="https://www.linkedin.com/in/anirudhamudan/" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>LinkedIn</a>
-        <a class="em" href="mailto:anirudhan412@gmail.com"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email</a>
-      </div>
+      <p class="socials"><span class="pre">Find me on</span><a class="sweep" href="https://x.com/anirudhamudan" target="_blank" rel="noopener">Twitter</a><span aria-hidden="true">/</span><a class="sweep" href="https://www.linkedin.com/in/anirudhamudan/" target="_blank" rel="noopener">LinkedIn</a><span aria-hidden="true">/</span><a class="sweep" href="mailto:anirudhan412@gmail.com">Email</a></p>
     </section>
 
     <!-- ── Experience ── -->
@@ -418,22 +535,21 @@
           <div class="logo"><img loading="lazy" src="Logos/Leap%20Scholar%20Logo.png" alt="" /></div>
           <div class="co-main">
             <div class="co-top"><span class="co-role">Product Manager</span><span class="co-right"><span class="co-year">Aug 2025 – now</span><span class="chev-btn" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></span></div>
-            <div class="facts"><span class="co-name">Leap Scholar</span><span class="m-year">Aug 2025 – now</span><span class="tags"><span>Series E</span><span>Consumer</span><span>Backed by Peak XV</span></span></div>
-            <p class="headline">Building a new careers-abroad business from zero, and owning the product end to end. Before that, I worked on how students go from first visit to talking to a counsellor.</p>
+            <div class="facts"><span class="co-name">Leap Scholar</span><span class="m-year">Aug 2025 – now</span><span class="tags"><span class="key">Series E</span><span>Consumer</span><span class="vc-chip">Backed by <svg class="vc vc-pk" role="img" aria-label="Peak XV" viewBox="0 0 481 101" fill="none"><path d="M351.1 95.5L285 3.5H320.5L386.6 95.5H351.1ZM308 66.6L287.2 95.5H328.8L308 66.6ZM363.6 32.4L384.4 3.5H342.9L363.6 32.4Z" fill="#8039FF"/><path d="M411.2 3.5H377.3L423.9 95.5H430L443.9 68.1L411.2 3.5ZM476.5 3.5L456.9 42.3L437.2 3.5H476.5Z" fill="#8039FF"/><path d="M3.7998 3.5H42.7998C62.0998 3.5 74.0998 14.2 74.0998 31.6C74.0998 49 62.0998 59.8 42.7998 59.8H19.8998V95.4H3.7998V3.5ZM42.0998 44.8C51.9998 44.8 57.5998 39.8 57.5998 31.7C57.5998 23.6 51.8998 18.7 42.0998 18.7H19.8998V44.9H42.0998V44.8ZM72.5998 63C72.5998 42.5 85.4998 29.4 104 29.4C122.5 29.4 135.3 42 135.3 62.1C135.3 82.2 135.3 66.2 135 68.8H87.8998C88.6998 78.5 94.8998 84.3 104.8 84.3C114.7 84.3 116 81.4 118.1 76.8H134.1C130.2 89.3 120.3 97.4 104.7 97.4C89.0998 97.4 72.4998 83.7 72.4998 63H72.5998ZM119.5 56.7V56.3C119.5 47.9 114 42 104 42C93.9998 42 88.4998 47.9 87.9998 56.7H119.5ZM141.4 77.2C141.4 65.4 149.1 57.2 164.8 56.2L182.7 55.2V52C182.7 45.2 179.3 42.3 171.8 42.3C164.3 42.3 161 44.3 160.1 49.6H144.6C145.9 36.5 155 29.4 172.8 29.4C190.6 29.4 197.5 37.3 197.5 51.1V80.9C197.5 82.2 198.1 82.9 199.5 82.9H205.2V95.5H193.4C188.9 95.5 186.2 93 186.2 88.7V88.2C182.5 94 175.3 97.5 165.8 97.5C151 97.5 141.5 89.8 141.5 77.3L141.4 77.2ZM167.8 84.6C176.5 84.6 182.6 79.9 182.6 70.5V67L167.1 68.3C160.3 68.8 157 72.4 157 76.7C157 81 160.8 84.6 167.8 84.6ZM233.8 68H227.5V95.5H211.9V3.5H227.5V53.7H233.8L252.9 31.4H272.1L247.5 60.4L272.1 95.5H253.2L233.9 68H233.8Z" fill="currentColor"/></svg></span></span></div>
+            <p class="headline">Owning acquisition for a new careers-abroad business, and shaping the product and the business with the team. Before that, I owned how students go from first visit to talking to a counsellor.</p>
           </div>
         </div>
         <div class="co-body" id="body-leap">
           <div>
-            <div class="co-inner">
-              <p class="co-about">One of India's largest study-abroad platforms. Series E, backed by Peak XV and Harvard Management Company.</p>
-              <div class="story">
-                <p>A recruiter called about a consumer growth role that needed someone AI-native. I'd wanted consumer for a while: in B2B, an experiment can take months to tell you anything; in consumer, you know in days. My last interview was a Saturday lunch with Arnav, Leap's founder, that ran an hour and a half. He asked about everything from my childhood on; I asked how he runs a company and still makes time for his health and family.</p>
-                <p>I expected a Series E company to move slower than the 20-person startup I'd come from. With enough clarity, it moved faster. I worked on the flow every student passes through, about 40,000 a month. Letting students book their own counselling session lifted conversion 1.8×, and a university shortlist in 60 seconds cut our cost per booked call by about 12%.</p>
-                <p>Now I'm building a careers-abroad business from zero and own the product end to end, much of it built myself on an AI setup in Cursor, from design to front-end PRs. Working closely with Arnav has made me more independent, and taught me to judge my work by what it does for the business, not just the metric I own.</p>
+            <div class="co-inner tldr-mode">
+              <div class="wk-bar"><p class="sublabel">What I worked on</p><div class="seg" role="group" aria-label="How much detail"><button type="button" data-mode="tldr" aria-pressed="true">TL;DR</button><button type="button" data-mode="detail" aria-pressed="false">Detailed</button></div></div>
+              <div class="merged">
+                <div class="m-item"><div class="m-nums"><div class="m-num"><b>+70%</b><span>more signups going on to apply to a university</span></div><div class="m-num"><b>40K</b><span>students a month now go through this flow</span></div></div><div class="m-text"><p class="work-t">Turning a manual screening call into a self-serve product flow</p><p class="tldr">Students used to need a sales agent's screening call before they could talk to a counsellor, the person who guides their university applications. I replaced that call with a flow where students book a counsellor themselves. 40K students a month now use it.</p><div class="w-part"><span class="w-label">Before</span><p>A sales agent screened every student on grades, test scores and passports. Those who passed waited for a counsellor to call back, at no set time.</p></div><div class="w-part"><span class="w-label">The bet</span><p>Intent matters more than eligibility: a keen student will sort out gaps like not having a passport yet. And a counsellor as the first conversation works for both sides: they judge a student better than a sales agent with a checklist, and the student gets real advice from the first call.</p></div><div class="w-part"><span class="w-label">What I built</span><p>A shorter signup form, then a video call with a counsellor, right away or at a slot the student picked. As a product, not a phone process, we decided what every student saw and when.</p></div><div class="w-part"><span class="w-label">Result</span><p>70% more students got a university shortlist. The rest of the funnel held, so 70% more went on to apply.</p></div></div></div>
+                <div class="m-item"><div class="m-nums"><div class="m-num"><b>12%</b><span>cheaper to get a student to book a counsellor</span></div></div><div class="m-text"><p class="work-t">Leading with a university shortlist in 60 seconds</p><p class="tldr">To see which universities they could apply to, students first had to book a call with a counsellor. I made that list free and instant, ready in 60 seconds, which drew in more students and cut what we spend to get each one to book a counsellor.</p><div class="w-part"><span class="w-label">Before</span><p>The only next step on Leap's site was to book a counsellor. Even to see which universities they could get into, a student had to book a call and sit through it: a big ask from someone who had just arrived, and expensive to pay for in ads.</p></div><div class="w-part"><span class="w-label">The bet</span><p>Give students something useful upfront and more of them will sign up. Once they have seen their shortlist, many will want a counsellor to help them act on it, so the same ad spend gets us more bookings.</p></div><div class="w-part"><span class="w-label">What I built</span><p>I rebuilt the top of the funnel, from ads to landing page to signup, around one offer: your university shortlist in 60 seconds. While the shortlist loaded, a prompt showed what a counsellor adds, so students who came for the shortlist still went on to book a call.</p></div><div class="w-part"><span class="w-label">Result</span><p>More students booked a counsellor for the same ad spend, so each booking cost 12% less.</p></div></div></div>
+                <div class="m-item"><div class="m-nums"><div class="m-num"><b>50</b><span>paying customers a day, within 45 days of launch</span></div><div class="m-num"><b>1.0</b><span>ROAS</span></div></div><div class="m-text"><p class="work-t">Building Leap's first business outside study abroad</p><p class="tldr">Leap had only ever helped students study abroad. I helped launch its first business for professionals who want to work abroad, starting with Dubai, doing everything except code, from research to ads. The ads now pay for themselves (ROAS 1.0).</p><div class="w-part"><span class="w-label">The bet</span><p>Leap had only ever served students. We bet it could build a second business, helping Indian professionals find work abroad.</p></div><div class="w-part"><span class="w-label">What I did</span><p>I ran it hands-on, covering everything except coding. I spoke to people trying to move abroad, ran early experiments that didn't work, and used what they taught us to pick Dubai as the first market. Then I decided what to sell, designed the product myself in Claude Design and made the ads on Google Flow. Trust was the hard part with a brand no one had heard of, so I partnered with Indians already working in Dubai, borrowing their trust.</p></div><div class="w-part"><span class="w-label">Result</span><p>50 people a day pay for it, at a ROAS of 1.0, a level we reached within 45 days of launch. The team and I are now working out what comes after that first purchase.</p></div></div></div>
+                <div class="m-item"><div class="m-nums"><div class="m-num"><b>900+</b><span>students talked to it in a two-month pilot</span></div><div class="m-num"><b>8/10</b><span>average rating from students after the call</span></div></div><div class="m-text"><p class="work-t">Building an AI voice agent that talks to students</p><p class="tldr">A counsellor's first call with each student went on collecting basic details. I built an AI voice agent that held that conversation on its own, from understanding a student's goals to building their university shortlist. Students rated the call 8/10.</p><div class="w-part"><span class="w-label">Before</span><p>A counsellor's first call with every student went on collecting the basics: grades, test scores, budget and goals.</p></div><div class="w-part"><span class="w-label">The bet</span><p>An AI agent could take that first call, so counsellors only talk to students who already have a shortlist.</p></div><div class="w-part"><span class="w-label">What I built</span><p>A voice agent that talked to students, understood their goals and built them a university shortlist. I owned it end to end: the conversation, the prompt, connecting it to our systems, and the evals.</p></div><div class="w-part"><span class="w-label">Result</span><p>Students liked it, rating the call 8/10 on average. But they still wanted a counsellor to talk it through before deciding, so the call we hoped to skip still happened. The product worked, but the case for removing that call didn't, so we kept it.</p></div></div></div>
+                <div class="m-item"><div class="m-nums"><div class="m-num"><b>25%</b><span>less editor time per essay</span></div><div class="m-num"><b>95%</b><span>completion rate, up from 80%</span></div></div><div class="m-text"><p class="work-t">Helping students write a stronger application essay</p><p class="tldr">Students used to answer essay questions over WhatsApp, often with generic AI-written text that editors had to rework. I built a guided flow that shows sample answers and asks follow-up questions to draw out real detail. 95% of students now finish it.</p><div class="w-part"><span class="w-label">Before</span><p>Every university application needs a statement of purpose. Students answered questions over WhatsApp, often with generic text pasted from ChatGPT, and editors spent about an hour per essay digging for real details.</p></div><div class="w-part"><span class="w-label">The bet</span><p>Students had the material; the process just wasn't drawing it out. Specific questions, with examples of what a good answer looks like, would work better than asking them to write better.</p></div><div class="w-part"><span class="w-label">What I built</span><p>A guided flow in place of WhatsApp. Every question came with sample answers, so students could see the level of detail needed, and pointers on what to talk about. Once they finished, AI scored their answers and asked up to three follow-up questions, showing how much those would raise the score. I designed the product and wrote the prompts, so that long, polished answers can't score well without real details, and the AI never adds a fact the student didn't give.</p></div><div class="w-part"><span class="w-label">Result</span><p>Editors spend about 25% less time per essay, 95% of students who start now finish, and students rate the experience 9.1/10, up from 8.0.</p></div></div></div>
               </div>
-              <div class="reflection"><p>The level I need to work at keeps changing: pixels one week, the business case the next. Knowing which one the moment needs has become most of the job.</p></div>
-              <p class="sublabel">Highlights</p>
-              <div class="hls"><span class="hl"><b>1.8×</b>conversion into counselling</span><span class="hl"><b>~12%</b>lower cost per booked call</span><span class="hl"><b>~25%</b>less editor time per essay</span><span class="hl"><b>~40K</b>students a month</span></div>
               <button class="more-btn bottom"><span>Show less</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform:rotate(180deg)"><path d="m6 9 6 6 6-6"/></svg></button>
             </div>
           </div>
@@ -445,22 +561,20 @@
           <div class="logo"><img loading="lazy" src="Logos/Fibr%20AI%20Logo.jpg" alt="" /></div>
           <div class="co-main">
             <div class="co-top"><span class="co-role">Associate Product Manager</span><span class="co-right"><span class="co-year">Jun 2024 – Jul 2025</span><span class="chev-btn" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></span></div>
-            <div class="facts"><span class="co-name">Fibr AI</span><span class="m-year">Jun 2024 – Jul 2025</span><span class="tags"><span>Seed stage</span><span>B2B SaaS</span><span>AI</span></span></div>
+            <div class="facts"><span class="co-name">Fibr AI</span><span class="m-year">Jun 2024 – Jul 2025</span><span class="tags"><span class="key">Seed stage</span><span>B2B SaaS</span><span class="vc-chip">Backed by <svg class="vc vc-ac" role="img" aria-label="Accel" viewBox="0 0 1288 413"><path d="M249.958,0c44.167,112.833 88.667,225.542 133.542,338.083c7.542,18.959 14.25,31.209 20.042,36.75c10.833,10.375 24.5,16.042 41,17.084c1.208,0.083 1.958,0.708 2.25,1.875l0.416,1.833c0.292,1.167 -0.583,2.292 -1.791,2.292l-162.75,-0c-1.542,-0 -2.334,-0.792 -2.334,-2.375l0,-1.625c0,-1.084 0.542,-1.667 1.625,-1.75c17.584,-1.459 45.042,-8 39,-32.75c-3.708,-15.375 -7.458,-28.334 -11.166,-38.875c-8.5,-24.042 -19.209,-52.042 -32.125,-83.959c-0.417,-1.083 -1.584,-1.666 -2.709,-1.416l-162.25,39.083c-1.041,0.292 -1.791,0.917 -2.25,1.917c-11.708,26.875 -21.75,54.166 -30.208,81.791c-1.167,3.875 -1.458,7.625 -0.875,11.25c2.958,17.834 26.125,21.5 46.708,23c1,0.084 1.625,0.584 1.834,1.542l0.25,1.042c0.458,1.833 -0.917,3.583 -2.792,3.583l-125.375,-0.042l-0,-6.25c24.958,-1.333 42.167,-12.708 51.708,-34.166c42.25,-95.167 87.25,-196.667 135.042,-304.459c2,-4.541 2.833,-8.041 2.542,-10.583c-0.917,-7.542 -9.667,-12.625 -15.042,-14.75c-9.958,-3.958 -9.792,-7.25 0.5,-9.833l72.958,-18.292l2.25,0Zm19.542,221.125c0.833,-0.208 1.292,-1.083 0.958,-1.917l-64.833,-160.666c-0.5,-1.167 -2.125,-1.209 -2.625,-0.042l-83.958,196.542c-0.459,1.041 0.5,2.208 1.625,1.916l148.833,-35.833Z" fill="currentColor"/><path d="M1287.5,391.583l0,6.75l-142.208,0.042c-1.209,0 -1.834,-0.625 -1.834,-1.833l0,-1.167c0.042,-2.042 1.042,-3.167 3.084,-3.375c7.875,-0.875 13.75,-2.208 17.541,-3.958c15.917,-7.292 23.875,-18.542 23.917,-33.792c0.083,-143.542 0.083,-245 0,-304.458c0,-11.5 -15.917,-19.375 -25.708,-21.792c-1.417,-0.375 -2.167,-1.25 -2.209,-2.708c-0.083,-1.334 0.125,-2.542 0.584,-3.667c0.5,-1.208 1.416,-2 2.708,-2.292l78.042,-18.833c1.208,-0.292 1.833,0.208 1.833,1.417c0,132.375 -0.042,248.375 -0.083,348c-0.042,27.25 14.75,41.125 44.333,41.666Z" fill="currentColor"/><path d="M554.125,139.125c-54.583,-5.625 -85.708,49.292 -90.75,96.042c-5.667,52.375 12.875,108.416 67.042,127.041c34.958,12.042 69.458,8.959 103.5,-9.208c7.041,-3.792 10.416,-8.542 15.833,-13.167c1.167,-1.041 3,-0.458 3.417,1.042c0.083,0.458 0.166,0.792 0.25,1.083c0.625,2.584 0.125,4.917 -1.542,7.042c-34.792,43.333 -88.417,62.875 -142.292,51.792c-77.75,-16.084 -131.25,-95.459 -105.291,-174.625c16.458,-50.5 58.416,-84.875 110.666,-93.709c30.334,-5.166 59.792,-0.75 88.375,13.25c19.875,9.75 34.542,24.459 43.917,44.042c0.792,1.583 -0.125,3.5 -1.833,3.875l-50.917,12c-2.458,0.583 -3.417,-0.333 -2.958,-2.792c5.958,-29.708 -4.125,-60.25 -37.417,-63.708Z" fill="currentColor"/><path d="M806.375,139.125c-54.625,-5.375 -85.5,49.75 -90.333,96.542c-5.375,52.458 13.458,108.458 67.75,126.791c35.041,11.875 69.541,8.625 103.5,-9.75c7.041,-3.791 10.416,-8.583 15.791,-13.25c1.167,-1 3,-0.458 3.417,1.042c0.125,0.458 0.208,0.792 0.25,1.083c0.667,2.584 0.167,4.917 -1.5,7.042c-34.583,43.542 -88.125,63.375 -142.125,52.542c-77.875,-15.667 -131.792,-94.834 -106.25,-174.209c16.25,-50.583 58.042,-85.208 110.292,-94.333c30.333,-5.292 59.833,-1.042 88.5,12.833c19.958,9.667 34.666,24.292 44.166,43.834c0.792,1.583 -0.125,3.5 -1.833,3.916l-50.875,12.25c-2.458,0.625 -3.417,-0.333 -2.958,-2.791c5.791,-29.75 -4.459,-60.25 -37.792,-63.542Z" fill="currentColor"/><path d="M967.708,266c3.292,44.75 23.042,75.708 59.25,92.833c33.875,16 77.209,12.834 109.667,-4.458c5.583,-2.958 11.542,-7.792 17.917,-14.583c1.666,-1.75 2.791,-1.459 3.333,0.875l0.5,2.166c0.583,2.334 0,4.834 -1.583,6.667c-20.209,23.375 -41.084,38.625 -62.667,45.75c-55.375,18.292 -104.542,8.875 -147.542,-28.25c-25.291,-21.833 -42.333,-57.708 -43.833,-92.708c-1.958,-44.459 14.208,-81.292 48.458,-110.5c44.584,-37.959 111.375,-44 162.25,-14.584c25.375,14.667 40.542,36.667 45.542,66.042c0.208,1.375 -0.333,2.208 -1.667,2.5l-187.375,45.167c-1.625,0.375 -2.375,1.416 -2.25,3.083Zm16.334,-84c-11.709,20.708 -17.417,41.917 -17.042,63.625c0.042,1.5 0.792,2.083 2.25,1.708c32.333,-7.75 68.75,-16.5 109.292,-26.208c23.833,-5.75 20.625,-41.542 14.333,-58.042c-3.542,-9.25 -13.958,-18.875 -23.208,-21.541c-36.167,-10.417 -67.834,9.125 -85.625,40.458Z" fill="currentColor"/></svg></span></span></div>
             <p class="headline">Built AI agents that help marketers personalise their websites and decide what to test next.</p>
           </div>
         </div>
         <div class="co-body" id="body-fibr">
           <div>
-            <div class="co-inner">
-              <p class="co-about">An agentic AI platform for website personalisation and conversion optimisation (CRO), built for marketing teams.</p>
-              <div class="story">
-                <p>[How I got here: how you found Fibr, and why a 20-person AI startup as a first job.]</p>
-                <p>My first product job, at a startup still looking for product-market fit. I owned the Search Ads Agent, which rewrites a landing page to match the intent behind each ad, and it lifted conversions 21% for a major broadband provider. I also built a hypothesis engine that turns GA4 data into AI-generated test ideas, which tripled how many demos turned into proof-of-concept trials.</p>
-                <p>[What surprised you, one thing that didn't work, and what you'd tell someone joining a pre-PMF startup.]</p>
+            <div class="co-inner tldr-mode">
+              <div class="wk-bar"><p class="sublabel">What I worked on</p><div class="seg" role="group" aria-label="How much detail"><button type="button" data-mode="tldr" aria-pressed="true">TL;DR</button><button type="button" data-mode="detail" aria-pressed="false">Detailed</button></div></div>
+              <div class="merged">
+                <div class="m-item"><div class="m-nums"><div class="m-num"><b>21%</b><span>more conversions for a major broadband provider</span></div></div><div class="m-text"><p class="work-t">Matching every landing page to the ad that brought you there</p><p class="tldr">Everyone who clicked an ad landed on the same generic page, whatever they had searched for. I built an AI agent that rewrites the page to match the ad each visitor clicked, tested with one of India's largest broadband providers.</p><div class="w-part"><span class="w-label">Before</span><p>Whatever someone searched for, clicking an ad took them to the same generic landing page as everyone else.</p></div><div class="w-part"><span class="w-label">The bet</span><p>A page that picks up exactly where the ad left off would convert better than one page for everyone.</p></div><div class="w-part"><span class="w-label">What I built</span><p>An AI agent that rewrites a landing page's headline and content to match the ad a visitor clicked, for every ad, automatically. I owned it end to end and tested it with one of India's largest broadband providers.</p></div><div class="w-part"><span class="w-label">Result</span><p>21% more of that provider's visitors converted.</p></div></div></div>
+                <div class="m-item"><div class="m-nums"><div class="m-num"><b>3×</b><span>as many demos turning into proof-of-concept trials</span></div></div><div class="m-text"><p class="work-t">Showing prospects what to test, before they signed</p><p class="tldr">Prospects left sales demos unsure what Fibr would do for them. I built a tool that reads their Google Analytics and uses AI to suggest specific tests for their own site, so every demo showed concrete value.</p><div class="w-part"><span class="w-label">Before</span><p>Prospects left demos without a clear picture of what Fibr would do on their own site, so many stalled before a trial.</p></div><div class="w-part"><span class="w-label">The bet</span><p>Showing a prospect specific tests for their own site, during the demo, would make the value concrete.</p></div><div class="w-part"><span class="w-label">What I built</span><p>An engine that read a prospect's Google Analytics data and used AI to suggest conversion tests, so every demo showed exactly what we would test on their site.</p></div><div class="w-part"><span class="w-label">Result</span><p>3× more demos turned into proof-of-concept trials.</p></div></div></div>
+                <div class="m-item"><div class="m-nums"></div><div class="m-text"><p class="work-t">Taking repetitive requests off the customer success team</p><p class="tldr">Customers kept asking our customer success team for the same reports and pop-ups. I built two AI agents that let them get their own analytics answers and create on-brand pop-ups themselves.</p><div class="w-part"><span class="w-label">Before</span><p>Customers kept asking our customer success team for the same data pulls and the same pop-ups.</p></div><div class="w-part"><span class="w-label">What I built</span><p>Two AI agents: Chat Insights, which answers analytics questions in plain English, and an AI Widget Builder that creates on-brand pop-ups.</p></div><div class="w-part"><span class="w-label">Result</span><p>Customers got answers themselves, and the team stopped fielding the same requests.</p></div></div></div>
+                <div class="m-item"><div class="m-nums"><div class="m-num"><b>#2</b><span>Product of the Day on Product Hunt</span></div><div class="m-num"><b>120+</b><span>sign-ups from launch day</span></div></div><div class="m-text"><p class="work-t">Launching Fibr on Product Hunt</p><p class="tldr">I led Fibr's launch on Product Hunt, the main site for discovering new tech products. It drew 825+ upvotes, 120+ sign-ups and our first paying customers from the launch.</p><div class="w-part"><span class="w-label">What I did</span><p>I led Fibr's Product Hunt launch.</p></div><div class="w-part"><span class="w-label">Result</span><p>Fibr finished #2 Product of the Day with 825+ upvotes, bringing in 120+ sign-ups and 5+ paying customers.</p></div></div></div>
               </div>
-              <div class="reflection"><p>My first real look at what pre-PMF feels like from the inside: shipping fast, not knowing yet if it matters, and learning to tell the difference.</p><p class="draft">[Draft. Rewrite in your words.]</p></div>
-              <p class="sublabel">Highlights</p>
-              <div class="hls"><span class="hl"><b>+21%</b>conversions, Search Ads Agent</span><span class="hl"><b>3×</b>demo-to-PoC conversion</span></div>
               <button class="more-btn bottom"><span>Show less</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform:rotate(180deg)"><path d="m6 9 6 6 6-6"/></svg></button>
             </div>
           </div>
@@ -474,18 +588,12 @@
       <p class="sub">Small tools I built because I wanted them to exist.</p>
       <div class="grid">
         <button class="card" data-project="headroom" aria-haspopup="dialog">
-          <span class="media"><img loading="lazy" src="Projects/Headroom%20Screenshot.jpg" alt="" /></span>
-          <span class="card-body">
-            <img class="card-icon" loading="lazy" src="Projects/Headroom%20Icon.png" alt="" />
-            <span><span class="card-name">Headroom</span><span class="card-desc">Claude usage limits in your Mac menu bar</span><span class="card-more">Read the story →</span></span>
-          </span>
+          <span class="media"><img class="shot" loading="lazy" src="Projects/Headroom%20Screenshot.jpg" alt="" /><span class="media-fade"></span><span class="media-title"><img class="card-icon" loading="lazy" src="Projects/Headroom%20Icon.png" alt="" /><span class="card-name">Headroom</span></span></span>
+          <span class="card-body"><span class="card-desc">Claude usage limits in your Mac menu bar</span><span class="card-foot"><span class="card-more">Read the story <i>→</i></span></span></span>
         </button>
         <button class="card" data-project="deskfm" aria-haspopup="dialog">
-          <span class="media"><img loading="lazy" src="Projects/DeskFM%20Poster.jpg" alt="" /></span>
-          <span class="card-body">
-            <img class="card-icon" loading="lazy" src="Projects/DeskFM%20Icon.png" alt="" />
-            <span><span class="card-name">DeskFM</span><span class="card-desc">Focus music, one click from the menu bar</span><span class="card-more">Read the story →</span></span>
-          </span>
+          <span class="media"><img class="shot" loading="lazy" src="Projects/DeskFM%20Poster.jpg" alt="" /><span class="media-fade"></span><span class="media-title"><img class="card-icon" loading="lazy" src="Projects/DeskFM%20Icon.png" alt="" /><span class="card-name">DeskFM</span></span></span>
+          <span class="card-body"><span class="card-desc">Focus music, one click from the menu bar</span><span class="card-foot"><span class="card-more">Read the story <i>→</i></span></span></span>
         </button>
       </div>
     </section>
@@ -520,7 +628,7 @@
       <h2 class="h2">Off the clock</h2>
 
       <div class="part">
-        <h3 class="h3"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>What I listen to</h3>
+        <h3 class="h3">What I listen to</h3>
         <p class="h3-sub">Mostly Tamil. My playlists on Spotify.</p>
         <div class="music">
           <div class="stack">
@@ -538,38 +646,32 @@
       </div>
 
       <div class="part">
-        <div class="quote-top">
-          <div>
-            <h3 class="h3"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21c3 0 7-1 7-8V5H3v7h4c0 4-2 6-4 6zM14 21c3 0 7-1 7-8V5h-7v7h4c0 4-2 6-4 6z"/></svg>Lines I keep coming back to</h3>
-            <p class="h3-sub">Quotes that changed how I think. <span id="quote-count" style="white-space:nowrap">1 of 7</span>.</p>
-          </div>
+        <div>
+            <h3 class="h3">Lines I keep coming back to</h3>
+            <p class="h3-sub">Quotes that changed how I think.</p>
+        </div>
+        <div class="quote-box">
           <div class="arrows">
             <button id="quotes-prev" aria-label="Previous quote"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
             <button id="quotes-next" aria-label="Next quote"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
           </div>
+          <blockquote id="quote"><span id="quote-text">‘Do I deserve this?’ ‘Am I worthy of this?’ So irrelevant. Do you want it?</span><cite id="quote-attr">bulldyke-rider</cite></blockquote>
         </div>
-        <blockquote id="quote"><span id="quote-text">"Do I deserve this?" "Am I worthy of this?" So irrelevant. Do you want it?</span><cite id="quote-attr">bulldyke-rider</cite></blockquote>
       </div>
     </section>
 
     <!-- ── Say hello ── -->
-    <section>
+    <section id="hello">
       <div class="closing">
-        <div class="closing-top">
-          <div class="closing-photo"><img loading="lazy" src="Profile%20Photo.jpg" alt="" /></div>
-          <div>
-            <div class="closing-t">Say hello <span class="wave" aria-hidden="true">👋</span></div>
-            <div class="closing-s">I read every note</div>
-          </div>
-        </div>
-        <p>Building something in growth or AI, hiring for product, or just want to swap notes? I'd like to hear about it. <strong>If you're in Bengaluru, the filter coffee is on me.</strong></p>
+        <div class="stamp" aria-hidden="true"><div class="stamp-in"><img loading="lazy" src="Profile%20Photo.jpg" alt="" /><span class="stamp-band"><span>भारत INDIA</span><b>₹5</b></span></div></div>
+        <div class="postmark pm-tri" aria-hidden="true"><svg viewBox="0 0 84 84"><defs><path id="ptt" d="M14 42 A28 28 0 0 1 70 42"/><path id="ptb" d="M12 42 A30 30 0 0 0 72 42"/></defs><circle cx="42" cy="42" r="40" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="42" cy="42" r="23" fill="none" stroke="currentColor" stroke-width="1"/><text font-size="7.2" font-weight="700" letter-spacing="1" fill="currentColor" font-family="-apple-system,sans-serif"><textPath href="#ptt" startOffset="50%" text-anchor="middle">TIRUCHIRAPPALLI</textPath></text><text font-size="7" font-weight="700" letter-spacing="1.5" fill="currentColor" font-family="-apple-system,sans-serif"><textPath href="#ptb" startOffset="50%" text-anchor="middle" dominant-baseline="hanging">620005</textPath></text><line x1="21" y1="36" x2="63" y2="36" stroke="currentColor" stroke-width="1"/><line x1="21" y1="48" x2="63" y2="48" stroke="currentColor" stroke-width="1"/><text x="42" y="44.6" font-size="7.5" font-weight="700" text-anchor="middle" fill="currentColor" font-family="-apple-system,sans-serif">04 DEC 02</text><path d="M-46 30 q6 -4 12 0 t12 0 t12 0 t12 0 M-46 42 q6 -4 12 0 t12 0 t12 0 t12 0 M-46 54 q6 -4 12 0 t12 0 t12 0 t12 0" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></div>
+        <div class="postmark pm-blr" aria-hidden="true"><svg viewBox="0 0 84 84"><defs><path id="pbt" d="M14 42 A28 28 0 0 1 70 42"/><path id="pbb" d="M12 42 A30 30 0 0 0 72 42"/></defs><circle cx="42" cy="42" r="40" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="42" cy="42" r="23" fill="none" stroke="currentColor" stroke-width="1"/><text font-size="7.2" font-weight="700" letter-spacing="1" fill="currentColor" font-family="-apple-system,sans-serif"><textPath href="#pbt" startOffset="50%" text-anchor="middle">BENGALURU</textPath></text><text font-size="7" font-weight="700" letter-spacing="1.5" fill="currentColor" font-family="-apple-system,sans-serif"><textPath href="#pbb" startOffset="50%" text-anchor="middle" dominant-baseline="hanging">560102</textPath></text><line x1="21" y1="36" x2="63" y2="36" stroke="currentColor" stroke-width="1"/><line x1="21" y1="48" x2="63" y2="48" stroke="currentColor" stroke-width="1"/><text x="42" y="44.6" font-size="7.5" font-weight="700" text-anchor="middle" fill="currentColor" font-family="-apple-system,sans-serif">07 JUN 24</text><path d="M-46 30 q6 -4 12 0 t12 0 t12 0 t12 0 M-46 42 q6 -4 12 0 t12 0 t12 0 t12 0 M-46 54 q6 -4 12 0 t12 0 t12 0 t12 0" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></div>
+        <h2 class="closing-t">Say hello,</h2>
+        <p>Building something in growth or AI, hiring for product, or just want to swap notes?</p>
+        <p>I read every note, and if you're in Bengaluru, the filter coffee is on me.</p>
+        <p class="sign" aria-label="Anirudh"><span style="transform:translateY(0px) rotate(-2deg) scale(1.06)">A</span><span style="transform:translateY(1px) rotate(-4deg) scale(0.98)">n</span><span style="transform:translateY(-1px) rotate(-1deg) scale(1.0)">i</span><span style="transform:translateY(2px) rotate(3deg) scale(0.97)">r</span><span style="transform:translateY(0px) rotate(-3deg) scale(1.02)">u</span><span style="transform:translateY(-1px) rotate(2deg) scale(0.99)">d</span><span style="transform:translateY(1px) rotate(-2deg) scale(1.04)">h</span></p>
         <div class="closing-actions">
-          <a class="btn" href="mailto:anirudhan412@gmail.com">Send a note ↗</a>
-          <a class="btn ghost" href="https://x.com/anirudhamudan" target="_blank" rel="noopener">DM on Twitter</a>
-        </div>
-        <div class="now">
-          <span><i></i>Now: <b>building a new business from zero</b></span>
-          <span>On repeat: <b>Theera Ulaa</b></span>
+          <a class="ink" href="mailto:anirudhan412@gmail.com">Write to me</a><span class="or">or</span><a class="ink" href="https://x.com/anirudhamudan" target="_blank" rel="noopener">send a DM on Twitter</a>
         </div>
       </div>
     </section>
@@ -605,23 +707,12 @@
           <p>I use Claude for most of my work, and the only way to see how much of my limit was left was to go and look for it. Usually I found out by running out, in the middle of something.</p>
           <p>I wanted the number to just be there, the way battery percentage is.</p>
         </div>
-        <div class="peek-cols">
-          <div>
-            <p class="peek-h">What it does</p>
-            <ul>
-              <li><b>Session usage at a glance</b>Your 5-hour usage sits in the menu bar, e.g. 48%.</li>
-              <li><b>Every limit, one click</b>How much is used and when each one resets.</li>
-              <li><b>A quiet warning</b>A small dot turns yellow when you're close, red when you're out.</li>
-            </ul>
-          </div>
-          <div>
-            <p class="peek-h">Decisions I made</p>
-            <ul>
-              <li><b>A dot, not a notification</b>Glanceable, never interrupting.</li>
-              <li><b>For people who don't live in Terminal</b>Setup walks you through it instead of failing silently.</li>
-              <li><b>Risky things are opt-in</b>Auto sign-in renewal is off until you turn it on.</li>
-            </ul>
-          </div>
+        <p class="peek-h">What it does</p>
+        <div class="tiles"><div class="tile"><span class="tile-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 14l4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg></span><b>Usage in the menu bar</b><span>Your 5-hour session, e.g. 48%.</span></div><div class="tile"><span class="tile-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.7 3A6 6 0 0 1 18 8a21.3 21.3 0 0 0 .6 5"/><path d="M17 17H3s3-2 3-9a4.67 4.67 0 0 1 .3-1.7"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/><path d="m2 2 20 20"/></svg></span><b>A quiet warning</b><span>A dot turns yellow when close, red when out.</span></div><div class="tile"><span class="tile-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2"/><path d="M10 2h4"/></svg></span><b>Every limit</b><span>What's used, and when each one resets.</span></div></div>
+        <div class="peek-story">
+          <p class="peek-h">Since then</p>
+          <p>I styled it to feel like part of Claude, so it sits in the menu bar like it belongs there, not like a side hack. I've used it every day since.</p>
+          <p>What I love most: it's now faster to build a fix for your own problem than to go looking for one.</p>
         </div>
       </div>
     </div>
@@ -644,24 +735,8 @@
           <p>I listen to the same lo-fi playlist every time I sit down to work. But if Spotify had been paused for a while, the Now Playing widget would disappear and the play key would open Apple Music instead. I'd end up searching for the playlist just to press play.</p>
           <p>So I made a small lamp that lives in the menu bar and never goes away, with one button that starts my focus music.</p>
         </div>
-        <div class="peek-cols">
-          <div>
-            <p class="peek-h">What it does</p>
-            <ul>
-              <li><b>Start Deep Focus</b>One click starts your go-to playlist, even if Spotify is closed.</li>
-              <li><b>Now playing</b>Track, artwork and a progress bar you can click to seek.</li>
-              <li><b>The basics</b>Play/pause, skip, shuffle, launch at login.</li>
-            </ul>
-          </div>
-          <div>
-            <p class="peek-h">Decisions I made</p>
-            <ul>
-              <li><b>One job, done well</b>It removes the steps between sitting down and hearing music.</li>
-              <li><b>Always visible</b>The problem was a control that disappears, so the lamp never does.</li>
-              <li><b>No account, no sign-in</b>It talks to the Spotify app on your Mac directly.</li>
-            </ul>
-          </div>
-        </div>
+        <p class="peek-h">What it does</p>
+        <div class="tiles"><div class="tile"><span class="tile-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg></span><b>Start Deep Focus</b><span>One click starts your go-to playlist, even if Spotify is closed.</span></div><div class="tile"><span class="tile-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="2"/></svg></span><b>Now playing</b><span>Track, artwork and a progress bar you can click to seek.</span></div><div class="tile"><span class="tile-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.5-2"/></svg></span><b>No sign-in</b><span>It talks to the Spotify app on your Mac directly.</span></div></div>
       </div>
     </div>
   </dialog>
@@ -692,59 +767,17 @@
       });
     })();
 
-    // ── Theme toggle ──────────────────────────────────────────
+    requestAnimationFrame(() => requestAnimationFrame(() => document.body.classList.add('theme-ready')));
+
+    // ── Side rail: highlight the section in view ──────────────
     (() => {
-      const btn  = document.getElementById('theme-toggle');
-      const root = document.documentElement;
-      const getTheme = () => root.getAttribute('data-theme') || 'light';
-      const updateToggle = theme => btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
-
-      const playSound = toDark => {
-        try {
-          const ctx  = new (window.AudioContext || window.webkitAudioContext)();
-          const osc  = ctx.createOscillator();
-          const gain = ctx.createGain();
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(toDark ? 880 : 440, ctx.currentTime);
-          osc.frequency.exponentialRampToValueAtTime(toDark ? 440 : 880, ctx.currentTime + 0.12);
-          gain.gain.setValueAtTime(0.07, ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18);
-          osc.start(ctx.currentTime);
-          osc.stop(ctx.currentTime + 0.18);
-        } catch (e) {}
-      };
-
-      const setTheme = (theme, sound = false) => {
-        if (theme === 'dark') root.setAttribute('data-theme', 'dark');
-        else root.removeAttribute('data-theme');
-        try { localStorage.setItem('theme', theme); } catch (e) {}
-        updateToggle(theme);
-        if (sound) playSound(theme === 'dark');
-      };
-
-      updateToggle(getTheme());
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-        let saved = null;
-        try { saved = localStorage.getItem('theme'); } catch (err) {}
-        if (!saved) setTheme(e.matches ? 'dark' : 'light');
-      });
-      btn.addEventListener('click', () => setTheme(getTheme() === 'dark' ? 'light' : 'dark', true));
-      requestAnimationFrame(() => requestAnimationFrame(() => document.body.classList.add('theme-ready')));
-    })();
-
-    // ── Header: highlight the section in view ─────────────────
-    (() => {
-      const links = [...document.querySelectorAll('.header-links a')];
+      const links = [...document.querySelectorAll('.rail a')];
       const sections = links.map(a => document.querySelector(a.getAttribute('href')));
       const update = () => {
         const y = window.scrollY + window.innerHeight * 0.35;
-        let current = -1;
+        let current = 0;
         sections.forEach((s, i) => { if (s.offsetTop <= y) current = i; });
-        // Past Writing (Off the clock, Say hello) nothing is highlighted
-        const last = sections[sections.length - 1];
-        if (current === sections.length - 1 && y > last.offsetTop + last.offsetHeight) current = -1;
+        if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 4) current = sections.length - 1;
         links.forEach((a, i) => a.classList.toggle('active', i === current));
       };
       window.addEventListener('scroll', update, { passive: true });
@@ -764,6 +797,15 @@
         co.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
         head.focus({ preventScroll: true });
       });
+    });
+
+    // ── Experience: TL;DR / Detailed toggle inside each company ──
+    document.querySelectorAll('.co-inner .seg').forEach(seg => {
+      const inner = seg.closest('.co-inner');
+      seg.querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
+        inner.classList.toggle('tldr-mode', btn.dataset.mode === 'tldr');
+        seg.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+      }));
     });
 
     // ── Project popups (URL hash = open project, so links and back work) ──
@@ -838,8 +880,10 @@
         };
         d.addEventListener('mouseenter', pick);
         d.addEventListener('focus', pick);
+        const touch = window.matchMedia('(hover: none)').matches;
         d.addEventListener('click', e => {
-          if (!d.classList.contains('active')) { e.preventDefault(); pick(); }
+          // On touch screens a tap only selects; 'Open in Spotify' opens it
+          if (touch || !d.classList.contains('active')) { e.preventDefault(); pick(); }
         });
       });
     })();
@@ -849,7 +893,7 @@
       const INTERVAL = 9000;
       const FADE     = 350;
       const quotes = [
-        { text: '"Do I deserve this?" "Am I worthy of this?" So irrelevant. Do you want it?', attr: 'bulldyke-rider' },
+        { text: '‘Do I deserve this?’ ‘Am I worthy of this?’ So irrelevant. Do you want it?', attr: 'bulldyke-rider' },
         { text: "It's hard because it's unfamiliar not because you're incapable.", attr: 'Leila Hormozi' },
         { text: "Entrepreneur's mind. Athlete's body. Artist's soul.", attr: 'James Clear' },
         { text: 'The reason to win the game is so that you can be free of it.', attr: 'Naval Ravikant' },
@@ -860,8 +904,7 @@
       const box   = document.getElementById('quote');
       const text  = document.getElementById('quote-text');
       const attr  = document.getElementById('quote-attr');
-      const count = document.getElementById('quote-count');
-      let current = 0;
+            let current = 0;
       let timer;
 
       const showQuote = n => {
@@ -870,7 +913,6 @@
         setTimeout(() => {
           text.textContent  = quotes[current].text;
           attr.textContent  = quotes[current].attr;
-          count.textContent = `${current + 1} of ${quotes.length}`;
           box.classList.remove('fading');
         }, reducedMotion ? 0 : FADE);
       };
@@ -884,15 +926,6 @@
       resetTimer();
     })();
 
-    // ── Say hello: wave once it scrolls into view ─────────────
-    (() => {
-      const closing = document.querySelector('.closing');
-      if (!('IntersectionObserver' in window)) return;
-      const io = new IntersectionObserver(entries => {
-        if (entries[0].isIntersecting) { closing.classList.add('seen'); io.disconnect(); }
-      }, { threshold: 0.6 });
-      io.observe(closing);
-    })();
   </script>
 
 </body>
